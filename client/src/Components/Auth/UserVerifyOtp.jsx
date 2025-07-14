@@ -48,7 +48,7 @@ const UserVerifyOtp = () => {
 
         setLoading(true)
         try {
-            const res = await axios.post(`https://api.blueaceindia.com/api/v1/verify_user_otp/${userId}`, {
+            const res = await axios.post(`http://localhost:7987/api/v1/verify_user_otp/${userId}`, {
                 loginOtp: otp,
             })
 
@@ -73,7 +73,7 @@ const UserVerifyOtp = () => {
 
         setResendLoading(true)
         try {
-            const res = await axios.post(`https://api.blueaceindia.com/api/v1/resend_verify_user_otp/${userId}`)
+            const res = await axios.post(`http://localhost:7987/api/v1/resend_verify_user_otp/${userId}`)
 
             if (res.data.success) {
                 toast.success("OTP resent successfully!")

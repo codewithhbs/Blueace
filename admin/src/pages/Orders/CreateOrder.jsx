@@ -148,7 +148,7 @@ const CreateOrder = () => {
 
     const handleFetchService = async () => {
         try {
-            const { data } = await axios.get('https://api.blueaceindia.com/api/v1/get-all-service-category');
+            const { data } = await axios.get('http://localhost:7987/api/v1/get-all-service-category');
             setAllService(data?.data || []);
         } catch (error) {
             console.log("Error fetching services:", error);
@@ -182,7 +182,7 @@ const CreateOrder = () => {
                 const serviceName = selectedService?.name;
                 
                 if (serviceName) {
-                    const res = await axios.get('https://api.blueaceindia.com/api/v1/get-all-service');
+                    const res = await axios.get('http://localhost:7987/api/v1/get-all-service');
                     const allData = res.data.data || [];
                     
                     // Find the first matching service (like GetServicePopup)
@@ -240,7 +240,7 @@ const CreateOrder = () => {
         }
 
         try {
-            const res = await axios.get(`https://api.blueaceindia.com/api/v1/autocomplete?input=${encodeURIComponent(query)}`);
+            const res = await axios.get(`http://localhost:7987/api/v1/autocomplete?input=${encodeURIComponent(query)}`);
             setAddressSuggestions(res.data || []);
         } catch (err) {
             console.error('Error fetching address suggestions:', err);
@@ -249,7 +249,7 @@ const CreateOrder = () => {
 
     const fetchGeocode = async (selectedAddress) => {
         try {
-            const res = await axios.get(`https://api.blueaceindia.com/api/v1/geocode?address=${encodeURIComponent(selectedAddress)}`);
+            const res = await axios.get(`http://localhost:7987/api/v1/geocode?address=${encodeURIComponent(selectedAddress)}`);
             const { latitude, longitude } = res.data;
 
             // Ensure coordinates are valid numbers
@@ -333,7 +333,7 @@ const CreateOrder = () => {
                 formDataToSend.append('voiceNote', formData.voiceNote, 'voice-note.webm');
             }
 
-            const res = await axios.post('https://api.blueaceindia.com/api/v1/make-order-admin', formDataToSend, {
+            const res = await axios.post('http://localhost:7987/api/v1/make-order-admin', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

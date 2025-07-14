@@ -93,6 +93,8 @@ import BookingsChatBot from '../Chatbots/BookingsChatBot'
 import CreateOrder from '../Orders/CreateOrder'
 import EditTestVideo from '../TestVideo/EditTestVideo'
 import AllTestQuestion from '../TestQuestion/AllTestQuestion'
+import AddTestQuestion from '../TestQuestion/AddTestQuestion'
+import EditTestQuestion from '../TestQuestion/EditTestQuestion'
 
 const Home = () => {
     return (
@@ -268,7 +270,8 @@ const Home = () => {
                         {/* test video routes here  */}
                         <Route path='/test/test-video' element={<EditTestVideo />} />
                         <Route path='/test/all-test-question' element={<AllTestQuestion />} />
-                        <Route path='/test/add-test-question' element={<AllTestQuestion />} />
+                        <Route path='/test/add-test-question' element={<AddTestQuestion />} />
+                        <Route path='/test/edit-test-question/:id' element={<EditTestQuestion />} />
 
 
                     </Routes>

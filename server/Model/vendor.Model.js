@@ -159,15 +159,15 @@ const VendorSchema = new mongoose.Schema({
     transactionId: {
         type: String
     },
-    PaymentStatus:{
-        type:String,
-        default:'pending' 
+    PaymentStatus: {
+        type: String,
+        default: 'pending'
     },
     memberShipPrice: {
         type: Number
     },
-    paymentMethod:{
-        type:String
+    paymentMethod: {
+        type: String
     },
     readyToWork: {
         type: Boolean,
@@ -226,9 +226,32 @@ const VendorSchema = new mongoose.Schema({
             type: String,
         }
     },
+    isPass: {
+        type: Boolean,
+        default: false
+    },
+    videoWatched: {
+        type: Boolean,
+        default: false
+    },
+    testDone: {
+        type: Boolean,
+        default: false
+    },
+    testScore: {
+        type: Number
+    },
+    ableToWork: {
+        type: Boolean,
+        default: false
+    },
+    resultCategory: {
+        type: String,
+        enum: ['Experienced Technician', 'Acceptable', 'Not Qualified']
+    },
     createdFrom: {
         type: String,
-        enum: ['Admin','Website']
+        enum: ['Admin', 'Website']
     }
 }, { timestamps: true })
 

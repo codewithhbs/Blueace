@@ -67,7 +67,7 @@ exports.getSingleQuestion = async (req,res) => {
     try {
         const {id} = req.params;
         const findQuestion = await TestQuestion.findById(id)
-        if(!findQuestion){
+        if(!findQuestion){  
             return res.status(400).json({
                 success: false,
                 message: 'Question not founded'
@@ -75,7 +75,8 @@ exports.getSingleQuestion = async (req,res) => {
         }
         res.status(200).json({
             success: true,
-            message: 'Question founded'
+            message: 'Question founded',
+            data: findQuestion
         })
     } catch (error) {
         console.log("Internal server error", error)

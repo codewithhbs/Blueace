@@ -7,92 +7,92 @@ import fourthImage from './4.png'
 
 const UserApp = () => {
 
-    return (
-        <div className="app-container">
-            {/* Hero Section */}
-            <section className="app-hero">
-                <div className="app-hero-content">
-                    <div className="app-hero-text">
-                        <h1 className="app-title">
-                            Introducing <span className="app-brand">Blueace</span> – Your Smart AC Servicing Partner!
-                        </h1>
-                        <p className="app-description">
-                            Experience hassle-free AC service bookings with AI-powered complaint registration,
-                            real-time updates, and expert support for both homes and businesses. Download Blueace
-                            now and enjoy seamless cooling comfort with just a tap!
-                        </p>
+  return (
+    <div className="app-container">
+      {/* Hero Section */}
+      <section className="app-hero">
+        <div className="app-hero-content">
+          <div className="app-hero-text">
+            <h1 className="app-title">
+              Introducing <span className="app-brand">Blueace</span> – Your Smart AC Servicing Partner!
+            </h1>
+            <p className="app-description">
+              Experience hassle-free AC service bookings with AI-powered complaint registration,
+              real-time updates, and expert support for both homes and businesses. Download Blueace
+              now and enjoy seamless cooling comfort with just a tap!
+            </p>
 
-                        {/* Download Buttons */}
-                        <div className="app-download-section">
-                            <a
-                                href="https://www.blueaceindia.com/apk/bluacev1.apk"
-                                className="app-download-btn app-download-android"
-                                target="_blank"
-                                download={'Blueace.apk'}
-                                rel="noopener noreferrer"
-                            >
-                                <Download className="app-download-icon" />
-                                <div className="app-download-text">
-                                    <span className="app-download-small">Download for</span>
-                                    <span className="app-download-large">Android APK</span>
-                                </div>
-                            </a>
+            {/* Download Buttons */}
+            <div className="app-download-section">
+              <a
+                href="https://www.blueaceindia.com/apk/bluacev1.apk"
+                className="app-download-btn app-download-android"
+                target="_blank"
+                download={'Blueace.apk'}
+                rel="noopener noreferrer"
+              >
+                <Download className="app-download-icon" />
+                <div className="app-download-text">
+                  <span className="app-download-small">Download for</span>
+                  <span className="app-download-large">Android APK</span>
+                </div>
+              </a>
 
-                            <div className="app-download-btn app-download-disabled">
-                                <Smartphone className="app-download-icon" />
-                                <div className="app-download-text">
-                                    <span className="app-download-small">Coming Soon</span>
-                                    <span className="app-download-large">Play Store</span>
-                                </div>
-                            </div>
-                            <div className="app-download-btn app-download-disabled">
-                                <Smartphone className="app-download-icon" />
-                                <div className="app-download-text">
-                                    <span className="app-download-small">Coming Soon</span>
-                                    <span className="app-download-large">App Store</span>
-                                </div>
-                            </div>
-                        </div>
+              <div className="app-download-btn app-download-disabled">
+                <Smartphone className="app-download-icon" />
+                <div className="app-download-text">
+                  <span className="app-download-small">Coming Soon</span>
+                  <span className="app-download-large">Play Store</span>
+                </div>
+              </div>
+              <div className="app-download-btn app-download-disabled">
+                <Smartphone className="app-download-icon" />
+                <div className="app-download-text">
+                  <span className="app-download-small">Coming Soon</span>
+                  <span className="app-download-large">App Store</span>
+                </div>
+              </div>
+            </div>
 
-                        {/* Features */}
-                        <div className="app-features">
-                            <div className="app-feature">
-                                <Zap className="app-feature-icon" />
-                                <span>AI-Powered Bookings</span>
-                            </div>
-                            <div className="app-feature">
-                                <Clock className="app-feature-icon" />
-                                <span>Real-time Updates</span>
-                            </div>
-                            <div className="app-feature">
-                                <Shield className="app-feature-icon" />
-                                <span>Expert Support</span>
-                            </div>
-                        </div>
-                    </div>
+            {/* Features */}
+            <div className="app-features">
+              <div className="app-feature">
+                <Zap className="app-feature-icon" />
+                <span>AI-Powered Bookings</span>
+              </div>
+              <div className="app-feature">
+                <Clock className="app-feature-icon" />
+                <span>Real-time Updates</span>
+              </div>
+              <div className="app-feature">
+                <Shield className="app-feature-icon" />
+                <span>Expert Support</span>
+              </div>
+            </div>
+          </div>
 
-                    {/* App Screenshots */}
-                    <div className="app-screenshots">
-                        <div className="app-screenshot-grid">
-                            <div className="app-screenshot app-screenshot-1">
-                                <img src={firstImage} alt="Blueace App Screenshot 1" />
-                            </div>
-                            <div className="app-screenshot app-screenshot-2">
-                                <img src={secondImage} alt="Blueace App Screenshot 2" />
-                            </div>
-                            {/* <div className="app-screenshot app-screenshot-3">
+          {/* App Screenshots */}
+          <div className="app-screenshots">
+            <div className="app-screenshot-grid">
+              <div className="app-screenshot app-screenshot-1">
+                <img src={firstImage} alt="Blueace App Screenshot 1" />
+              </div>
+              <div className="app-screenshot app-screenshot-2">
+                <img src={secondImage} alt="Blueace App Screenshot 2" />
+              </div>
+              {/* <div className="app-screenshot app-screenshot-3">
                 <img src={thirdImage} alt="Blueace App Screenshot 3" />
               </div>
               <div className="app-screenshot app-screenshot-4">
                 <img src={fourthImage} alt="Blueace App Screenshot 4" />
               </div> */}
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Stats Section */}
-            {/* <section className="app-stats">
+      {/* Stats Section */}
+      {/* <section className="app-stats">
         <div className="app-stats-container">
           <div className="app-stat">
             <Star className="app-stat-icon" />
@@ -118,7 +118,7 @@ const UserApp = () => {
         </div>
       </section> */}
 
-            <style jsx>{`
+      <style jsx>{`
         .app-container {
           min-height: 100vh;
           background: linear-gradient(135deg, #fff 0%, #02A2D2 100%);
@@ -413,7 +413,7 @@ const UserApp = () => {
           }
         }
       `}</style>
-        </div>
-    )
+    </div>
+  )
 }
 export default UserApp

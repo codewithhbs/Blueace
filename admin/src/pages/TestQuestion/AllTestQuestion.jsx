@@ -14,7 +14,7 @@ const AllTestQuestion = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('https://api.blueaceindia.com/api/v1/all-test-question');
+      const res = await axios.get('http://localhost:7987/api/v1/all-test-question');
       if (res.data.success) {
         const reversed = res.data.data.reverse();
         setQuestions(reversed);
@@ -35,7 +35,7 @@ const AllTestQuestion = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`https://api.blueaceindia.com/api/v1/delete-test-question/${id}`);
+      const response = await axios.delete(`http://localhost:7987/api/v1/delete-test-question/${id}`);
       if (response.data.success) {
         toast.success('Question deleted successfully!');
         await fetchQuestions();
@@ -59,7 +59,7 @@ const AllTestQuestion = () => {
         heading={'All MCQ Questions'}
         subHeading={'MCQ Management'}
         LastHeading={'All Test Questions'}
-        backLink={'/home-layout/add-test-question'}
+        backLink={'/test/all-test-question'}
       />
 
       {loading ? (
@@ -87,7 +87,7 @@ const AllTestQuestion = () => {
               <td>{new Date(question.createdAt).toLocaleString()}</td>
               <td>
                 <div className="product-action">
-                  <Link to={`/home-layout/edit-test-question/${question._id}`}>
+                  <Link to={`/test/edit-test-question/${question._id}`}>
                     <i className="ri-pencil-fill"></i>
                   </Link>
                   <i
@@ -103,7 +103,7 @@ const AllTestQuestion = () => {
           productsPerPage={questionsPerPage}
           currentPage={currentPage}
           paginate={setCurrentPage}
-          href="/home-layout/add-test-question"
+          href="/test/add-test-question"
           text="Add Question"
           errorMsg=""
           handleOpen={() => { }}

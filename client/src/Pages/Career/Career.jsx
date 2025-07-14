@@ -37,7 +37,7 @@ function Career() {
   const handleFetchJob = async () => {
     try {
       const { data } = await axios.get(
-        "https://api.blueaceindia.com/api/v1/careers"
+        "http://localhost:7987/api/v1/careers"
       );
       setAllJob(data.data);
     } catch (error) {
@@ -72,7 +72,7 @@ function Career() {
 
     try {
       const res = await axios.post(
-        "https://api.blueaceindia.com/api/v1/create-career-inquiry",
+        "http://localhost:7987/api/v1/create-career-inquiry",
         form,
         {
           headers: {

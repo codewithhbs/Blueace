@@ -12,6 +12,7 @@ const User = require('../Model/UserModel');
 const { sendSMS } = require('../Utils/SMSSender');
 const Order = require('../Model/Order.Model');
 const { SendWhatsapp, SendOtpWhatsapp } = require('../Utils/SendWhatsapp');
+const { error } = require('console');
 require('dotenv').config()
 // Initialize Razorpay instance with your key and secret
 // const razorpayInstance = new Razorpay({
@@ -637,7 +638,7 @@ exports.memberShipPlanGateWay = async (req, res) => {
                 name: "User",
                 amount: planPrice * 100,
                 callbackUrl: `https://www.blueaceindia.com/failed-payment`,
-                redirectUrl: `https://api.blueaceindia.com/api/v1/payment-verify/${transactionId}`,
+                redirectUrl: `http://localhost:7987/api/v1/payment-verify/${transactionId}`,
                 redirectMode: 'POST',
                 paymentInstrument: {
                     type: 'PAY_PAGE'
@@ -801,6 +802,14 @@ exports.vendorLogin = async (req, res) => {
             return res.status(401).json({
                 success: false,
                 message: 'Invalid password',
+            });
+        }
+        // console.log("vendor.ableToWork",vendor.ableToWork)
+        if (vendor.ableToWork === false) {
+            return res.status(400).json({
+                success: false,
+                message: 'You are currently not eligible to start work. Please retake the test to proceed.',
+                data: vendor
             });
         }
 
@@ -1645,7 +1654,7 @@ exports.resendVerifyOtp = async (req, res) => {
         OTPExpires.setMinutes(OTPExpires.getMinutes() + 10);
 
         vendor.VerifyOTP = OTP,
-        vendor.OtpExpiredTime = OTPExpires
+            vendor.OtpExpiredTime = OTPExpires
         await vendor.save()
 
         await SendWhatsapp(vendorNumber, 'verificatation_passcode_new', OTP);
@@ -1728,6 +1737,63 @@ exports.updateBankDetail = async (req, res) => {
             success: false,
             message: 'Internal server error',
             error: error.message,
+        });
+    }
+};
+
+
+exports.updateTestFieldStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { videoWatched, testDone, testScore } = req.body;
+
+        const findProvider = await Vendor.findById(id);
+
+        if (!findProvider) {
+            return res.status(400).json({
+                success: false,
+                message: 'No Vendor found',
+            });
+        }
+
+        // Set resultCategory and work eligibility
+        if (testScore >= 8) {
+            findProvider.resultCategory = 'Experienced Technician';
+            findProvider.ableToWork = true;
+        } else if (testScore >= 6) {
+            findProvider.resultCategory = 'Acceptable';
+            findProvider.ableToWork = true;
+        } else if (testScore <= 5) {
+            findProvider.resultCategory = 'Not Qualified';
+            findProvider.ableToWork = false;
+
+            if (typeof testScore === 'number') findProvider.testScore = testScore;
+            if (typeof testDone !== 'undefined') findProvider.testDone = testDone;
+
+            await findProvider.save();
+            return res.status(200).json({
+                success: false,
+                message: "You are not eligible to start work"
+            });
+        }
+
+        // Optional fields
+        if (typeof videoWatched !== 'undefined') findProvider.videoWatched = videoWatched;
+        if (typeof testDone !== 'undefined') findProvider.testDone = testDone;
+        if (typeof testScore === 'number') findProvider.testScore = testScore;
+
+        await findProvider.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Vendor Updated'
+        });
+    } catch (error) {
+        console.error("Internal server error", error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal service error',
+            error: error.message
         });
     }
 };

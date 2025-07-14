@@ -36,7 +36,8 @@ const AddMembersForm = () => {
     };
 
     const handleSkip = () => {
-        window.location.href = `/membership-plan/${vendorId}`
+        window.location.href = `/test-question/${vendorId}`
+        // window.location.href = `/membership-plan/${vendorId}`
     }
 
     // Function to handle form submission
@@ -56,7 +57,7 @@ const AddMembersForm = () => {
 
         try {
             const response = await axios.post(
-                `https://api.blueaceindia.com/api/v1/register-vendor-member/${vendorId}`,
+                `http://localhost:7987/api/v1/register-vendor-member/${vendorId}`,
                 formData,
                 {
                     headers: {
@@ -66,7 +67,8 @@ const AddMembersForm = () => {
             );
             toast.success(response.data.message); // Success message
             setMembers([]); // Clear form
-            window.location.href = `/membership-plan/${vendorId}`
+            // window.location.href = `/membership-plan/${vendorId}`
+            window.location.href = `/test-question/${vendorId}`
         } catch (error) {
             console.error('Error:', error);
             // alert(error.response?.data?.message || 'Error occurred');

@@ -49,7 +49,7 @@ function VendorLogin() {
         }
 
         try {
-            const res = await axios.post('https://api.blueaceindia.com/api/v1/Login', Payload, {
+            const res = await axios.post('http://localhost:7987/api/v1/Login', Payload, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -76,6 +76,12 @@ function VendorLogin() {
         } catch (error) {
             const errorMessage = error?.response?.data?.message || error?.response?.data?.error || 'Login failed. Please check your credentials.';
             toast.error(errorMessage);
+            if(errorMessage === 'You are currently not eligible to start work. Please retake the test to proceed.'){
+                const id = error.response.data.data._id;
+                setTimeout(() => {
+                    window.location.href = `/test-question/${id}`
+                }, 3000);
+            }
             console.log(error);
         } finally {
             setLoading(false);

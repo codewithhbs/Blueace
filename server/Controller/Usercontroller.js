@@ -232,7 +232,7 @@ exports.resendVerifyUserOtp = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { Email, Password, ContactNumber } = req.body;
-    console.log("Login attempt with body:", req.body);
+    // console.log("Login attempt with body:", req.body);
 
     try {
         const normalizedEmail = Email?.trim().toLowerCase();
@@ -306,7 +306,15 @@ exports.login = async (req, res) => {
             }
         }
 
-
+        if(model === 'Vendor'){
+            if(user.ableToWork === false){
+                return res.status(400).json({
+                    success: false,
+                    message: 'You are currently not eligible to start work. Please retake the test to proceed.',
+                    data: user
+                })
+            }
+        }
 
         // Verify password
         const isMatch = await user.comparePassword(Password);

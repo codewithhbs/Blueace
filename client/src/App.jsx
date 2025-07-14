@@ -65,6 +65,9 @@ import UserVerifyOtp from "./Components/Auth/UserVerifyOtp"
 import CallButton from "./Components/CallButton/CallButton"
 import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
 import GoogleTranslator from "./Components/GoogleTranslator/GoogleTranslator"
+import VideoShow from "./Pages/MemberShipPlan/VideoShow"
+import TestPage from "./Pages/MemberShipPlan/TestPage"
+import NotElegible from "./Components/NotElegible/NotElegible"
 // import MetaWrapper from "./Components/MetaWrapper/MetaWrapper"
 // import VendorTest from "./Components/Auth/VendorTest"
 // import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
@@ -154,6 +157,11 @@ function App() {
 
           <Route path="/verify-account/:id" element={<UserVerifyOtp />} />
           <Route path="/track-complain" element={<TrackYourComplain />} />
+
+          <Route path="/test-video/:id" element={<VideoShow />} />
+          <Route path="/test-question/:id" element={<TestPage />} />
+
+          <Route path="/not-eligible" element={<NotElegible />} />
 
         </Routes>
         {/* <NewsLetter /> */}
