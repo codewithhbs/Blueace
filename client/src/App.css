@@ -1,0 +1,243 @@
+.custom-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 30px; /* Rounded corners */
+    padding: 10px 30px; /* Custom padding */
+    font-weight: bold; /* Bold text */
+}
+
+.custom-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); /* Light overlay */
+    transition: transform 0.3s ease;
+    transform: scale(0); /* Scale down initially */
+    border-radius: 30px; /* Match the button's border radius */
+}
+
+.custom-btn:hover::before {
+    transform: scale(1); /* Scale up on hover */
+}
+
+.custom-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    color: #fff; /* Change text color on hover */
+    box-shadow: 0 4px 20px rgba(0, 86, 179, 0.3); /* Add shadow on hover */
+}
+
+.forserviceImage{
+    height: 230px;
+    object-fit: cover;
+}
+
+@media (max-width:650px) {
+
+    .forserviceImage{
+        height: 200px;
+        object-fit: cover;
+    }
+    
+}
+
+
+
+/* Modal Overlay */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: flex;
+    justify-content: flex-start; /* Align to the top */
+    align-items: flex-start; /* Align to the top */
+    padding-top: 50px; /* Padding for top alignment */
+}
+
+/* Modal Container */
+.custom-modal-container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+/* Modal Content */
+.custom-modal-content {
+    padding: 20px;
+}
+
+/* Modal Header */
+.custom-modal-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Close Button */
+.custom-close-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Modal Body */
+.custom-modal-body {
+    text-align: center;
+}
+
+/* Rating */
+.star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.star.filled {
+    color: #ffcc00;
+}
+
+.star.hover {
+    color: #ffcc00;
+}
+
+/* Textarea */
+.comment-area textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Submit Button */
+.send-review-btn {
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Animation */
+@keyframes slideDown {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width:750px) {
+    .blog-image{
+        height: auto !important;
+    }
+}
+
+
+
+/* Basic styling for the modal */
+.modal-content-hitesh {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ff6767;
+    width: 100%;
+    position: relative; /* Ensure it can stack above backdrop */
+    z-index: 1050; /* Ensure modal content is above backdrop */
+    pointer-events: auto; /* Ensure the modal content can receive clicks */
+}
+
+/* Ensure modal backdrop has a lower z-index than modal content */
+.modal-backdrop {
+    z-index: 1040 !important; /* Ensure it's below the modal content */
+    pointer-events: none; /* Prevent backdrop from blocking clicks */
+}
+
+/* Close button (x) styling */
+.modal-content-hitesh .text-right.cross {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 1060; /* Ensure it's clickable and above content */
+}
+
+/* Stars styling */
+.modal-content-hitesh .star {
+    font-size: 40px; /* Large stars */
+    color: #ddd; /* Default color */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin: 0 5px;
+    pointer-events: auto; /* Allow clicks on stars */
+}
+
+.modal-content-hitesh .star.filled {
+    color: gold; /* Gold color when clicked */
+}
+
+.modal-content-hitesh .star.hover {
+    color: #f4c542; /* Highlight color on hover */
+}
+
+.modal-content-hitesh .comment-area {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.modal-content-hitesh .text-center {
+    text-align: center;
+}
+
+.modal-content-hitesh .modal-body {
+    padding: 20px;
+}
+
+/* Submit button styling */
+.modal-content-hitesh .send {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+    pointer-events: auto; /* Ensure button is clickable */
+}
+
+.modal-content-hitesh .send:hover {
+    background-color: #218838;
+}
+
+/* Comment area */
+.modal-content-hitesh .comment-area textarea {
+    width: 100%;
+    height: 120px;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+
+#google_translate_element {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
