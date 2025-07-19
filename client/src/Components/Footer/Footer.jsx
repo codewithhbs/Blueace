@@ -166,6 +166,17 @@ function Footer() {
                       </li>
                     </ul>
                   </div>
+                  <div className='mt-3'>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://s3.eu-north-1.amazonaws.com/bucket.hbs.dev/broucher_11zon.pdf"
+                      class="btn btn-primary"
+                    >
+                      Download Brochure
+                    </a>
+                  </div>
+
                 </div>
               </div>
 
@@ -181,10 +192,10 @@ function Footer() {
                     <li><Link to={'/term-and-conditions'}>- Terms & Conditions</Link></li>
                     <li><Link to={'/gallery'}>- Gallery</Link></li>
                     <li><Link to={'/career'}>- Career</Link></li>
-                    <li>
+                    {/* <li>
                       <a target="_blank" rel="noopener noreferrer" href="https://s3.eu-north-1.amazonaws.com/bucket.hbs.dev/broucher_11zon.pdf">- Download Brochure</a>
-                    </li>
-                    <li><Link to={'/track-complain'}>- Track Your Complain</Link></li>
+                    </li> */}
+                    {/* <li><Link to={'/track-complain'}>- Track Your Complain</Link></li> */}
                   </ul>
                 </div>
               </div>

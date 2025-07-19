@@ -95,6 +95,12 @@ import EditTestVideo from '../TestVideo/EditTestVideo'
 import AllTestQuestion from '../TestQuestion/AllTestQuestion'
 import AddTestQuestion from '../TestQuestion/AddTestQuestion'
 import EditTestQuestion from '../TestQuestion/EditTestQuestion'
+import AllCaseStudy from '../CaseStudy/AllCaseStudy'
+import AddCaseStudy from '../CaseStudy/AddCaseStudy'
+import EditCaseStudy from '../CaseStudy/EditCaseStudy'
+import AllClientLogo from '../ClientLogo/AllClientLogo'
+import AddClientLogo from '../ClientLogo/AddClientLogo'
+import EditClientLogo from '../ClientLogo/EditClientLogo'
 
 const Home = () => {
     return (
@@ -262,7 +268,6 @@ const Home = () => {
 
                         <Route path='/job-inquiry/all-job-inquiry' element={<AllJobInquiry />} />
 
-
                         {/* Complains and booking via chatboat */}
                         <Route path='/users/chatbot-complaints' element={<Complaint />} />
                         <Route path='/users/chatbot-bookings' element={<BookingsChatBot />} />
@@ -272,6 +277,16 @@ const Home = () => {
                         <Route path='/test/all-test-question' element={<AllTestQuestion />} />
                         <Route path='/test/add-test-question' element={<AddTestQuestion />} />
                         <Route path='/test/edit-test-question/:id' element={<EditTestQuestion />} />
+
+                        {/* case study routes here  */}
+                        <Route path='/home-layout/all-case-study' element={<AllCaseStudy />} />
+                        <Route path='/home-layout/add-case-study' element={<AddCaseStudy />} />
+                        <Route path='/home-layout/edit-case-study/:id' element={<EditCaseStudy />} />
+
+                        {/* client logo routes here  */}
+                        <Route path='/home-layout/all-client-logo' element={<AllClientLogo />} />
+                        <Route path='/home-layout/add-client-logo' element={<AddClientLogo />} />
+                        <Route path='/home-layout/edit-client-logo/:id' element={<EditClientLogo />} />
 
 
                     </Routes>

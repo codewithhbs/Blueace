@@ -68,6 +68,7 @@ import GoogleTranslator from "./Components/GoogleTranslator/GoogleTranslator"
 import VideoShow from "./Pages/MemberShipPlan/VideoShow"
 import TestPage from "./Pages/MemberShipPlan/TestPage"
 import NotElegible from "./Components/NotElegible/NotElegible"
+import SingleCaseStudy from "./Components/CaseStudy/SingleCaseStudy"
 // import MetaWrapper from "./Components/MetaWrapper/MetaWrapper"
 // import VendorTest from "./Components/Auth/VendorTest"
 // import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
@@ -162,6 +163,7 @@ function App() {
           <Route path="/test-question/:id" element={<TestPage />} />
 
           <Route path="/not-eligible" element={<NotElegible />} />
+          <Route path="/case-study/:id" element={<SingleCaseStudy />} />
 
         </Routes>
         {/* <NewsLetter /> */}

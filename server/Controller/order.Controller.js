@@ -22,6 +22,7 @@ const merchantId = process.env.PHONEPAY_MERCHANT_ID
 const apiKey = process.env.PHONEPAY_API_KEY
 require('dotenv').config();
 const isProd = process.env.NODE_ENV === "production"
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY
 
 const BASE_URL = isProd
     ? "https://api.phonepe.com/apis/hermes/pg/v1"
@@ -269,6 +270,136 @@ exports.makeOrderFromAdmin = async (req, res) => {
         })
     }
 }
+
+exports.createOrderByChatBot = async (req, res) => {
+    try {
+        const { OrderId } = req.params;
+         const AdminNumber = process.env.ADMIN_NUMBER || '9311539090';
+
+        // Step 1: Fetch booking details
+        const { data } = await axios.get('https://api.chatbot.adsdigitalmedia.com/api/auth/get-my-booking?metacode=chatbot-QUP9P-CCQS2');
+        const allOrder = data.bookings;
+        // console.log("allOrder",allOrder)
+        const findOrder = allOrder.find((item) => item._id === OrderId);
+        console.log("findOrder", findOrder)
+
+        const { name, phone, selectedCategory, selectedService, address, serviceDate } = findOrder;
+        console.log("selectedCategory",selectedCategory)
+        // Step 2: Fetch service category
+        const allService = await axios.get('http://localhost:7987/api/v1/get-all-service-category');
+        const serviceId = allService.data.data.find((item) => item.name === selectedCategory);
+        console.log("serviceId",serviceId)
+        const serviceName = serviceId.name;
+
+        // Step 3: Find or create user
+        let newUserId;
+        const findUser = await User.find({ ContactNumber: phone });
+
+        if (findUser.length === 0) {
+            const newUser = new User({
+                FullName: name,
+                ContactNumber: phone,
+                Email: 'demo@gmail.com',
+                Password: '12345678'
+            });
+            await newUser.save();
+            newUserId = newUser._id;
+        } else {
+            newUserId = findUser[0]._id;
+        }
+
+        // Step 4: Geocode the address
+        const geoResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
+            params: {
+                address,
+                key: GOOGLE_MAPS_API_KEY
+            }
+        });
+
+        if (geoResponse.data.status !== 'OK' || !geoResponse.data.results.length) {
+            throw new Error('Failed to geocode address');
+        }
+
+        const result = geoResponse.data.results[0];
+
+        // Safe helper
+        const getComponent = (type) => {
+            const comp = result.address_components.find((c) => c.types.includes(type));
+            return comp ? comp.long_name : null;
+        };
+
+        const { lat, lng } = result.geometry.location;
+        const formatted_address = result.formatted_address;
+        const pinCode = getComponent('postal_code');
+        const houseNo = getComponent('street_number');
+        const street = getComponent('route');
+        const city = getComponent('locality') || getComponent('administrative_area_level_2');
+        const nearByLandMark = getComponent('neighborhood') || getComponent('sublocality') || getComponent('political');
+
+        const voiceNoteDetails = null;
+        const message = null;
+
+        // Step 5: Save order (example model)
+        const newOrder = new Order({
+            userId: newUserId,
+            serviceId: serviceId._id,
+            serviceType: selectedService,
+            fullName: name,
+            email: 'N/A',
+            phoneNumber: phone,
+            address: formatted_address,
+            workingDateUserWant: serviceDate,
+            city,
+            pinCode,
+            houseNo,
+            street,
+            nearByLandMark,
+            voiceNote: voiceNoteDetails || null,
+            message,
+            RangeWhereYouWantService: [
+                {
+                    location: {
+                        type: 'Point',
+                        coordinates: [lng, lat] // [longitude, latitude]
+                    }
+                }
+            ],
+            orderTime: new Date(),
+        });
+
+        await newOrder.save();
+
+        var newOrderTime = new Date();
+        newOrderTime = newOrderTime.toISOString().replace('T', ' ').replace('Z', '');
+        const longaddress = formatted_address.replace(/,/g, '');
+        const serviceType = selectedService;
+
+        const Param = [name, 'demo@gmail.com', phone, serviceName, serviceType, message, houseNo, longaddress, pinCode]
+
+        await SendWhatsapp(AdminNumber, 'order_detail_to_admin', Param)
+
+        res.status(201).json({
+            success: true,
+            message: 'Order created successfully',
+            data: newOrder
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Order created successfully',
+            data: newOrder
+        });
+
+    } catch (error) {
+        console.log("Internal server error", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
 
 exports.makeOrderFromApp = async (req, res) => {
     try {
@@ -1728,7 +1859,7 @@ exports.verifyOrderPayment = async (req, res) => {
             success: false,
             message: 'Internal server error',
             error: error.message,
-            
+
         });
     }
 };
@@ -1738,7 +1869,7 @@ exports.makeOrderPaymentApp = async (req, res) => {
     try {
         const { orderId } = req.params
         const { totalAmount } = req.body
-// add i am here
+        // add i am here
 
         const order = await Order.findById(orderId)
 

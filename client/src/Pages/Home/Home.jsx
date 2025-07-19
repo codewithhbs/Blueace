@@ -11,6 +11,8 @@ import OurValue from '../../Components/Value/OurValue'
 import MetaTag from '../../Components/Meta/MetaTag'
 import GetServicePopup from '../../Components/getservicepopup/GetServicePopup'
 import UserApp from '../AppComponent/UserApp'
+import CaseStudy from '../../Components/CaseStudy/CaseStudy'
+import OurClient from '../../Components/OurClient/OurClient'
 
 function Home() {
   const [isPopUp, setPopUp] = React.useState(false)
@@ -44,7 +46,9 @@ function Home() {
       <OurValue />
       <Services />
       <HomeBanner />
+      <CaseStudy />
       <FAQ />
+      <OurClient />
       <Testimonial />
     </div>
   )

@@ -13,7 +13,7 @@ const { createServiceMainCategory, updateServiceMainCategory, getAllServiceMainC
 const { createBanner, getBanner, getSingleBanner, deleteBanner, updateBanner, updateBannerActiveStatus } = require('../Controller/banner.Controller')
 const { registerVendor, vendorLogin, vendorLogout, vendorPasswordChangeRequest, VendorVerifyOtpAndChangePassword, vendorResendOTP, addVendorMember, getAllVendor, updateDeactive, deleteVendor, memberShipPlanGateWay, PaymentVerify, updateVendor, getSingleVendor, updateVendorMember, getMembersByVendorId, updateMember, addNewVendorMember, ChangeOldVendorPassword, updateReadyToWork, sendOtpForVerification, verifyVendor, resendVerifyOtp, deleteVendorMember, updateVendorApp, updateBankDetail, updateTestFieldStatus } = require('../Controller/vendor.Controller')
 const { createMemberShipPlan, getAllMemberShipPlan, getSingleMemberShipPlan, deleteMemberShipPlan, updateMemberShipPlan } = require('../Controller/membership.Controller')
-const { makeOrder, getAllOrder, updateOrderStatus, deleteOrder, fetchVendorByLocation, AssignVendor, updateBeforWorkImage, updateAfterWorkImage, findOrderById, findOrderByUserId, updateBeforeWorkVideo, updateAfterWorkVideo, AllowtVendorMember, AcceptOrderRequest, makeOrderPayment, verifyOrderPayment, fetchOnlyEmployee, makeOrderFromApp, makeOrderPaymentApp, verifyOrderPaymentApp, updateErrorCodeInOrder, getSingleOrder, getAllDataOfVendor, findOrderByIdApp, serviceDoneOrder, makeOrderFromAdmin } = require('../Controller/order.Controller')
+const { makeOrder, getAllOrder, updateOrderStatus, deleteOrder, fetchVendorByLocation, AssignVendor, updateBeforWorkImage, updateAfterWorkImage, findOrderById, findOrderByUserId, updateBeforeWorkVideo, updateAfterWorkVideo, AllowtVendorMember, AcceptOrderRequest, makeOrderPayment, verifyOrderPayment, fetchOnlyEmployee, makeOrderFromApp, makeOrderPaymentApp, verifyOrderPaymentApp, updateErrorCodeInOrder, getSingleOrder, getAllDataOfVendor, findOrderByIdApp, serviceDoneOrder, makeOrderFromAdmin, createOrderByChatBot } = require('../Controller/order.Controller')
 const { createBlog, getAllBlog, getSingleBlog, updateBlog, deleteBlog, updateBlogIsTranding, getBlogBySlug } = require('../Controller/blog.Controller')
 const { getAnylaticalData } = require('../Controller/Dashboard.controller')
 const { getAllBills, makeEstimated, UpdateStatusOfBill, deleteBill, updateBill } = require('../Controller/EstimatedBudget.Controller')
@@ -36,14 +36,16 @@ const { create_a_issue, get_all_tickets_by_vendor, get_all_tickets_admin, get_si
 const { createCareerInquiry, getAllCareerInquiry, getSingleCareerInquiry, deleteCareerInquiry } = require('../Controller/CareerInquiry.Controller')
 const { createTestVideo, getTestVideos, getVideoById, deleteTestVideo, updateTestVideo, getSingleVideo } = require('../Controller/testVideo.Controller')
 const { createTestQuestion, getSingleQuestion, getAllQuestion, updateTestQuestion, deleteQuestion } = require('../Controller/testQuestion.Controller')
+const { createCaseStudy, getAllCaseStudy, getSingleCaseStudy, updateCaseStudy, deleteCaseStudy } = require('../Controller/CaseStudy.Controller')
+const { creteClientLogo, getAllClientLogos, getSingleClientLogo, updateClientLogo, deleteClientLogo } = require('../Controller/ClientLogo.Controller')
 // const { createCart } = require('../Controller/Cart.Controller')
 
 // user routers 
 
 router.post('/Create-User', register)
 router.post('/delete-my-account/:id', deleteMyAccounSoft)
-router.post('/verify_user_otp/:id',verifyOtpForRegister)
-router.post('/resend_verify_user_otp/:id',resendVerifyUserOtp)
+router.post('/verify_user_otp/:id', verifyOtpForRegister)
+router.post('/resend_verify_user_otp/:id', resendVerifyUserOtp)
 router.post('/Login', login)
 router.get('/Logout', protect, logout)
 router.post('/Password-Change', passwordChangeRequest)
@@ -378,28 +380,48 @@ router.get('/get-Data-Of-Vendor', getAllDataOfVendor)
 // career inquiry 
 
 router.post('/create-career-inquiry', upload.single('resume'), createCareerInquiry)
-router.get('/get-all-career-inquiry', getAllCareerInquiry)
-router.get('/get-single-career-inquiry/:id', getSingleCareerInquiry)
-router.delete('/delete-career-inquiry/:id', deleteCareerInquiry)
+router.get('/get-all-career-inquiry', getAllCareerInquiry);
+router.get('/get-single-career-inquiry/:id', getSingleCareerInquiry);
+router.delete('/delete-career-inquiry/:id', deleteCareerInquiry);
 
 // test video rooutes 
 
-router.post('/create-test-video',upload.single('video'), createTestVideo)
-// router.get('/get-test video',getTestVideos)
-router.get('/get-test-video',getSingleVideo)
-router.get('/get-single-test-video/:id', getVideoById)
-router.delete('/delete-test-video/:id',deleteTestVideo)
-router.put('/update-test-video/:id', upload.single('video'),updateTestVideo)
+router.post('/create-test-video', upload.single('video'), createTestVideo);
+// router.get('/get-test video',getTestVideos);
+router.get('/get-test-video', getSingleVideo);
+router.get('/get-single-test-video/:id', getVideoById);
+router.delete('/delete-test-video/:id', deleteTestVideo);
+router.put('/update-test-video/:id', upload.single('video'), updateTestVideo);
 
 // test question 
 
-router.post('/create-test-question',createTestQuestion)
-router.get('/get-single-question/:id',getSingleQuestion)
-router.get('/all-test-question',getAllQuestion)
-router.put('/update-test-question/:id',updateTestQuestion)
-router.delete('/delete-test-question/:id',deleteQuestion)
+router.post('/create-test-question', createTestQuestion);
+router.get('/get-single-question/:id', getSingleQuestion);
+router.get('/all-test-question', getAllQuestion);
+router.put('/update-test-question/:id', updateTestQuestion);
+router.delete('/delete-test-question/:id', deleteQuestion);
 
-router.put('/update-test-field-vendor/:id',updateTestFieldStatus)
+router.put('/update-test-field-vendor/:id', updateTestFieldStatus);
+
+// case study routes here 
+
+router.post('/create-case-study', upload.any(), createCaseStudy);
+router.get('/get-all-case-study', getAllCaseStudy);
+router.get('/get-single-case-study/:id', getSingleCaseStudy);
+router.put('/update-case-study/:id', upload.any(), updateCaseStudy);
+router.delete('/delete-case-study/:id', deleteCaseStudy);
+
+// client logo routes here 
+
+router.post('/create-client-logo', upload.single('logo'), creteClientLogo);
+router.get('/get-all-client-logo', getAllClientLogos);
+router.get('/get-single-client-logo/:id', getSingleClientLogo);
+router.put('/update-client-logo/:id', upload.single('logo'), updateClientLogo);
+router.delete('/delete-client-logo/:id', deleteClientLogo);
+
+// create order from chatbot 
+
+router.post('/create-order-from-chatbot/:OrderId', createOrderByChatBot);
 
 
 module.exports = router;
