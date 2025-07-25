@@ -14,6 +14,7 @@ const TestPage = () => {
   const [timeLeft, setTimeLeft] = useState(1800) // 30 minutes in seconds
   const [testStarted, setTestStarted] = useState(false)
   const [isFail, setIsFail] = useState(false)
+  const [vendorDetail, setVendorDetail] = useState({})
 
   // Retry system states
   const [retryData, setRetryData] = useState({
@@ -51,6 +52,20 @@ const TestPage = () => {
       }
     }
   }, [id])
+
+  useEffect(() => {
+    const FetchVendorDetail = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:7987/api/v1/single-vendor/${id}`)
+        setVendorDetail(data.data)
+      } catch (error) {
+        console.log("Internal server error", error)
+      }
+    }
+    FetchVendorDetail();
+  }, [id])
+
+  // console.log("vendorDetail",vendorDetail)
 
   // Cooldown timer
   useEffect(() => {
@@ -416,12 +431,24 @@ const TestPage = () => {
                           )}
                         </div>
                       ) : (
-                        <button
-                          className="btn btn-primary btn-lg"
-                          onClick={() => (window.location.href = `/membership-plan/${id}`)}
-                        >
-                          Next
-                        </button>
+
+                        vendorDetail?.memberShipPlan ? (
+                          <button
+                            className="btn btn-primary btn-lg"
+                            onClick={() => (window.location.href = `/`)}
+                          >
+                            Home
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-primary btn-lg"
+                            onClick={() => (window.location.href = `/membership-plan/${id}`)}
+                          >
+                            Next
+                          </button>
+                        )
+
+
                       )}
                     </div>
                   </div>
@@ -562,13 +589,12 @@ const TestPage = () => {
                     {questions.map((question, index) => (
                       <div key={`nav-${question._id}-${index}`} className="col-auto mb-2">
                         <button
-                          className={`btn btn-sm ${
-                            index === currentQuestionIndex
+                          className={`btn btn-sm ${index === currentQuestionIndex
                               ? "btn-primary"
                               : selectedAnswers[question._id]
                                 ? "btn-success"
                                 : "btn-outline-secondary"
-                          }`}
+                            }`}
                           onClick={() => setCurrentQuestionIndex(index)}
                           style={{ width: "48px", whiteSpace: "nowrap" }}
                         >

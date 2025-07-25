@@ -9,7 +9,7 @@ exports.createCaseStudy = async (req, res) => {
         const newCaseStudy = new CaseStudy({
             title,
             smallDes,
-            longDes, // Changed from longDesment to longDes to match schema
+            longDes, // Changed from longDes to longDes to match schema
             category,
             clientName,
             location,
@@ -148,7 +148,7 @@ exports.updateCaseStudy = async (req, res) => {
         const {
             title,
             smallDes,
-            longDesment,
+            longDes,
             category,
             clientName,
             location,
@@ -157,7 +157,7 @@ exports.updateCaseStudy = async (req, res) => {
             isPublished,
             videoUrl
         } = req.body;
-        // console.log(title, smallDes, longDesment, category, clientName, location, completionDate, technologiesUsed, isPublished, videoUrl)
+        // console.log(title, smallDes, longDes, category, clientName, location, completionDate, technologiesUsed, isPublished, videoUrl)
 
         const caseStudy = await CaseStudy.findById(id);
         if (!caseStudy) {
@@ -170,7 +170,7 @@ exports.updateCaseStudy = async (req, res) => {
         // Update fields
         caseStudy.title = title || caseStudy.title;
         caseStudy.smallDes = smallDes || caseStudy.smallDes;
-        caseStudy.longDes = longDesment || caseStudy.longDes;
+        caseStudy.longDes = longDes || caseStudy.longDes;
         caseStudy.category = category || caseStudy.category;
         caseStudy.clientName = clientName || caseStudy.clientName;
         caseStudy.location = location || caseStudy.location;

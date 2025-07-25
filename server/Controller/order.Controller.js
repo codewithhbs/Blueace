@@ -274,38 +274,54 @@ exports.makeOrderFromAdmin = async (req, res) => {
 exports.createOrderByChatBot = async (req, res) => {
     try {
         const { OrderId } = req.params;
-         const AdminNumber = process.env.ADMIN_NUMBER || '9311539090';
+        const AdminNumber = process.env.ADMIN_NUMBER || '9311539090';
 
         // Step 1: Fetch booking details
         const { data } = await axios.get('https://api.chatbot.adsdigitalmedia.com/api/auth/get-my-booking?metacode=chatbot-QUP9P-CCQS2');
         const allOrder = data.bookings;
         // console.log("allOrder",allOrder)
         const findOrder = allOrder.find((item) => item._id === OrderId);
-        console.log("findOrder", findOrder)
 
         const { name, phone, selectedCategory, selectedService, address, serviceDate } = findOrder;
-        console.log("selectedCategory",selectedCategory)
         // Step 2: Fetch service category
-        const allService = await axios.get('http://localhost:7987/api/v1/get-all-service-category');
-        const serviceId = allService.data.data.find((item) => item.name === selectedCategory);
-        console.log("serviceId",serviceId)
+        const allService = await axios.get('http://localhost:7987/api/v1/get-all-service');
+        const serviceId = allService.data.data.find((item) => item.name === selectedService);
+        // const findMainService = serviceId.subCategoryId.find((item) => item.name === selectedService);
         const serviceName = serviceId.name;
 
         // Step 3: Find or create user
         let newUserId;
-        const findUser = await User.find({ ContactNumber: phone });
 
-        if (findUser.length === 0) {
-            const newUser = new User({
-                FullName: name,
-                ContactNumber: phone,
-                Email: 'demo@gmail.com',
-                Password: '12345678'
-            });
-            await newUser.save();
-            newUserId = newUser._id;
+        // 1. Check if phone exists in User
+        const findUser = await User.findOne({ ContactNumber: phone });
+        // console.log("firstName useer", findUser)
+        const email = 'demo@gmail.com'
+
+        if (findUser) {
+            newUserId = findUser._id;
         } else {
-            newUserId = findUser[0]._id;
+            // 2. If not in User, check in Vendor
+            const findVendor = await Vendor.findOne({ ContactNumber: phone });
+            // console.log("firstName vendor", findVendor)
+
+            if (findVendor) {
+                // Phone number exists in Vendor, so throw an error
+                // console.log( "This number already exists in Vendor records. Please use a different number.");
+                return res.status(400).json({
+                    success: false,
+                    message: "This number already exists in Vendor records. Please use a different number."
+                });
+            } else {
+                // 3. Create new User if not found in both
+                const newUser = new User({
+                    FullName: name,
+                    ContactNumber: phone,
+                    Email: email,
+                    Password: '12345678'
+                });
+                await newUser.save();
+                newUserId = newUser._id;
+            }
         }
 
         // Step 4: Geocode the address
@@ -315,6 +331,8 @@ exports.createOrderByChatBot = async (req, res) => {
                 key: GOOGLE_MAPS_API_KEY
             }
         });
+
+        // console.log("geoResponse",geoResponse)
 
         if (geoResponse.data.status !== 'OK' || !geoResponse.data.results.length) {
             throw new Error('Failed to geocode address');
@@ -331,22 +349,22 @@ exports.createOrderByChatBot = async (req, res) => {
         const { lat, lng } = result.geometry.location;
         const formatted_address = result.formatted_address;
         const pinCode = getComponent('postal_code');
-        const houseNo = getComponent('street_number');
+        const houseNo = getComponent('street_number') || getComponent('premise') || getComponent('subpremise');
         const street = getComponent('route');
         const city = getComponent('locality') || getComponent('administrative_area_level_2');
         const nearByLandMark = getComponent('neighborhood') || getComponent('sublocality') || getComponent('political');
 
         const voiceNoteDetails = null;
-        const message = null;
+        const message = 'This is a booking created via chatbot';
 
         // Step 5: Save order (example model)
         const newOrder = new Order({
             userId: newUserId,
             serviceId: serviceId._id,
             serviceType: selectedService,
-            fullName: name,
-            email: 'N/A',
-            phoneNumber: phone,
+            fullName: findUser?.FullName || name,
+            email: findUser?.Email || email,
+            phoneNumber: findUser?.ContactNumber || phone,
             address: formatted_address,
             workingDateUserWant: serviceDate,
             city,
@@ -374,7 +392,20 @@ exports.createOrderByChatBot = async (req, res) => {
         const longaddress = formatted_address.replace(/,/g, '');
         const serviceType = selectedService;
 
-        const Param = [name, 'demo@gmail.com', phone, serviceName, serviceType, message, houseNo, longaddress, pinCode]
+        const safe = (val, fallback = 'NA') => val != null && val !== '' ? val : fallback;
+
+        const Param = [
+            safe(findUser?.FullName || name),
+            safe(findUser?.Email || email),
+            safe(findUser?.ContactNumber || phone),
+            safe(serviceName),
+            safe(serviceType),
+            safe(message),
+            safe(houseNo, 'House NA'), // default instead of "HOu" for clarity
+            safe(longaddress),
+            safe(pinCode),
+        ];
+
 
         await SendWhatsapp(AdminNumber, 'order_detail_to_admin', Param)
 
@@ -2255,3 +2286,33 @@ exports.serviceDoneOrder = async (req, res) => {
         })
     }
 }
+
+exports.updateIsInvetorAc = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const { isInvetorAc } = req.body;
+        // console.log("id",id,"isInvetorAc", isInvetorAc)
+        const order = await Order.findById(id);
+        if (!order) {
+            return res.status(400).json({
+                success: false,
+                message: "Order not found"
+            })
+        }
+        order.isInvetorAc = isInvetorAc;
+        await order.save();
+        return res.status(200).json({
+            success: true,
+            message: "isInvetorAc updated successfully",
+            data: order
+        })
+    } catch (error) {
+        console.log("Internal server error in updating isInvetorAc", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error in updating isInvetorAc",
+            error: error.message
+        });
+    }
+}
+// exports.

@@ -29,60 +29,6 @@ function ActiveVendorOrder({ userData, activeOrder }) {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     // Handle order status change
-    const handleOrderStatusChange = async (orderId, newStatus) => {
-        try {
-            await axios.put(`http://localhost:7987/api/v1/update-order-status/${orderId}`, { OrderStatus: newStatus });
-            toast.success('Order status updated successfully');
-        } catch (error) {
-            console.error(error);
-            Swal.fire("Error", "Failed to update order status", "error");
-        }
-    };
-
-    // Handle Before Work Image Upload
-    const handleBeforeWorkImageUpload = async (orderId) => {
-        // console.log("orderid",orderId)
-        const formData = new FormData();
-        formData.append('beforeWorkImage', beforeWorkImage[orderId]);
-
-        try {
-            await axios.put(`http://localhost:7987/api/v1/update-befor-work-image/${orderId}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            toast.success('Before work image uploaded successfully');
-
-        } catch (error) {
-            console.error(error);
-            Swal.fire("Error", "Failed to upload before work image", "error");
-        }
-    };
-
-    const handleUpdateServiceDone = async (orderId) => {
-        try {
-            const res = await axios.put(`http://localhost:7987/api/v1/update-service-done-order/${orderId}`);
-            toast.success('Service done updated successfully');
-        } catch (error) {
-            console.log("Internal server error",error)
-        }
-    }
-
-    // Handle After Work Image Upload
-    const handleAfterWorkImageUpload = async (orderId) => {
-        const formData = new FormData();
-        formData.append('afterWorkImage', afterWorkImage[orderId]);
-
-        try {
-            await axios.put(`http://localhost:7987/api/v1/update-after-work-image/${orderId}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            toast.success('After work image uploaded successfully');
-        } catch (error) {
-            console.error(error);
-            Swal.fire("Error", "Failed to upload after work image", "error");
-        }
-    };
-
-    // Handle order status change
     const handleAlloteVendorMember = async (orderId, newStatus) => {
         try {
             await axios.put(`http://localhost:7987/api/v1/update-allot-vendor-member/${orderId}`, { AllowtedVendorMember: newStatus });
@@ -132,6 +78,20 @@ function ActiveVendorOrder({ userData, activeOrder }) {
         }
     };
 
+    const handleUpdateIsInvetorAc = async (orderId, currentStatus) => {
+        try {
+            // console.log("currentStatus",currentStatus)
+            const response = await axios.put(`http://localhost:7987/api/v1/update-is-InvetorAc/${orderId}`, {
+                isInvetorAc: !currentStatus // toggle value
+            });
+            if (response.status === 200) {
+                toast.success('Is Invetor AC status updated successfully');
+            }
+        } catch (error) {
+            console.log("Internal Server Error", error);
+            toast.error(error?.response?.data?.message || "Failed to update Is Invetor AC");
+        }
+    };
 
 
     return (
@@ -174,6 +134,7 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                 <th style={{ whiteSpace: 'nowrap' }}>User Name</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>User Email</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>User Number</th>
+                                                <th style={{ whiteSpace: 'nowrap' }}>Is AMC User</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>User Address</th>
                                                 {/* <th style={{ whiteSpace: 'nowrap' }}>LandMark</th> */}
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Date</th>
@@ -187,11 +148,12 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                 <th style={{ whiteSpace: 'nowrap' }}>Watch Estimated </th>
                                                 <th style={{ whiteSpace: 'nowrap' }}> Estimated Status</th>
 
-                                                {/* {
+                                                {
                                                     vendorType === 'vendor' && (
                                                         <th style={{ whiteSpace: 'nowrap' }}>Allot Member</th>
                                                     )
-                                                } */}
+                                                }
+                                                <th style={{ whiteSpace: 'nowrap' }}>Is Invetor AC</th>
                                                 {/* <th style={{ whiteSpace: 'nowrap' }}>Order Status</th> */}
                                                 <th style={{ whiteSpace: 'nowrap' }}>Before Work Video</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>After Work Video</th>
@@ -209,6 +171,7 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                         <td>{order?.fullName || order?.userId?.fullName || "User is not available"}</td>
                                                         <td>{order?.email || order?.userId?.Email || "User is not available"}</td>
                                                         <td>{order?.phoneNumber || order?.userId?.ContactNumber || "User is not available"}</td>
+                                                        <td>{order?.userId?.isAMCUser ? 'Yes' : 'No' || "User is not available"}</td>
                                                         <td>{`${order?.houseNo}, ${order?.address}, ${order?.pinCode}` || "User is not available"}</td>
                                                         {/* <td>{order?.nearByLandMark || "User is not available"}</td> */}
                                                         <td>{new Date(order?.workingDate).toLocaleDateString() || "Date is not available"}</td>
@@ -223,14 +186,24 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                             ) || 'Not Available'}
                                                         </td>
                                                         <td>
-                                                            <button onClick={() => window.location.href = `/error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
-                                                                Add Error Code
-                                                            </button>
+                                                            {!order?.isInvetorAc ? (
+                                                                <p className='text-error'>No need to add error</p>
+                                                            ) : (
+                                                                <button onClick={() => window.location.href = `/error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
+                                                                    Add Error Code
+                                                                </button>
+                                                            )}
+
                                                         </td>
                                                         <td>
-                                                            <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
-                                                                See Error Code
-                                                            </button>
+                                                            {!order?.isInvetorAc ? (
+                                                                <p className='text-error'>No need to see error</p>
+                                                            ) : (
+                                                                <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
+                                                                    See Error Code
+                                                                </button>
+                                                            )}
+
                                                         </td>
                                                         <td>
                                                             <button disabled={order?.userId?.isAMCUser} onClick={() => window.location.href = `/make-esitimated-bill?OrderId=${order._id}&vendor=${order?.vendorAlloted?._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
@@ -254,7 +227,7 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                             {/* { console.log(order.EstimatedBill?._id?.statusOfBill)} */}
                                                             {order.EstimatedBill?.statusOfBill ? 'Accepted' : 'Declined'}
                                                         </td>
-                                                        {/* {
+                                                        {
                                                             vendorType === 'vendor' && (
                                                                 <td>
                                                                     <select
@@ -270,68 +243,18 @@ function ActiveVendorOrder({ userData, activeOrder }) {
                                                                     </select>
                                                                 </td>
                                                             )
-                                                        } */}
-                                                        {/*<td>
-                                                            <select
-                                                                value={order.OrderStatus}
-                                                                className='form-control'
-                                                                style={{ width: "150px", fontSize: '16px', paddingLeft: '3px', paddingRight: '3px' }}
-                                                                onChange={(e) => handleOrderStatusChange(order._id, e.target.value)}
-                                                            >
-                                                                <option defaultValue={order.OrderStatus}>{order.OrderStatus}</option>
-                                                                <option value="Service Done">Service Done</option>
-                                                                <option value="Cancelled">Cancelled</option>
-                                                            </select>
-                                                        </td>*/}
-                                                        {/* <td>
-                                                            <input
-                                                                type="file"
-                                                                id={`before-file-input-${order._id}`}
-                                                                style={{ display: 'none' }}  
-                                                                onChange={(e) => setBeforeWorkImage({ ...beforeWorkImage, [order._id]: e.target.files[0] })}
-                                                            />
+                                                        }
 
+                                                        <td>
                                                             <button
-                                                                className='btn btn-sm p-1'
-                                                                onClick={() => document.getElementById(`before-file-input-${order._id}`).click()}
-                                                                style={{ background: 'transparent', border: 'none', fontSize: '1rem' }}
-                                                            >
-                                                                <i className="fas fa-upload" aria-hidden="true"></i> 
-                                                            </button>
-
-                                                            <button
-                                                                className='btn btn-sm theme-bg text-light rounded ft-medium'
-                                                                onClick={() => handleBeforeWorkImageUpload(order._id)}
+                                                                className={`btn btn-sm ${order?.isInvetorAc ? 'btn-success' : 'btn-danger'}`}
+                                                                onClick={() => handleUpdateIsInvetorAc(order._id, order?.isInvetorAc)}
                                                                 style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
                                                             >
-                                                                Upload
+                                                                {order?.isInvetorAc ? 'Yes' : 'No'}
                                                             </button>
                                                         </td>
 
-                                                        <td>
-                                                            <input
-                                                                type="file"
-                                                                id={`file-input-${order._id}`}
-                                                                style={{ display: 'none' }}  
-                                                                onChange={(e) => setAfterWorkImage({ ...afterWorkImage, [order._id]: e.target.files[0] })}
-                                                            />
-
-                                                            <button
-                                                                className='btn btn-sm p-1'
-                                                                onClick={() => document.getElementById(`file-input-${order._id}`).click()}
-                                                                style={{ background: 'transparent', border: 'none', fontSize: '1rem' }}
-                                                            >
-                                                                <i className="fas fa-upload" aria-hidden="true"></i>  
-                                                            </button>
-
-                                                            <button
-                                                                className='btn btn-sm theme-bg text-light rounded ft-medium'
-                                                                onClick={() => handleAfterWorkImageUpload(order._id)}
-                                                                style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
-                                                            >
-                                                                Upload
-                                                            </button>
-                                                        </td> */}
 
                                                         <td>
                                                             <input

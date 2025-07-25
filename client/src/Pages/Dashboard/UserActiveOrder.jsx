@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { toast } from 'react-hot-toast';
 
 function UserActiveOrder({ userData, activeOrder }) {
     // console.log("userData", userData)
@@ -83,6 +84,18 @@ function UserActiveOrder({ userData, activeOrder }) {
         }
     }
 
+    const handleServiceDone = async (id) => {
+        try {
+            const response = await axios.put(`http://localhost:7987/api/v1/update-service-done-order/${id}`);
+            if (response.data.success) {
+                toast.success('Service marked as done successfully');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log('Internal server error in service done', error);
+        }
+    }
+
     return (
         <div className="goodup-dashboard-content">
             <div className="dashboard-tlbar d-block mb-5">
@@ -128,6 +141,7 @@ function UserActiveOrder({ userData, activeOrder }) {
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Day</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Time</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Order Status</th>
+                                                <th style={{ whiteSpace: "nowrap" }}>Is Invetor AC</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Order Esitmate</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>See Error Code</th>
 
@@ -161,6 +175,14 @@ function UserActiveOrder({ userData, activeOrder }) {
                                                         <td>{order.workingTime || 'Vendor is not Allowted'}</td>
                                                         <td>{order.OrderStatus}</td>
                                                         <td>
+                                                            <p
+                                                                className={`btn btn-sm ${order?.isInvetorAc ? 'btn-success' : 'btn-danger'}`}
+                                                                style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
+                                                            >
+                                                                {order?.isInvetorAc ? 'Yes' : 'No'}
+                                                            </p>
+                                                        </td>
+                                                        <td>
                                                             <button
                                                                 onClick={() => {
                                                                     const estimatedBillStr = JSON.stringify(order.EstimatedBill);
@@ -176,9 +198,14 @@ function UserActiveOrder({ userData, activeOrder }) {
                                                         </td>
 
                                                         <td>
-                                                            <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
-                                                                See Error Code
-                                                            </button>
+                                                            {!order?.isInvetorAc ? (
+                                                                <p className='text-error'>No error code is available</p>
+                                                            ) : (
+                                                                <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
+                                                                    See Error Code
+                                                                </button>
+                                                            )}
+
                                                         </td>
 
                                                         <td>
@@ -228,15 +255,15 @@ function UserActiveOrder({ userData, activeOrder }) {
                                                             )
                                                         ) : (
                                                             <td>
-                                                                <p>{order?.OrderStatus || "User is not available"}</p>
-                                                                {/* <button
+                                                                {/* <p>{order?.OrderStatus || "User is not available"}</p> */}
+                                                                <td><button
                                                                     style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }}
                                                                     className='btn btn-sm theme-bg text-light rounded ft-medium'
-                                                                    disabled={order.PaymentStatus === 'paid'}
-                                                                    onClick={() => handlePayment(order?._id, order?.EstimatedBill?.EstimatedTotalPrice)}
+                                                                    disabled={order.PaymentStatus === 'paid' || order?.afterWorkVideo?.url === undefined}
+                                                                    onClick={() => handleServiceDone(order?._id)}
                                                                 >
                                                                     Service Done
-                                                                </button> */}
+                                                                </button></td>
                                                             </td>
                                                         )}
 

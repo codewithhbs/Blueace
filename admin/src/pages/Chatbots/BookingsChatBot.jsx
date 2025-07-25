@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import "./BookingsChatBot.css"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 const BookingsChatBot = () => {
   const [bookings, setBookings] = useState([])
@@ -95,6 +96,7 @@ const BookingsChatBot = () => {
 
       if (result.success) {
         setSuccess("Order created successfully!")
+        toast.success("Order created successfully!")
         // Optionally refresh the bookings to get updated data
         fetchBookings(currentPage)
         setShowCreateOrderModal(false)
@@ -104,7 +106,8 @@ const BookingsChatBot = () => {
       }
     } catch (err) {
       console.error("Error creating order:", err)
-      setError("Failed to create order: " + (err.response?.data?.message || err.message))
+      setError(err.response?.data?.message || err.message)
+      toast.error("Failed to create order: " + (err.response?.data?.message || err.message))
       setTimeout(() => setError(""), 5000)
     } finally {
       setCreateOrderLoading(false)

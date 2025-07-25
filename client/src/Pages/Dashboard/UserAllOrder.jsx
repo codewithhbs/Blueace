@@ -122,6 +122,7 @@ function UserAllOrder({ userData, allOrder }) {
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Date</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Day</th>
                                                 <th style={{ whiteSpace: 'nowrap' }}>Service Time</th>
+                                                <th style={{ whiteSpace: "nowrap" }}>Is Invetor AC</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Order Status</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Order Esitmate</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>See Error Code</th>
@@ -149,7 +150,15 @@ function UserAllOrder({ userData, allOrder }) {
                                                         <td>{new Date(order?.workingDate).toLocaleDateString() || 'Date is not Allowted'}</td>
                                                         <td>{order.workingDay || 'Vendor is not Allowted'}</td>
                                                         <td>{order.workingTime || 'Vendor is not Allowted'}</td>
-                                                        <td>{order.OrderStatus}</td>
+                                                        <td>
+                                                            <p
+                                                                className={`btn btn-sm ${order?.isInvetorAc ? 'btn-success' : 'btn-danger'}`}
+                                                                style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
+                                                                >
+                                                                {order?.isInvetorAc ? 'Yes' : 'No'}
+                                                            </p>
+                                                        </td>
+                                                                <td>{order.OrderStatus}</td>
                                                         <td>
                                                             <button
                                                                 onClick={() => {
@@ -165,9 +174,14 @@ function UserAllOrder({ userData, allOrder }) {
 
                                                         </td>
                                                         <td>
-                                                            <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
-                                                                See Error Code
-                                                            </button>
+                                                            {!order?.isInvetorAc ? (
+                                                                <p className='text-error'>No error code is available</p>
+                                                            ) : (
+                                                                <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
+                                                                    See Error Code
+                                                                </button>
+                                                            )}
+
                                                         </td>
                                                         <td>
                                                             {order?.beforeWorkVideo?.url ? (

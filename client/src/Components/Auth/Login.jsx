@@ -26,18 +26,17 @@ function Login({ onLoginSuccess }) {
         }));
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+    
         const isPhoneNumber = /^[0-9]{10}$/.test(formData.Email); // basic 10-digit number check
         const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.Email); // basic email format check
-
+    
         const Payload = {
             Password: formData.Password
         };
-
+    
         if (isPhoneNumber) {
             Payload.ContactNumber = formData.Email;
         } else if (isEmail) {
@@ -47,18 +46,26 @@ function Login({ onLoginSuccess }) {
             setLoading(false);
             return;
         }
-
+    
         try {
             const res = await axios.post('http://localhost:7987/api/v1/Login', Payload, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
+    
+            // ✅ If account is not verified, show message and redirect without saving anything
+            if (res.data.message === 'Your account is not verified. OTP has been sent to your WhatsApp.') {
+                toast.error('Your account is not verified. Please check your WhatsApp for the OTP.');
+                window.location.href = `/verify-account/${res.data.data.id}`;
+                return;
+            }
+    
+            // ✅ Only now store token and user data if account is verified
             localStorage.setItem('token', res.data.token);
-
+    
             let userData = res.data.user;
-
+    
             if (typeof userData === 'string' && userData.startsWith('{') && userData.endsWith('}')) {
                 try {
                     userData = JSON.parse(userData);
@@ -67,11 +74,11 @@ function Login({ onLoginSuccess }) {
                     toast.error('Error parsing user data.');
                 }
             }
-
+    
             localStorage.setItem('user', JSON.stringify(userData));
             toast.success('Login successful');
             navigate(redirectUrl);
-
+    
         } catch (error) {
             const errorMessage = error?.response?.data?.message || error?.response?.data?.error || 'Login failed. Please check your credentials.';
             toast.error(errorMessage);
@@ -79,7 +86,7 @@ function Login({ onLoginSuccess }) {
         } finally {
             setLoading(false);
         }
-    };
+    };    
 
     useEffect(() => {
         window.scrollTo({

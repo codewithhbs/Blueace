@@ -99,7 +99,7 @@ function Order() {
     const indexOfFirstVendor = indexOfLastVendor - productsPerPage;
     const currentallOrders = filteredVendors.slice(indexOfFirstVendor, indexOfLastVendor);
 
-    const headers = ['S.No', 'Service Name', 'Service Type', 'User Name', 'User Type', 'Is AMC User', 'Service Address', 'User Appointment Date', 'User Detail', 'Vendor Allowted Detail', 'Voice Note', 'Message', 'Select Vendor', 'Select Employee', 'Service Day', 'Service Time', 'Vendor Member Allowted', 'OrderStatus', "Estimated Bill", "Bill Status", "See Error Code", "Before Work Video", "After Work Video", "Payment Detail", 'Delete', 'Created At'];
+    const headers = ['S.No', 'Service Name', 'Service Type', 'User Name', 'User Type', 'Is AMC User', 'Service Address', 'User Appointment Date', 'User Detail', 'Vendor Allowted Detail', 'Voice Note', 'Message', 'Select Vendor', 'Select Employee', 'Service Day', 'Service Time', 'Vendor Member Allowted', 'OrderStatus', "Estimated Bill", "Bill Status", "Is Invetor AC", "See Error Code", "Before Work Video", "After Work Video", "Payment Detail", 'Delete', 'Created At'];
 
     return (
         <div className='page-body'>
@@ -116,16 +116,6 @@ function Order() {
                         </button>
                         {showFilter && (
                             <div className="mt-2 row">
-                                {/* <div className="col-md-3">
-                                    <label htmlFor="" className='form-label'>Search by Company Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control mb-2"
-                                        placeholder="Search by Company Name"
-                                        value={filterText}
-                                        onChange={(e) => setFilterText(e.target.value)}
-                                    />
-                                </div> */}
                                 <div className="col-md-3">
                                     <label htmlFor="" className='form-label'>Search by Address</label>
                                     <input
@@ -298,33 +288,33 @@ function Order() {
                                     {vendor.EstimatedBill?.statusOfBill ? 'Accepted' : 'Bill Not Generated Yet'}
                                 </td>
 
-                                <td className='fw-bolder'>
-                                    <button
-                                        onClick={() => {
-                                            window.location.href = `/show-error-code/${vendor._id}`;
-                                        }}
-                                        style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }}
-                                        className='btn btn-info btn-activity-view rounded-pill px-4 py-2 shadow-sm'
-                                    // disabled={!vendor.EstimatedBill}
-                                    >
-                                        See Error Code
-                                    </button>
+                                <td className="fw-bolder">
+                                    {vendor?.isInvetorAc === true ? (
+                                        <span className="bg-success text-white px-2 py-1 rounded">Yes</span>
+                                    ) : vendor?.isInvetorAc === false ? (
+                                        <span className="bg-danger text-white px-2 py-1 rounded">No</span>
+                                    ) : (
+                                        'Not Allowed'
+                                    )}
                                 </td>
 
-                                {/* <td className='fw-bolder'>
-                                    {vendor?.beforeWorkImage?.url ? (
-                                        <img style={{ width: '100px', height: '80px' }} src={vendor?.beforeWorkImage?.url} alt={vendor?.serviceId?.name} />
+
+                                <td className='fw-bolder'>
+                                    {vendor?.isInvetorAc ? (
+                                        <button
+                                            onClick={() => {
+                                                window.location.href = `/show-error-code/${vendor._id}`;
+                                            }}
+                                            style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }}
+                                            className='btn btn-info btn-activity-view rounded-pill px-4 py-2 shadow-sm'
+                                        // disabled={!vendor.EstimatedBill}
+                                        >
+                                            See Error Code
+                                        </button>
                                     ) : (
-                                        <span>No image uploaded</span>
+                                        <p className='text-error'>No error code is available</p>
                                     )}
                                 </td>
-                                <td className='fw-bolder'>
-                                    {vendor?.afterWorkImage?.url ? (
-                                        <img style={{ width: '100px', height: '80px' }} src={vendor?.afterWorkImage?.url} alt={vendor?.serviceId?.name} />
-                                    ) : (
-                                        <span>No image uploaded</span>
-                                    )}
-                                </td> */}
                                 <td className='fw-bolder'>
                                     {vendor?.beforeWorkVideo?.url ? (
                                         <video
@@ -357,6 +347,20 @@ function Order() {
                                     )}
                                 </td>
                                 <td className='fw-bolder'>
+                                    {!vendor?.userId?.isAMCUser ? (
+                                        vendor?.PaymentStatus === 'paid' ? (
+                                            <button className="btn btn-info btn-activity-view rounded-pill px-4 py-2 shadow-sm" type="button" onClick={() => handleViewPayment(vendor)}>
+                                                View
+                                            </button>
+                                        ) : (
+                                            <span>Service Not Done</span>
+                                        )
+                                    ) : (
+                                        <span>AMC User</span>
+                                    )
+                                    }
+                                </td>
+                                {/* <td className='fw-bolder'>
                                     {vendor?.PaymentStatus === 'paid' ? (
                                         <button className="btn btn-info btn-activity-view rounded-pill px-4 py-2 shadow-sm" type="button" onClick={() => handleViewPayment(vendor)}>
                                             View
@@ -364,7 +368,7 @@ function Order() {
                                     ) : (
                                         <span>Service Not Done</span>
                                     )}
-                                </td>
+                                </td> */}
                                 <td className='fw-bolder'>
                                     <button onClick={() => handleDelete(vendor._id)} className="btn btn-danger btn-activity-danger rounded-pill px-4 py-2 shadow-sm">
                                         Delete

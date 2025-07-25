@@ -75,6 +75,12 @@ function EmployLogin() {
         } catch (error) {
             const errorMessage = error?.response?.data?.message || error?.response?.data?.error || 'Login failed. Please check your credentials.';
             toast.error(errorMessage);
+            if (errorMessage === 'You are currently not eligible to start work. Please retake the test to proceed.') {
+                const id = error.response.data.data._id;
+                setTimeout(() => {
+                    window.location.href = `/test-question/${id}`
+                }, 3000);
+            }
             console.log(error);
         } finally {
             setLoading(false);

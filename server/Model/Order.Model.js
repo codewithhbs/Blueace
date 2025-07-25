@@ -189,6 +189,10 @@ const OrderSchema = new mongoose.Schema({
     ],
     workingDateUserWant: {
         type: Date
+    },
+    isInvetorAc: {
+        type: Boolean,
+        default: true
     }
 }, { timestamps: true })
 

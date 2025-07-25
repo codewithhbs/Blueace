@@ -65,6 +65,7 @@ function AllVendorOrder({ userData, allOrder }) {
                                                         <th style={{ whiteSpace: 'nowrap' }}>Allowted Member</th>
                                                     )
                                                 }
+                                                <th style={{ whiteSpace: "nowrap" }}>Is Invetor AC</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Order Status</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Watch Estimated</th>
                                                 <th style={{ whiteSpace: "nowrap" }}>Estimated Status</th>
@@ -104,6 +105,14 @@ function AllVendorOrder({ userData, allOrder }) {
                                                             )
                                                         }
 
+                                                        <td>
+                                                            <p
+                                                                className={`btn btn-sm ${order?.isInvetorAc ? 'btn-success' : 'btn-danger'}`}
+                                                                style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
+                                                            >
+                                                                {order?.isInvetorAc ? 'Yes' : 'No'}
+                                                            </p>
+                                                        </td>
                                                         <td>{order.OrderStatus}</td>
                                                         <td>
                                                             <button
@@ -123,9 +132,14 @@ function AllVendorOrder({ userData, allOrder }) {
                                                             {order.EstimatedBill?.statusOfBill ? 'Accepted' : 'Declined'}
                                                         </td>
                                                         <td>
-                                                            <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
-                                                                See Error Code
-                                                            </button>
+                                                            {!order?.isInvetorAc ? (
+                                                                <p className='text-error'>No error code is available</p>
+                                                            ) : (
+                                                                <button onClick={() => window.location.href = `/show-error-code/${order._id}`} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', whiteSpace: 'nowrap' }} className='btn btn-sm theme-bg text-light rounded ft-medium' >
+                                                                    See Error Code
+                                                                </button>
+                                                            )}
+
                                                         </td>
                                                         {/* <td>
                                                             {order?.beforeWorkImage?.url ? (

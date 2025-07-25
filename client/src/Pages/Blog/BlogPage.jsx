@@ -28,6 +28,13 @@ function BlogPage() {
         setCurrentPage(page);
     };
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    },[])
+
     return (
         <>
             {/* <div className="bg-dark py-3">
