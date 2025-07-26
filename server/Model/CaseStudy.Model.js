@@ -52,7 +52,7 @@ const CaseStudySchema = new mongoose.Schema({
         }
     },
     videoUrl: {
-        type: String // Optional: YouTube/Vimeo video link
+        type: String 
     },
     isPublished: {
         type: Boolean,

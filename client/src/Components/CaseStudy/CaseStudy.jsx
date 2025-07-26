@@ -15,7 +15,7 @@ const CaseStudy = () => {
     const fetchCaseStudy = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:7987/api/v1/get-all-case-study'); 
+            const res = await axios.get('http://localhost:7987/api/v1/get-all-case-study');
             let data = res.data.data;
 
             // Shuffle the array
@@ -23,7 +23,9 @@ const CaseStudy = () => {
                 const j = Math.floor(Math.random() * (i + 1));
                 [data[i], data[j]] = [data[j], data[i]];
             }
-            setAllCaseStudy(data);
+            const filteredData = data.filter(item => item.isPublished);
+            setAllCaseStudy(filteredData);
+            // setAllCaseStudy(data);
         } catch (error) {
             console.log("Internal server error", error);
         } finally {
@@ -387,8 +389,8 @@ const CaseStudy = () => {
                             <SwiperSlide key={index}>
                                 <div className="case-study-card">
                                     <div className="card-image-wrapper">
-                                        <img 
-                                            src={item.smallImage?.url || item.largeImage?.url} 
+                                        <img
+                                            src={item.smallImage?.url || item.largeImage?.url}
                                             alt={item.title}
                                             className="card-image"
                                         />
@@ -399,50 +401,24 @@ const CaseStudy = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="card-content">
                                         {/* <div className="category-badge">
                                             {item.category}
                                         </div> */}
-                                        
-                                        <h4 className="card-title">
-                                            {item.title}
-                                        </h4>
-                                        
-                                        <p className="card-description">
-                                            {item.smallDes}
-                                        </p>
-                                        
-                                        {/* <div className="card-meta">
-                                            <div className="meta-item">
-                                                <i className="fas fa-map-marker-alt"></i>
-                                                <span>{item.location?.split(',')[0] || 'Location'}</span>
-                                            </div>
-                                            <div className="meta-item">
-                                                <i className="fas fa-calendar-alt"></i>
-                                                <span>{formatDate(item.completionDate)}</span>
-                                            </div>
-                                        </div> */}
 
-                                        {/* {item.technologiesUsed && item.technologiesUsed.length > 0 && (
-                                            <div className="technologies-list">
-                                                {JSON.parse(item.technologiesUsed[0]).slice(0, 3).map((tech, techIndex) => (
-                                                    <span key={techIndex} className="tech-tag">
-                                                        {tech}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )} */}
-                                        
+                                        <h4 className="card-title">
+                                            {item.title?.length > 25 ? item.title.slice(0, 25) + "..." : item.title}
+                                        </h4>
+
+                                        <p className="card-description">
+                                            {item.smallDes?.length > 60 ? item.smallDes.slice(0, 60) + "..." : item.smallDes}
+                                        </p>
+
+
                                         <div className="card-footer">
-                                            {/* <div className="client-info">
-                                                <div className="client-avatar">
-                                                    {item.clientName?.charAt(0) || 'C'}
-                                                </div>
-                                                <span>{item.clientName}</span>
-                                            </div> */}
-                                            
-                                            <Link 
+
+                                            <Link
                                                 to={`/case-study/${item._id}`}
                                                 className="view-details-btn"
                                             >

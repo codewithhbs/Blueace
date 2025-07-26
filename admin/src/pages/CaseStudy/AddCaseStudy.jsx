@@ -15,7 +15,7 @@ function AddCaseStudy() {
         clientName: '',
         location: '',
         completionDate: '',
-        // technologiesUsed: '',
+        technologiesUsed: '',
         videoUrl: '',
         isPublished: false,
         smallImage: null,
@@ -68,13 +68,13 @@ function AddCaseStudy() {
         setLoading(true);
 
         const payload = new FormData();
-        // Object.entries(formData).forEach(([key, value]) => {
-        //     if (key === 'technologiesUsed') {
-        //         payload.append(key, JSON.stringify(value.split(',').map(v => v.trim())));
-        //     } else {
-        //         payload.append(key, value);
-        //     }
-        // });
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key === 'technologiesUsed') {
+                payload.append(key, JSON.stringify(value.split(',').map(v => v.trim())));
+            } else {
+                payload.append(key, value);
+            }
+        });
 
         if (!formData.smallImage || !formData.largeImage) {
             setError('Both small and large images are required.');
@@ -100,7 +100,7 @@ function AddCaseStudy() {
                     clientName: '',
                     location: '',
                     completionDate: '',
-                    // technologiesUsed: '',
+                    technologiesUsed: '',
                     videoUrl: '',
                     isPublished: false,
                     smallImage: null,
@@ -176,10 +176,10 @@ function AddCaseStudy() {
                         <Input type="date" name="completionDate" value={formData.completionDate} onChange={handleChange} />
                     </div>
 
-                    {/* <div className="col-md-8 mt-3">
+                    <div className="col-md-8 mt-3">
                         <label>Technologies Used (comma-separated)</label>
                         <Input name="technologiesUsed" value={formData.technologiesUsed} onChange={handleChange} />
-                    </div> */}
+                    </div>
 
                     <div className="col-md-6 mt-3">
                         <label>Upload Small Image</label>
@@ -193,10 +193,10 @@ function AddCaseStudy() {
                         {largeImagePreview && <img src={largeImagePreview} alt="Large Preview" width="100" className="mt-2" />}
                     </div>
 
-                    <div className="col-md-6 mt-3">
+                    {/* <div className="col-md-6 mt-3">
                         <label>Video URL</label>
                         <Input name="videoUrl" value={formData.videoUrl} onChange={handleChange} />
-                    </div>
+                    </div> */}
 
                     <div className="col-md-6 mt-3">
                         <label>

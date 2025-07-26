@@ -3,8 +3,8 @@ const { uploadImage, deleteImageFromCloudinary } = require('../Utils/Cloudnary')
 
 exports.createCaseStudy = async (req, res) => {
     try {
-        const { title, smallDes, longDes, category, clientName, location, completionDate, isPublished, videoUrl } = req.body;
-        console.log("I am hit")
+        const { title, smallDes, longDes, category, technologiesUsed, clientName, location, completionDate, isPublished, videoUrl } = req.body;
+        // console.log("I am hit")
 
         const newCaseStudy = new CaseStudy({
             title,
@@ -14,7 +14,7 @@ exports.createCaseStudy = async (req, res) => {
             clientName,
             location,
             completionDate,
-            // technologiesUsed,
+            technologiesUsed,
             isPublished,
             videoUrl
         });

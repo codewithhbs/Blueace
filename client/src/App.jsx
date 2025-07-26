@@ -146,7 +146,7 @@ function App() {
           <Route path="/amc-manufacturer" element={<AMCManufacturer />} />
           <Route path="/heat-pump-installation" element={<HeatPump />} />
           <Route path="/service/cassette-air-conditioning-system" element={<CassetteAir />} />
-          <Route path="/service/ductable-air-conditioners" element={<DuctableStatic />} />
+          <Route path="/service/ductable-air-conditioner" element={<DuctableStatic />} />
           <Route path="/air-cooled-chiller" element={<AirColdChiller />} />
           <Route path="/error-code/:id" element={<ErrorCode />} />
           <Route path="/show-error-code/:id" element={<ShowErrorCode />} />
