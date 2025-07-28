@@ -32,7 +32,7 @@ function EditCaseStudy() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:7987/api/v1/get-single-case-study/${id}`);
+        const { data } = await axios.get(`https://www.api.blueaceindia.com/api/v1/get-single-case-study/${id}`);
         const cs = data.data;
         setFormData({
           title: cs.title,
@@ -90,7 +90,7 @@ function EditCaseStudy() {
     });
 
     try {
-      await axios.put(`http://localhost:7987/api/v1/update-case-study/${id}`, payload, {
+      await axios.put(`https://www.api.blueaceindia.com/api/v1/update-case-study/${id}`, payload, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       toast.success('Case study updated successfully');

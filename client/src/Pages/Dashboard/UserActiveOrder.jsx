@@ -30,7 +30,7 @@ function UserActiveOrder({ userData, activeOrder }) {
     const handlePayment = async (orderId, totalAmount) => {
         try {
             const checkoutResponse = await axios.post(
-                `http://localhost:7987/api/v1/create-bill-payment/${orderId}`,
+                `https://www.api.blueaceindia.com/api/v1/create-bill-payment/${orderId}`,
                 { totalAmount: totalAmount },
                 // {
                 //     headers: {
@@ -50,7 +50,7 @@ function UserActiveOrder({ userData, activeOrder }) {
             //     alert('Failed to load Razorpay SDK. Please check your connection.');
             //     return;
             // }
-            // const res = await axios.post(`http://localhost:7987/api/v1/create-bill-payment/${orderId}`, {
+            // const res = await axios.post(`https://www.api.blueaceindia.com/api/v1/create-bill-payment/${orderId}`, {
             //     totalAmount: totalAmount
             // })
 
@@ -64,7 +64,7 @@ function UserActiveOrder({ userData, activeOrder }) {
             //         name: 'Blueace',
             //         description: 'Purchase Membership Plan',
             //         order_id: order?.id || '',
-            //         callback_url: "http://localhost:7987/api/v1/verify-bill-payment",
+            //         callback_url: "https://www.api.blueaceindia.com/api/v1/verify-bill-payment",
             //         prefill: {
             //             name: userData?.name, // Prefill customer data
             //             email: userData?.email,
@@ -86,7 +86,7 @@ function UserActiveOrder({ userData, activeOrder }) {
 
     const handleServiceDone = async (id) => {
         try {
-            const response = await axios.put(`http://localhost:7987/api/v1/update-service-done-order/${id}`);
+            const response = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-service-done-order/${id}`);
             if (response.data.success) {
                 toast.success('Service marked as done successfully');
                 window.location.reload();

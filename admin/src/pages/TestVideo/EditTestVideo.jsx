@@ -16,7 +16,7 @@ const EditTestVideo = () => {
     useEffect(() => {
         const fetchVideo = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:7987/api/v1/get-test-video`);
+                const { data } = await axios.get(`https://www.api.blueaceindia.com/api/v1/get-test-video`);
                 const res = data.data;
                 if (res && res.video && res.video.url) {
                     setVideoPreview(res.video.url);
@@ -53,7 +53,7 @@ const EditTestVideo = () => {
         }
 
         try {
-            await axios.put(`http://localhost:7987/api/v1/update-test-video/${id}`, form, {
+            await axios.put(`https://www.api.blueaceindia.com/api/v1/update-test-video/${id}`, form, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             toast.success('Video updated successfully!');

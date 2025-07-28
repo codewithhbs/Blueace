@@ -18,7 +18,7 @@ const EditTestQuestion = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:7987/api/v1/get-single-question/${id}`);
+                const { data } = await axios.get(`https://www.api.blueaceindia.com/api/v1/get-single-question/${id}`);
                 const questionData = data.data;
 
                 setFormData({
@@ -63,7 +63,7 @@ const EditTestQuestion = () => {
         setError('');
 
         try {
-            await axios.put(`http://localhost:7987/api/v1/update-test-question/${id}`, formData, {
+            await axios.put(`https://www.api.blueaceindia.com/api/v1/update-test-question/${id}`, formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

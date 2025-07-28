@@ -27,7 +27,7 @@ const OurClient = () => {
   const fetchClientLogo = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:7987/api/v1/get-all-client-logo');
+      const response = await fetch('https://www.api.blueaceindia.com/api/v1/get-all-client-logo');
       const data = await response.json();
       setAllClientLogo(data.data);
     } catch (error) {

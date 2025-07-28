@@ -5,7 +5,7 @@ const ClientLogo = () => {
     const [allClientLogo, setAllClientLogo] = useState([]);
     const fetchClientLogo = async () => {
         try {
-            const { data } = await axios.get('http://localhost:7987/api/v1/get-all-client-logo')
+            const { data } = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-client-logo')
             setAllClientLogo(data.data)
         } catch (error) {
             console.log("Internal server error", error)

@@ -41,7 +41,7 @@ const AddTestQuestion = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:7987/api/v1/create-test-question', formData, {
+            const response = await axios.post('https://www.api.blueaceindia.com/api/v1/create-test-question', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

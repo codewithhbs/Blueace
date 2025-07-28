@@ -15,7 +15,7 @@ function AllCaseStudy() {
     const fetchCaseStudies = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:7987/api/v1/get-all-case-study');
+            const response = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-case-study');
             if (response.data.success) {
                 const reversedData = response.data.data.reverse();
                 setCaseStudies(reversedData);
@@ -36,7 +36,7 @@ function AllCaseStudy() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:7987/api/v1/delete-case-study/${id}`);
+            const response = await axios.delete(`https://www.api.blueaceindia.com/api/v1/delete-case-study/${id}`);
             if (response.data.success) {
                 toast.success('Case study deleted successfully!');
                 await fetchCaseStudies();
@@ -50,7 +50,7 @@ function AllCaseStudy() {
 
     const handleTogglePublish = async (id, isPublished) => {
         try {
-            const response = await axios.put(`http://localhost:7987/api/v1/update-case-study/${id}`, {
+            const response = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-case-study/${id}`, {
                 isPublished: !isPublished,
             });
             if (response.data.success) {

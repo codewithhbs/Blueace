@@ -13,7 +13,7 @@ const AllJobInquiry = () => {
     const handleFetchData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:7987/api/v1/get-all-career-inquiry');
+            const response = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-career-inquiry');
             if (response.data.success) {
                 const reversedData = response.data.data.reverse();
                 setInquiries(reversedData);
@@ -34,7 +34,7 @@ const AllJobInquiry = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:7987/api/v1/delete-career-inquiry/${id}`);
+            const response = await axios.delete(`https://www.api.blueaceindia.com/api/v1/delete-career-inquiry/${id}`);
             if (response.data.success) {
                 toast.success('Inquiry deleted successfully!');
                 await handleFetchData();

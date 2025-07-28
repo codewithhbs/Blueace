@@ -35,7 +35,7 @@ const AddClientLogo = () => {
     payload.append('logo', formData.logo);
 
     try {
-      const res = await axios.post('http://localhost:7987/api/v1/create-client-logo', payload, {
+      const res = await axios.post('https://www.api.blueaceindia.com/api/v1/create-client-logo', payload, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

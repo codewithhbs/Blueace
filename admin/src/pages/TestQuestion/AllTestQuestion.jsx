@@ -14,7 +14,7 @@ const AllTestQuestion = () => {
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:7987/api/v1/all-test-question');
+      const res = await axios.get('https://www.api.blueaceindia.com/api/v1/all-test-question');
       if (res.data.success) {
         const reversed = res.data.data.reverse();
         setQuestions(reversed);
@@ -35,7 +35,7 @@ const AllTestQuestion = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:7987/api/v1/delete-test-question/${id}`);
+      const response = await axios.delete(`https://www.api.blueaceindia.com/api/v1/delete-test-question/${id}`);
       if (response.data.success) {
         toast.success('Question deleted successfully!');
         await fetchQuestions();

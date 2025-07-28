@@ -17,7 +17,7 @@ const EditClientLogo = () => {
   useEffect(() => {
     const fetchLogo = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:7987/api/v1/get-single-client-logo/${id}`);
+        const { data } = await axios.get(`https://www.api.blueaceindia.com/api/v1/get-single-client-logo/${id}`);
         const clientLogo = data.data;
         setImagePreview(clientLogo?.logo?.url || null);
       } catch (err) {
@@ -51,7 +51,7 @@ const EditClientLogo = () => {
     payload.append('logo', formData.logo);
 
     try {
-      const res = await axios.put(`http://localhost:7987/api/v1/update-client-logo/${id}`, payload, {
+      const res = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-client-logo/${id}`, payload, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

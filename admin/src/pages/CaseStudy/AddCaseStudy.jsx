@@ -86,7 +86,7 @@ function AddCaseStudy() {
         payload.append('largeImage', formData.largeImage);
 
         try {
-            const res = await axios.post('http://localhost:7987/api/v1/create-case-study', payload, {
+            const res = await axios.post('https://www.api.blueaceindia.com/api/v1/create-case-study', payload, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 

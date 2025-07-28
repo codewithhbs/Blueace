@@ -15,7 +15,7 @@ const CaseStudy = () => {
     const fetchCaseStudy = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:7987/api/v1/get-all-case-study');
+            const res = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-case-study');
             let data = res.data.data;
 
             // Shuffle the array

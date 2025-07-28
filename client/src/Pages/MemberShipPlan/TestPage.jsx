@@ -56,7 +56,7 @@ const TestPage = () => {
   useEffect(() => {
     const FetchVendorDetail = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:7987/api/v1/single-vendor/${id}`)
+        const { data } = await axios.get(`https://www.api.blueaceindia.com/api/v1/single-vendor/${id}`)
         setVendorDetail(data.data)
       } catch (error) {
         console.log("Internal server error", error)
@@ -102,7 +102,7 @@ const TestPage = () => {
   const handleFetchQuestion = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get("http://localhost:7987/api/v1/all-test-question")
+      const { data } = await axios.get("https://www.api.blueaceindia.com/api/v1/all-test-question")
       setQuestions(data.data)
       setTestStarted(true)
     } catch (error) {
@@ -135,7 +135,7 @@ const TestPage = () => {
     const newAttemptCount = retryData.attemptCount + 1
 
     try {
-      const response = await axios.put(`http://localhost:7987/api/v1/update-test-field-vendor/${id}`, {
+      const response = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-test-field-vendor/${id}`, {
         testDone: true,
         testScore: finalScore,
       })

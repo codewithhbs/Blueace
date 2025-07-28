@@ -83,7 +83,7 @@ const BookingsChatBot = () => {
     try {
       setCreateOrderLoading(true)
       const response = await axios.post(
-        `http://localhost:7987/api/v1/create-order-from-chatbot/${bookingId}`,
+        `https://www.api.blueaceindia.com/api/v1/create-order-from-chatbot/${bookingId}`,
         {},
         {
           headers: {

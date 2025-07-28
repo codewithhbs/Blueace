@@ -14,7 +14,7 @@ const AllClientLogo = () => {
   const handleFetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:7987/api/v1/get-all-client-logo');
+      const response = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-client-logo');
       if (response.data.success) {
         const data = response.data.data.reverse();
         setLogos(data);
@@ -35,7 +35,7 @@ const AllClientLogo = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:7987/api/v1/delete-client-logo/${id}`);
+      const response = await axios.delete(`https://www.api.blueaceindia.com/api/v1/delete-client-logo/${id}`);
       if (response.data.success) {
         toast.success('Logo deleted successfully!');
         await handleFetchData();

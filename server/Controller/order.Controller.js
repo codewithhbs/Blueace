@@ -284,7 +284,7 @@ exports.createOrderByChatBot = async (req, res) => {
 
         const { name, phone, selectedCategory, selectedService, address, serviceDate } = findOrder;
         // Step 2: Fetch service category
-        const allService = await axios.get('http://localhost:7987/api/v1/get-all-service');
+        const allService = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-service');
         const serviceId = allService.data.data.find((item) => item.name === selectedService);
         // const findMainService = serviceId.subCategoryId.find((item) => item.name === selectedService);
         const serviceName = serviceId.name;
@@ -1733,7 +1733,7 @@ exports.makeOrderPayment = async (req, res) => {
             name: "User",
             amount: integerAmount * 100,
             callbackUrl: `https://www.blueaceindia.com/failed-payment`,
-            redirectUrl: `http://localhost:7987/api/v1/status-payment/${transactionId}`,
+            redirectUrl: `https://www.api.blueaceindia.com/api/v1/status-payment/${transactionId}`,
             redirectMode: 'POST',
             paymentInstrument: {
                 type: 'PAY_PAGE'
@@ -1930,9 +1930,9 @@ exports.makeOrderPaymentApp = async (req, res) => {
             merchantTransactionId: transactionId,
             merchantUserId,
             amount: integerAmount * 100,
-            redirectUrl: `http://localhost:7987/api/v1/status-payment-app/${transactionId}`,
+            redirectUrl: `https://www.api.blueaceindia.com/api/v1/status-payment-app/${transactionId}`,
             redirectMode: "POST",
-            callbackUrl: `http://localhost:7987/api/v1/status-payment-app/${transactionId}`,
+            callbackUrl: `https://www.api.blueaceindia.com/api/v1/status-payment-app/${transactionId}`,
             paymentInstrument: {
                 type: "PAY_PAGE",
             },
@@ -2095,7 +2095,7 @@ exports.verifyOrderPaymentApp = async (req, res) => {
 
             console.log("Order and vendor updated successfully")
 
-            const successRedirect = `http://localhost:7987/successfull-payment-app?orderId=${findOrder._id}`
+            const successRedirect = `https://www.api.blueaceindia.com/successfull-payment-app?orderId=${findOrder._id}`
             console.log("Redirecting to success page", { successRedirect })
             return res.redirect(successRedirect)
         } else {

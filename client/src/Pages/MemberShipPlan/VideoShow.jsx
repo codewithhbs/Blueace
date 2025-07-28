@@ -22,7 +22,7 @@ const VideoShow = () => {
   const handleFetchVideo = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get('http://localhost:7987/api/v1/get-test-video')
+      const { data } = await axios.get('https://www.api.blueaceindia.com/api/v1/get-test-video')
       const allVideo = data.data.video
       setVideo(allVideo)
     } catch (error) {
@@ -40,7 +40,7 @@ const VideoShow = () => {
   const handleVideoDone = async () => {
     try {
       setCompletingVideo(true)
-      const response = await axios.put(`http://localhost:7987/api/v1/update-test-field-vendor/${id}`, {
+      const response = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-test-field-vendor/${id}`, {
         videoWatched: true
       })
       if (response.data.success) {
