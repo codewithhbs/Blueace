@@ -84,10 +84,10 @@ function AllBlog() {
                     headers={headers}
                     elements={currentBlogs.map((blog, index) => (
                         <tr key={blog._id}>
-                            <td>{index + 1}</td>
+                            <td>{indexOfFirstBlog + index + 1}</td>
                             <td className='fw-bolder'>{blog.title || "Not Available"}</td>
-                            <td className='text-danger fw-bolder'><img src={blog?.smallImage?.url} width={50} alt="" /></td>
-                            <td className='text-danger fw-bolder'><img src={blog?.largeImage?.url} width={50} alt="" /></td>
+                            <td><img src={blog?.smallImage?.url} width={50} alt="small" /></td>
+                            <td><img src={blog?.largeImage?.url} width={50} alt="large" /></td>
                             <td className='fw-bolder'>{blog.content ? blog.content.substring(0, 14) + '....' : "Not Available"}</td>
                             <td className='fw-bolder'>{blog.metaTitle ? blog.metaTitle.substring(0, 14) + '....' : "Not Available"}</td>
                             <td className='fw-bolder'>{blog.metaDescription ? blog.metaDescription.substring(0, 14) + '....' : "Not Available"}</td>
@@ -95,18 +95,15 @@ function AllBlog() {
                             <td>
                                 <Toggle
                                     isActive={blog.isTranding}
-                                    onToggle={() => handleToggleIsTranding(blog._id, blog.isTranding)} // Pass blog ID and current isTranding status
+                                    onToggle={() => handleToggleIsTranding(blog._id, blog.isTranding)}
                                 />
                             </td>
-                            <td className='fw-bolder'>
+                            <td>
                                 <div className="product-action">
                                     <Link to={`/home-layout/edit-blog/${blog._id}`}>
-                                        <i class="ri-pencil-fill"></i>
+                                        <i className="ri-pencil-fill"></i>
                                     </Link>
-                                    {/* <svg onClick={() => handleDelete(blog._id)} style={{ cursor: 'pointer' }}>
-                                        <use href="/assets/svg/icon-sprite.svg#trash1"></use>
-                                    </svg> */}
-                                    <i onClick={() => handleDelete(blog._id)} style={{ cursor: 'pointer' }} class="ri-delete-bin-fill"></i>
+                                    <i onClick={() => handleDelete(blog._id)} style={{ cursor: 'pointer', marginLeft: '10px' }} className="ri-delete-bin-fill"></i>
                                 </div>
                             </td>
                         </tr>
@@ -115,11 +112,10 @@ function AllBlog() {
                     productsPerPage={productsPerPage}
                     currentPage={currentPage}
                     paginate={setCurrentPage}
-
                     href="/home-layout/add-blog"
                     text="Add Blog"
                     errorMsg=""
-                    handleOpen={() => { }}
+                    handleOpen={() => {}}
                 />
             )}
         </div>

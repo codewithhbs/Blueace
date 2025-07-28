@@ -38,20 +38,28 @@ const UserApp = () => {
                 </div>
               </a>
 
-              <div className="app-download-btn app-download-disabled">
+              <a
+                href='https://play.google.com/store/apps/details?id=com.hbs.blueacea&hl=en'
+                target="_blank"
+                rel="noopener noreferrer"
+                className="app-download-btn">
                 <Smartphone className="app-download-icon" />
                 <div className="app-download-text">
-                  <span className="app-download-small">Coming Soon</span>
+                  <span className="app-download-small">Download from</span>
                   <span className="app-download-large">Play Store</span>
                 </div>
-              </div>
-              <div className="app-download-btn app-download-disabled">
+              </a>
+              <a 
+              href='https://apps.apple.com/in/app/blueace/id6746443628'
+              target="_blank"
+              rel="noopener noreferrer"
+              className="app-download-btn">
                 <Smartphone className="app-download-icon" />
                 <div className="app-download-text">
-                  <span className="app-download-small">Coming Soon</span>
+                  <span className="app-download-small">Download from</span>
                   <span className="app-download-large">App Store</span>
                 </div>
-              </div>
+              </a>
             </div>
 
             {/* Features */}

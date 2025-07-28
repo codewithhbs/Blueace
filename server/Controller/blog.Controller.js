@@ -89,12 +89,13 @@ exports.createBlog = async (req, res) => {
 
 exports.getAllBlog = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip = (page - 1) * limit;
+        // const page = parseInt(req.query.page) || 1;
+        // const limit = parseInt(req.query.limit) || 10;
+        // const skip = (page - 1) * limit;
 
-        const blogs = await Blog.find().skip(skip).limit(limit);
-        const totalBlogs = await Blog.countDocuments();
+        // const blogs = await Blog.find().skip(skip).limit(limit);
+        const blogs = await Blog.find();
+        // const totalBlogs = await Blog.countDocuments();
         if (!blogs) {
             return res.status(400).json({
                 success: false,
@@ -105,8 +106,8 @@ exports.getAllBlog = async (req, res) => {
             success: true,
             message: 'Blogs retrieved successfully',
             data: blogs,
-            totalPages: Math.ceil(totalBlogs / limit),
-            currentPage: page
+            // totalPages: Math.ceil(totalBlogs / limit),
+            // currentPage: page
         })
     } catch (error) {
         console.log("internal server error in getting blog", error)
