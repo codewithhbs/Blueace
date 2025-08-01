@@ -274,49 +274,77 @@ exports.makeOrderFromAdmin = async (req, res) => {
 exports.createOrderByChatBot = async (req, res) => {
     try {
         const { OrderId } = req.params;
+        const { type } = req.query; // 'order' or 'complaint'
         const AdminNumber = process.env.ADMIN_NUMBER || '9311539090';
 
-        // Step 1: Fetch booking details
-        const { data } = await axios.get('https://api.chatbot.adsdigitalmedia.com/api/auth/get-my-booking?metacode=chatbot-QUP9P-CCQS2');
-        const allOrder = data.bookings;
-        // console.log("allOrder",allOrder)
-        const findOrder = allOrder.find((item) => item._id === OrderId);
+        // Step 1: Determine API URL based on type
+        let apiUrl = '';
+        let isComplaint = false;
+
+        if (type === 'complaint') {
+            apiUrl = 'https://api.chatbot.adsdigitalmedia.com/api/auth/complaints?metacode=chatbot-QUP9P-CCQS2';
+            isComplaint = true;
+        } else if (type === 'order') {
+            apiUrl = 'https://api.chatbot.adsdigitalmedia.com/api/auth/get-my-booking?metacode=chatbot-QUP9P-CCQS2';
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid type. Expected 'order' or 'complaint'."
+            });
+        }
+
+        // Step 2: Fetch booking or complaint details
+        const { data } = await axios.get(apiUrl);
+        const records = isComplaint ? data.bookings : data.bookings;
+        const findOrder = records.find((item) => item._id === OrderId);
+
+        if (!findOrder) {
+            return res.status(404).json({
+                success: false,
+                message: `${isComplaint ? 'Complaint' : 'Order'} not found`
+            });
+        }
 
         const { name, phone, selectedCategory, selectedService, address, serviceDate } = findOrder;
-        // Step 2: Fetch service category
+
+        const serviceDateFinal = serviceDate || 'Wednesday, July 30, 2025';
+
+        // Step 3: Fetch service info
         const allService = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-service');
         const serviceId = allService.data.data.find((item) => item.name === selectedService);
-        // const findMainService = serviceId.subCategoryId.find((item) => item.name === selectedService);
+
+        if (!serviceId) {
+            return res.status(400).json({
+                success: false,
+                message: "Selected service not found in system"
+            });
+        }
+
         const serviceName = serviceId.name;
 
-        // Step 3: Find or create user
+        // Step 4: Find or create user
         let newUserId;
-
-        // 1. Check if phone exists in User
         const findUser = await User.findOne({ ContactNumber: phone });
-        // console.log("firstName useer", findUser)
-        const email = 'demo@gmail.com'
 
         if (findUser) {
             newUserId = findUser._id;
         } else {
-            // 2. If not in User, check in Vendor
             const findVendor = await Vendor.findOne({ ContactNumber: phone });
-            // console.log("firstName vendor", findVendor)
 
             if (findVendor) {
-                // Phone number exists in Vendor, so throw an error
-                // console.log( "This number already exists in Vendor records. Please use a different number.");
                 return res.status(400).json({
                     success: false,
                     message: "This number already exists in Vendor records. Please use a different number."
                 });
             } else {
-                // 3. Create new User if not found in both
+                // Generate a unique email
+                const timestamp = Date.now();
+                const uniqueEmail = `user_${timestamp}@example.com`;
+
                 const newUser = new User({
                     FullName: name,
                     ContactNumber: phone,
-                    Email: email,
+                    Email: uniqueEmail,
                     Password: '12345678'
                 });
                 await newUser.save();
@@ -324,15 +352,17 @@ exports.createOrderByChatBot = async (req, res) => {
             }
         }
 
-        // Step 4: Geocode the address
+        const checkAddress = address || 'sectore 26 noida'
+        console.log('checkAddress',checkAddress)
+        // Step 5: Geocode address
         const geoResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
             params: {
-                address,
-                key: GOOGLE_MAPS_API_KEY
+                address: checkAddress,
+                key: process.env.GOOGLE_MAPS_API_KEY
             }
         });
 
-        // console.log("geoResponse",geoResponse)
+        console.log('geoResponse',geoResponse.data)
 
         if (geoResponse.data.status !== 'OK' || !geoResponse.data.results.length) {
             throw new Error('Failed to geocode address');
@@ -340,7 +370,6 @@ exports.createOrderByChatBot = async (req, res) => {
 
         const result = geoResponse.data.results[0];
 
-        // Safe helper
         const getComponent = (type) => {
             const comp = result.address_components.find((c) => c.types.includes(type));
             return comp ? comp.long_name : null;
@@ -355,18 +384,18 @@ exports.createOrderByChatBot = async (req, res) => {
         const nearByLandMark = getComponent('neighborhood') || getComponent('sublocality') || getComponent('political');
 
         const voiceNoteDetails = null;
-        const message = 'This is a booking created via chatbot';
+        const message = isComplaint ? 'This is a complaint created via chatbot' : 'This is a booking created via chatbot';
 
-        // Step 5: Save order (example model)
+        // Step 6: Save order
         const newOrder = new Order({
             userId: newUserId,
             serviceId: serviceId._id,
             serviceType: selectedService,
             fullName: findUser?.FullName || name,
-            email: findUser?.Email || email,
+            email: findUser?.Email || uniqueEmail || 'user@example.com',
             phoneNumber: findUser?.ContactNumber || phone,
             address: formatted_address,
-            workingDateUserWant: serviceDate,
+            workingDateUserWant: serviceDateFinal,
             city,
             pinCode,
             houseNo,
@@ -378,7 +407,7 @@ exports.createOrderByChatBot = async (req, res) => {
                 {
                     location: {
                         type: 'Point',
-                        coordinates: [lng, lat] // [longitude, latitude]
+                        coordinates: [lng, lat]
                     }
                 }
             ],
@@ -387,8 +416,8 @@ exports.createOrderByChatBot = async (req, res) => {
 
         await newOrder.save();
 
-        var newOrderTime = new Date();
-        newOrderTime = newOrderTime.toISOString().replace('T', ' ').replace('Z', '');
+        // Step 7: Send WhatsApp
+        const newOrderTime = new Date().toISOString().replace('T', ' ').replace('Z', '');
         const longaddress = formatted_address.replace(/,/g, '');
         const serviceType = selectedService;
 
@@ -396,28 +425,21 @@ exports.createOrderByChatBot = async (req, res) => {
 
         const Param = [
             safe(findUser?.FullName || name),
-            safe(findUser?.Email || email),
+            safe(findUser?.Email || uniqueEmail || 'user@example.com'),
             safe(findUser?.ContactNumber || phone),
             safe(serviceName),
             safe(serviceType),
             safe(message),
-            safe(houseNo, 'House NA'), // default instead of "HOu" for clarity
+            safe(houseNo, 'House NA'),
             safe(longaddress),
             safe(pinCode),
         ];
 
+        await SendWhatsapp(AdminNumber, 'order_detail_to_admin', Param);
 
-        await SendWhatsapp(AdminNumber, 'order_detail_to_admin', Param)
-
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
-            message: 'Order created successfully',
-            data: newOrder
-        });
-
-        return res.status(200).json({
-            success: true,
-            message: 'Order created successfully',
+            message: `${isComplaint ? 'Complaint' : 'Order'} created successfully`,
             data: newOrder
         });
 
@@ -2289,7 +2311,7 @@ exports.serviceDoneOrder = async (req, res) => {
 
 exports.updateIsInvetorAc = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const { isInvetorAc } = req.body;
         // console.log("id",id,"isInvetorAc", isInvetorAc)
         const order = await Order.findById(id);
