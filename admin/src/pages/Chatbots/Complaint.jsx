@@ -293,6 +293,18 @@ const Complaint = () => {
             </tbody>
           </table>
         </div>
+         {/* Pagination */}
+        <div className="comp-pagination">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={`comp-page-btn ${currentPage === i + 1 ? 'active' : ''}`}
+              onClick={() => handlePageChange(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
