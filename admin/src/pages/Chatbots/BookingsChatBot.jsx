@@ -77,7 +77,8 @@ const BookingsChatBot = () => {
       setLoading(false)
     }
   }
-
+ 
+  
   // Create Order function
   const createOrder = async (bookingId) => {
     try {

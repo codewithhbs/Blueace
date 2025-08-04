@@ -284,8 +284,10 @@ exports.createOrderByChatBot = async (req, res) => {
         if (type === 'complaint') {
             apiUrl = 'https://api.chatbot.adsdigitalmedia.com/api/auth/complaints?metacode=chatbot-QUP9P-CCQS2';
             isComplaint = true;
+            console.log('i am in complaint')
         } else if (type === 'order') {
             apiUrl = 'https://api.chatbot.adsdigitalmedia.com/api/auth/get-my-booking?metacode=chatbot-QUP9P-CCQS2';
+            console.log('i am in order')
         } else {
             return res.status(400).json({
                 success: false,
@@ -308,10 +310,32 @@ exports.createOrderByChatBot = async (req, res) => {
         const { name, phone, selectedCategory, selectedService, address, serviceDate } = findOrder;
 
         const serviceDateFinal = serviceDate || 'Wednesday, July 30, 2025';
+        console.log('selectedCategory:', selectedCategory, 'selectedService:', selectedService);
 
-        // Step 3: Fetch service info
+        // Step 1: Fetch all services
         const allService = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-service');
-        const serviceId = allService.data.data.find((item) => item.name === selectedService);
+        const services = allService.data.data;
+
+        // Step 2: Normalize strings by trimming whitespace
+        const servicesByName = services.filter(
+            item => item.name?.trim() === selectedService.trim()
+        );
+
+        // Step 3: Further filter by trimmed subCategory name
+        const serviceId = servicesByName.filter(
+            item => item.subCategoryId?.name?.trim() === selectedCategory.trim()
+        );
+
+        // Step 4: Log results
+        console.log('serviceId:', serviceId[0]);
+
+        console.log('Total services:', services.length);
+        console.log('Services matching name:', servicesByName.length);
+        console.log('Final matched services (name + subCategory):', serviceId.length);
+        console.log('Matched service details:', serviceId);
+
+
+
 
         if (!serviceId) {
             return res.status(400).json({
@@ -320,7 +344,7 @@ exports.createOrderByChatBot = async (req, res) => {
             });
         }
 
-        const serviceName = serviceId.name;
+        const serviceName = serviceId[0].name;
 
         // Step 4: Find or create user
         let newUserId;
@@ -353,7 +377,7 @@ exports.createOrderByChatBot = async (req, res) => {
         }
 
         const checkAddress = address || 'sectore 26 noida'
-        console.log('checkAddress',checkAddress)
+        // console.log('checkAddress',checkAddress)
         // Step 5: Geocode address
         const geoResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
             params: {
@@ -362,7 +386,7 @@ exports.createOrderByChatBot = async (req, res) => {
             }
         });
 
-        console.log('geoResponse',geoResponse.data)
+        // console.log('geoResponse',geoResponse.data)
 
         if (geoResponse.data.status !== 'OK' || !geoResponse.data.results.length) {
             throw new Error('Failed to geocode address');
@@ -385,11 +409,11 @@ exports.createOrderByChatBot = async (req, res) => {
 
         const voiceNoteDetails = null;
         const message = isComplaint ? 'This is a complaint created via chatbot' : 'This is a booking created via chatbot';
-
+console.log(' serviceId: serviceId._id', serviceId[0]._id)
         // Step 6: Save order
         const newOrder = new Order({
             userId: newUserId,
-            serviceId: serviceId._id,
+            serviceId: serviceId[0]._id,
             serviceType: selectedService,
             fullName: findUser?.FullName || name,
             email: findUser?.Email || uniqueEmail || 'user@example.com',
@@ -413,6 +437,8 @@ exports.createOrderByChatBot = async (req, res) => {
             ],
             orderTime: new Date(),
         });
+
+        // console.log('newOrder',newOrder)
 
         await newOrder.save();
 
