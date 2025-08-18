@@ -102,7 +102,7 @@ const Complaint = () => {
         throw new Error(result.message || 'Failed to create order');
       }
     } catch (err) {
-      console.log('Internal server error',err)
+      console.log('Internal server error', err)
       toast.error('Failed to create order: ' + (err.response?.data?.message || err.message));
       setTimeout(() => setError(''), 5000);
     } finally {
@@ -248,6 +248,8 @@ const Complaint = () => {
                 <th>Service</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Address</th>
+                <th>Service Date</th>
                 <th>Created Date</th>
                 <th>Actions</th>
               </tr>
@@ -262,6 +264,7 @@ const Complaint = () => {
               ) : (
                 filteredComplaints.map((complaint) => (
                   <tr key={complaint._id}>
+                    {console.log("complaint", complaint)}
                     <td>{complaint.complaintId}</td>
                     <td>{complaint.name}</td>
                     <td>{complaint.phone}</td>
@@ -273,6 +276,17 @@ const Complaint = () => {
                         {complaint.status}
                       </span>
                     </td>
+                    <td>{complaint.address || 'N/A'}</td>
+                    <td>
+                      {complaint.serviceDate
+                        ? new Date(complaint.serviceDate).toLocaleDateString('en-US', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })
+                        : 'N/A'}
+                    </td>
+
                     <td>{formatDate(complaint.createdAt)}</td>
                     <td>
                       <div className="comp-actions-cell">
@@ -293,7 +307,7 @@ const Complaint = () => {
             </tbody>
           </table>
         </div>
-         {/* Pagination */}
+        {/* Pagination */}
         <div className="comp-pagination">
           {Array.from({ length: totalPages }, (_, i) => (
             <button
