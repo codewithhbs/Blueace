@@ -306,15 +306,15 @@ exports.login = async (req, res) => {
             }
         }
 
-        if(model === 'Vendor'){
-            if(user.ableToWork === false){
-                return res.status(400).json({
-                    success: false,
-                    message: 'You are currently not eligible to start work. Please retake the test to proceed.',
-                    data: user
-                })
-            }
-        }
+        // if(model === 'Vendor'){
+        //     if(user.ableToWork === false){
+        //         return res.status(400).json({
+        //             success: false,
+        //             message: 'You are currently not eligible to start work. Please retake the test to proceed.',
+        //             data: user
+        //         })
+        //     }
+        // }
 
         // Verify password
         const isMatch = await user.comparePassword(Password);

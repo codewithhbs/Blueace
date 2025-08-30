@@ -421,9 +421,9 @@ function SubCategory() {
                     <div className='mb-3 col-lg-12'>
                       <input type='text' name='fullName' className='form-control' placeholder='Full Name' required onChange={handleChange} />
                     </div>
-                    <div className='mb-3 col-lg-12'>
+                    {/* <div className='mb-3 col-lg-12'>
                       <input type='email' name='email' className='form-control' placeholder='Email' required onChange={handleChange} />
-                    </div>
+                    </div> */}
                     <div className='mb-3 col-lg-12'>
                       <input type='tel' name='phoneNumber' className='form-control' placeholder='Phone' required onChange={handleChange} />
                     </div>
