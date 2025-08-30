@@ -805,13 +805,13 @@ exports.vendorLogin = async (req, res) => {
             });
         }
         // console.log("vendor.ableToWork",vendor.ableToWork)
-        if (vendor.ableToWork === false) {
-            return res.status(400).json({
-                success: false,
-                message: 'You are currently not eligible to start work. Please retake the test to proceed.',
-                data: vendor
-            });
-        }
+        // if (vendor.ableToWork === false) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'You are currently not eligible to start work. Please retake the test to proceed.',
+        //         data: vendor
+        //     });
+        // }
 
         // Successful login, send token
         await sendToken(vendor, res, 200);
