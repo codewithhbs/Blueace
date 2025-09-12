@@ -1116,12 +1116,12 @@ exports.AssignVendor = async (req, res) => {
 
         // console.log("isVendorBusy", isVendorBusy)
 
-        if (isVendorBusy) {
-            return res.status(404).json({
-                success: false,
-                message: "Vendor already working on this day and time"
-            });
-        }
+        // if (isVendorBusy) {
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "Vendor already working on this day and time"
+        //     });
+        // }
 
         // Get the current IST time
         const currentISTTime = new Date().toLocaleString('en-US', {
