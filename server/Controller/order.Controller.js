@@ -2259,7 +2259,7 @@ exports.getAllDataOfVendor = async (req, res) => {
         // const query = { vendorAlloted: new mongoose.Types.ObjectId(vendorId) };
 
         const foundInOrders = await Order.find(query)
-            .populate("errorCode EstimatedBill serviceId");
+            .populate("errorCode EstimatedBill serviceId userId");
 
         if (foundInOrders.length === 0) {
             return res.status(200).json({
