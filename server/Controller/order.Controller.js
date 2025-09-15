@@ -2243,9 +2243,8 @@ exports.getSingleOrder = async (req, res) => {
 
 exports.getAllDataOfVendor = async (req, res) => {
     try {
-        const { vendorId, stauts = "Service Done" } = req.query;
+        const { vendorId } = req.query;
 
-        console.log("vendorId", vendorId)
         if (!vendorId) {
             return res.status(400).json({
                 success: false,
@@ -2253,22 +2252,14 @@ exports.getAllDataOfVendor = async (req, res) => {
             });
         }
 
+        // Use string match if schema stores vendorAlloted as string
+        const query = { vendorAlloted: vendorId };
 
-
-
-        const id = new mongoose.Types.ObjectId(vendorId);
-        console.log(id)
-
-        const query = {
-            vendorAlloted: id
-        };
-
-        if (stauts !== "All") {
-            query.OrderStatus = stauts;
-        }
+        // If schema uses ObjectId, uncomment this instead:
+        // const query = { vendorAlloted: new mongoose.Types.ObjectId(vendorId) };
 
         const foundInOrders = await Order.find(query)
-            .populate('errorCode EstimatedBill serviceId');
+            .populate("errorCode EstimatedBill serviceId");
 
         if (foundInOrders.length === 0) {
             return res.status(200).json({
@@ -2278,22 +2269,20 @@ exports.getAllDataOfVendor = async (req, res) => {
             });
         }
 
-        const calculateEarning = foundInOrders.reduce((acc, item) => (
-            acc + item.adminCommissionAmount
-        ), 0);
-
-        const calculateTotalOrders = foundInOrders.length;
+        const calculateEarning = foundInOrders.reduce(
+            (acc, item) => acc + (item.adminCommissionAmount || 0),
+            0
+        );
 
         return res.status(200).json({
             success: true,
             message: "Data fetched successfully",
             data: {
                 earning: calculateEarning,
-                totalOrders: calculateTotalOrders,
+                totalOrders: foundInOrders.length,
                 orders: foundInOrders
             }
         });
-
     } catch (error) {
         console.error("Internal server error", error);
         res.status(500).json({
@@ -2303,6 +2292,7 @@ exports.getAllDataOfVendor = async (req, res) => {
         });
     }
 };
+
 
 
 exports.serviceDoneOrder = async (req, res) => {
