@@ -13,7 +13,8 @@ function AllVendors() {
     const [currentPage, setCurrentPage] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedVendor, setSelectedVendor] = useState(null);
-    const [filterText, setFilterText] = useState("");
+    const [filterText, setFilterText] = useState(""); // Company name filter
+    const [filterPhoneNumber, setFilterPhoneNumber] = useState(""); // Phone number filter
     const [registerAddress, setRegisterAddress] = useState("");
     const [showFilter, setShowFilter] = useState(false);
     const [startDate, setStartDate] = useState(null);
@@ -28,6 +29,7 @@ function AllVendors() {
             setVendors(vendorsData);
         } catch (error) {
             toast.error('An error occurred while fetching vendor data.');
+            console.error('Fetch error:', error);
         } finally {
             setLoading(false);
         }
@@ -37,21 +39,48 @@ function AllVendors() {
         fetchVendorDetail();
     }, []);
 
+    // Reset currentPage to 1 when any filter changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filterText, filterPhoneNumber, registerAddress, startDate, endDate]);
+
     // Filtering logic
     const filteredVendors = vendors.filter((vendor) => {
-        const companyNameMatch = vendor.companyName.toLowerCase().includes(filterText.toLowerCase());
-        const registerAddressMatch = vendor.address.toLowerCase().includes(registerAddress.toLowerCase());
-        const vendorDate = moment(vendor.createdAt);
-        const startDateMatch = startDate ? vendorDate.isSameOrAfter(moment(startDate).startOf('day')) : true;
-        const endDateMatch = endDate ? vendorDate.isSameOrBefore(moment(endDate).endOf('day')) : true;
+        const companyNameMatch = filterText
+            ? vendor.companyName && vendor.companyName.toLowerCase().includes(filterText.toLowerCase())
+            : true;
+        const phoneNumberMatch = filterPhoneNumber
+            ? vendor.ContactNumber && vendor.ContactNumber.includes(filterPhoneNumber)
+            : true;
+        const registerAddressMatch = registerAddress
+            ? vendor.address && vendor.address.toLowerCase().includes(registerAddress.toLowerCase())
+            : true;
 
-        return companyNameMatch  && registerAddressMatch && startDateMatch && endDateMatch;
+        let dateMatch = true;
+        if (vendor.createdAt) {
+            const vendorDate = moment(vendor.createdAt);
+            if (vendorDate.isValid()) {
+                const startDateMatch = startDate ? vendorDate.isSameOrAfter(moment(startDate).startOf('day')) : true;
+                const endDateMatch = endDate ? vendorDate.isSameOrBefore(moment(endDate).endOf('day')) : true;
+                dateMatch = startDateMatch && endDateMatch;
+            }
+        }
+
+        return companyNameMatch && phoneNumberMatch && registerAddressMatch && dateMatch;
     });
 
     // Pagination logic
     const indexOfLastVendor = currentPage * productsPerPage;
     const indexOfFirstVendor = indexOfLastVendor - productsPerPage;
     const currentVendors = filteredVendors.slice(indexOfFirstVendor, indexOfLastVendor);
+
+    // Ensure currentPage doesn't exceed the total number of pages
+    const totalPages = Math.ceil(filteredVendors.length / productsPerPage);
+    useEffect(() => {
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [filteredVendors.length, currentPage, totalPages]);
 
     // Toggle vendor active/deactive status
     const handleToggle = async (id, currentDeactiveStatus) => {
@@ -67,6 +96,7 @@ function AllVendors() {
             }
         } catch (error) {
             toast.error("Error updating the status");
+            console.error("Toggle error:", error);
         }
     };
 
@@ -82,6 +112,7 @@ function AllVendors() {
             }
         } catch (error) {
             toast.error('Error deleting the vendor.');
+            console.error("Delete error:", error);
         }
     };
 
@@ -90,7 +121,7 @@ function AllVendors() {
         setModalVisible(true);
     };
 
-    const headers = ['S.No', 'Company Name', 'Owner Name', 'Owner Number', 'Email', "Type", 'View', "Address", 'Deactive', 'Delete', 'Edit Vendor', 'Created At'];
+    const headers = ['S.No', 'Company Name', 'Owner Name', 'Owner Number', 'Email', 'Type', 'View', 'Address', 'Deactive', 'Delete', 'Edit Vendor', 'Created At'];
 
     return (
         <div className='page-body'>
@@ -107,8 +138,9 @@ function AllVendors() {
                         {showFilter && (
                             <div className="mt-2 row">
                                 <div className="col-md-3">
-                                    <label htmlFor="" className='form-label'>Search by Company Name</label>
+                                    <label htmlFor="companyFilter" className='form-label'>Search by Company Name</label>
                                     <input
+                                        id="companyFilter"
                                         type="text"
                                         className="form-control mb-2"
                                         placeholder="Search by Company Name"
@@ -117,8 +149,20 @@ function AllVendors() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="" className='form-label'>Search by Address</label>
+                                    <label htmlFor="phoneFilter" className='form-label'>Search by Phone Number</label>
                                     <input
+                                        id="phoneFilter"
+                                        type="text"
+                                        className="form-control mb-2"
+                                        placeholder="Search by Phone Number"
+                                        value={filterPhoneNumber}
+                                        onChange={(e) => setFilterPhoneNumber(e.target.value)}
+                                    />
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="addressFilter" className='form-label'>Search by Address</label>
+                                    <input
+                                        id="addressFilter"
                                         type="text"
                                         className="form-control mb-2"
                                         placeholder="Search by Register Address"
@@ -127,8 +171,9 @@ function AllVendors() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="" className='form-label'>Search by Starting Date</label>
+                                    <label htmlFor="startDateFilter" className='form-label'>Search by Starting Date</label>
                                     <input
+                                        id="startDateFilter"
                                         type="date"
                                         className="form-control mb-2"
                                         value={startDate ? moment(startDate).format("YYYY-MM-DD") : ""}
@@ -136,8 +181,9 @@ function AllVendors() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="" className='form-label'>Search by Ending Date</label>
+                                    <label htmlFor="endDateFilter" className='form-label'>Search by Ending Date</label>
                                     <input
+                                        id="endDateFilter"
                                         type="date"
                                         className="form-control mb-2"
                                         value={endDate ? moment(endDate).format("YYYY-MM-DD") : ""}
@@ -148,13 +194,18 @@ function AllVendors() {
                         )}
                     </div>
 
+                    {/* Display filtered count for clarity */}
+                    <div className="mb-3">
+                        Showing {filteredVendors.length} of {vendors.length} vendors
+                    </div>
+
                     {/* Vendor Table */}
                     <Table
                         headers={headers}
                         elements={currentVendors.map((vendor, index) => (
                             <tr key={vendor._id}>
                                 <td>{index + 1}</td>
-                                <td>{vendor.companyName}</td>
+                                <td>{vendor.companyName || "Not-Available"}</td>
                                 <td>{vendor.ownerName || "Not-Available"}</td>
                                 <td>{vendor.ContactNumber || "Not-Available"}</td>
                                 <td>{vendor.Email || "Not-Available"}</td>
@@ -162,7 +213,7 @@ function AllVendors() {
                                 <td>
                                     <button className="btn btn-info" onClick={() => handleView(vendor)}>View</button>
                                 </td>
-                                <td>{`${vendor.HouseNo}, ${vendor.address}, ${vendor.PinCode}` || "Not-Available"}</td>
+                                <td>{vendor.address ? `${vendor.HouseNo}, ${vendor.address}, ${vendor.PinCode}` : "Not-Available"}</td>
                                 <td>
                                     <Toggle
                                         isActive={vendor.isDeactive}
@@ -175,7 +226,7 @@ function AllVendors() {
                                 <td>
                                     <Link to={`/vendors/edit-vendor/${vendor._id}`} className="btn btn-danger">Edit</Link>
                                 </td>
-                                <td>{new Date(vendor.createdAt).toLocaleString()}</td>
+                                <td>{vendor.createdAt ? new Date(vendor.createdAt).toLocaleString() : "Not-Available"}</td>
                             </tr>
                         ))}
                         productLength={filteredVendors.length}
@@ -189,7 +240,6 @@ function AllVendors() {
                     />
 
                     {/* Modal for Vendor Details */}
-                    {/* Modal for Vendor Details */}
                     {modalVisible && selectedVendor && (
                         <div className="modal fade show" style={{ display: 'block' }}>
                             <div className="modal-dialog modal-xl">
@@ -201,96 +251,96 @@ function AllVendors() {
                                     <div className="modal-body">
                                         <div className="row">
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Company Name:</h6>
-                                                <p>{selectedVendor?.companyName}</p>
+                                                <h6 className='mb-2'>Company Name:</h6>
+                                                <p>{selectedVendor?.companyName || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Owner Name:</h6>
-                                                <p>{selectedVendor?.ownerName || "Not Available"}</p>
+                                                <h6 className='mb-2'>Owner Name:</h6>
+                                                <p>{selectedVendor?.ownerName || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Contact Number:</h6>
-                                                <p>{selectedVendor?.ContactNumber || "Not Available"}</p>
+                                                <h6 className='mb-2'>Contact Number:</h6>
+                                                <p>{selectedVendor?.ContactNumber || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Email:</h6>
-                                                <p>{selectedVendor?.Email || "Not Available"}</p>
+                                                <h6 className='mb-2'>Email:</h6>
+                                                <p>{selectedVendor?.Email || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Year of Registration:</h6>
-                                                <p>{selectedVendor?.yearOfRegistration || "Not Available"}</p>
+                                                <h6 className='mb-2'>Year of Registration:</h6>
+                                                <p>{selectedVendor?.yearOfRegistration || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Register Address:</h6>
-                                                <p>{`${selectedVendor?.HouseNo}, ${selectedVendor.address}, ${selectedVendor.PinCode}` || "Not-Available"}</p>
+                                                <h6 className='mb-2'>Register Address:</h6>
+                                                <p>{selectedVendor?.address ? `${selectedVendor.HouseNo}, ${selectedVendor.address}, ${selectedVendor.PinCode}` : "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>PAN Number:</h6>
-                                                <p>{selectedVendor?.panNo || "Not Available"}</p>
+                                                <h6 className='mb-2'>PAN Number:</h6>
+                                                <p>{selectedVendor?.panNo || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>GST Number:</h6>
-                                                <p>{selectedVendor?.gstNo || "Not Available"}</p>
+                                                <h6 className='mb-2'>GST Number:</h6>
+                                                <p>{selectedVendor?.gstNo || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Aadhar Number:</h6>
-                                                <p>{selectedVendor?.adharNo || "Not Available"}</p>
+                                                <h6 className='mb-2'>Aadhar Number:</h6>
+                                                <p>{selectedVendor?.adharNo || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Plan Name:</h6>
-                                                <p>{selectedVendor?.memberShipPlan?.name || "Not Available"}</p>
+                                                <h6 className='mb-2'>Plan Name:</h6>
+                                                <p>{selectedVendor?.memberShipPlan?.name || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Plan Price:</h6>
-                                                <p>{selectedVendor?.memberShipPlan?.price || "Not Available"}</p>
+                                                <h6 className='mb-2'>Plan Price:</h6>
+                                                <p>{selectedVendor?.memberShipPlan?.price || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Plan Payment Status:</h6>
-                                                <p>{selectedVendor?.PaymentStatus || "Not Available"}</p>
+                                                <h6 className='mb-2'>Plan Payment Status:</h6>
+                                                <p>{selectedVendor?.PaymentStatus || "Not-Available"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Verified:</h6>
+                                                <h6 className='mb-2'>Verified:</h6>
                                                 <p>{selectedVendor?.verifyed ? "Yes" : "No"}</p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 mb-3">
-                                                <h6 className=' mb-2'>Ready to Work:</h6>
+                                                <h6 className='mb-2'>Ready to Work:</h6>
                                                 <p>{selectedVendor?.readyToWork ? "Yes" : "No"}</p>
                                             </div>
 
                                             {/* Image Section */}
                                             <div className="row">
-                                            <div className=" col-lg-6 col-md-6 col-sm-6 mb-3">
-                                                <h6>PAN Image:</h6>
-                                                {selectedVendor.panImage?.url ? (
-                                                    <img src={selectedVendor?.panImage?.url} className=' mt-2' alt="PAN" style={{ width: '50%', height: '150px'  }} />
-                                                ) : (
-                                                    <p>Not Available</p>
-                                                )}
-                                            </div>
-                                            <div className=" col-lg-6 col-md-6 col-sm-6 mb-3">
-                                                <h6>Aadhar Image:</h6>
-                                                {selectedVendor.adharImage?.url ? (
-                                                    <img src={selectedVendor.adharImage?.url} className=' mt-2' alt="Aadhar" style={{ width: '50%', height: '150px'  }} />
-                                                ) : (
-                                                    <p>Not Available</p>
-                                                )}
-                                            </div>
-                                            <div className=" col-lg-6 col-md-6 col-sm-6 mb-3">
-                                                <h6>GST Image:</h6>
-                                                {selectedVendor.gstImage?.url ? (
-                                                    <img src={selectedVendor?.gstImage?.url} className=' mt-2' alt="GST" style={{ width: '50%', height: '150px'  }} />
-                                                ) : (
-                                                    <p>Not Available</p>
-                                                )}
-                                            </div>
-                                            <div className=" col-lg-6 col-md-6 col-sm-6 mb-3">
-                                                <h6>Vendor Image:</h6>
-                                                {selectedVendor.vendorImage?.url ? (
-                                                    <img src={selectedVendor?.vendorImage?.url} className=' mt-2' alt="Vendor" style={{ width: '50%', height: '150px'  }} />
-                                                ) : (
-                                                    <p>Not Available</p>
-                                                )}
-                                            </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                                    <h6>PAN Image:</h6>
+                                                    {selectedVendor.panImage?.url ? (
+                                                        <img src={selectedVendor.panImage.url} className='mt-2' alt="PAN" style={{ width: '50%', height: '150px' }} />
+                                                    ) : (
+                                                        <p>Not-Available</p>
+                                                    )}
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                                    <h6>Aadhar Image:</h6>
+                                                    {selectedVendor.adharImage?.url ? (
+                                                        <img src={selectedVendor.adharImage.url} className='mt-2' alt="Aadhar" style={{ width: '50%', height: '150px' }} />
+                                                    ) : (
+                                                        <p>Not-Available</p>
+                                                    )}
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                                    <h6>GST Image:</h6>
+                                                    {selectedVendor.gstImage?.url ? (
+                                                        <img src={selectedVendor.gstImage.url} className='mt-2' alt="GST" style={{ width: '50%', height: '150px' }} />
+                                                    ) : (
+                                                        <p>Not-Available</p>
+                                                    )}
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
+                                                    <h6>Vendor Image:</h6>
+                                                    {selectedVendor.vendorImage?.url ? (
+                                                        <img src={selectedVendor.vendorImage.url} className='mt-2' alt="Vendor" style={{ width: '50%', height: '150px' }} />
+                                                    ) : (
+                                                        <p>Not-Available</p>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +351,6 @@ function AllVendors() {
                             </div>
                         </div>
                     )}
-
                 </>
             )}
         </div>
