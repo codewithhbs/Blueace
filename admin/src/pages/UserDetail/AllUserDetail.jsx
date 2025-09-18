@@ -15,7 +15,7 @@ function AllUserDetail() {
     // States for filter inputs
     const [filterEmail, setFilterEmail] = useState("");
     const [filterPhoneNumber, setFilterPhoneNumber] = useState("");
-    const [filterAddress, setFilterAddress] = useState(""); // Add address filter state
+    const [filterAddress, setFilterAddress] = useState("");
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [showFilter, setShowFilter] = useState(false);
@@ -26,6 +26,7 @@ function AllUserDetail() {
             const res = await axios.get('https://www.api.blueaceindia.com/api/v1/AllUser');
             const datasave = res.data.data;
             const filterdata = datasave.filter((item) => item.UserType === "Normal");
+            console.log("filterdata", filterdata.length);
             const r = filterdata.reverse();
             setUsers(r);
         } catch (error) {
@@ -40,21 +41,48 @@ function AllUserDetail() {
         fetchUserDetail();
     }, []);
 
+    // Reset currentPage to 1 when any filter changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filterEmail, filterPhoneNumber, filterAddress, startDate, endDate]);
+
     const indexOfLastVoucher = currentPage * productsPerPage;
     const indexOfFirstVoucher = indexOfLastVoucher - productsPerPage;
 
     // Filter users based on Email, Phone Number, Address, and Date Range
     const filteredUsers = users.filter((user) => {
-        const emailMatch = user.Email.toLowerCase().includes(filterEmail.toLowerCase());
-        const phoneNumberMatch = user.ContactNumber.includes(filterPhoneNumber);
-        // const addressMatch = user.address.toLowerCase().includes(filterAddress.toLowerCase()); // Address filter logic
+        const emailMatch = filterEmail
+            ? user.Email && user.Email.toLowerCase().includes(filterEmail.toLowerCase())
+            : true;
+        const phoneNumberMatch = filterPhoneNumber
+            ? user.ContactNumber && user.ContactNumber.includes(filterPhoneNumber)
+            : true;
+        const addressMatch = filterAddress
+            ? user.address && user.address.toLowerCase().includes(filterAddress.toLowerCase())
+            : true;
 
-        const userDate = new Date(user.createdAt);
-        const startDateMatch = startDate ? userDate >= new Date(startDate) : true;
-        const endDateMatch = endDate ? userDate <= new Date(endDate) : true;
+        // Handle date filtering with validation for invalid dates
+        let userDate = null;
+        let dateMatch = true;
+        if (user.createdAt) {
+            userDate = new Date(user.createdAt);
+            if (!isNaN(userDate.getTime())) {
+                const startDateMatch = startDate ? userDate >= new Date(startDate) : true;
+                const endDateMatch = endDate ? userDate <= new Date(endDate) : true;
+                dateMatch = startDateMatch && endDateMatch;
+            }
+        }
 
-        return emailMatch && phoneNumberMatch && startDateMatch && endDateMatch;
+        return emailMatch && phoneNumberMatch && addressMatch && dateMatch;
     });
+
+    // Ensure currentPage doesn't exceed the total number of pages
+    const totalPages = Math.ceil(filteredUsers.length / productsPerPage);
+    useEffect(() => {
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [filteredUsers.length, currentPage, totalPages]);
 
     const currentServices = filteredUsers.slice(indexOfFirstVoucher, indexOfLastVoucher);
 
@@ -63,7 +91,7 @@ function AllUserDetail() {
         try {
             await axios.put(`https://www.api.blueaceindia.com/api/v1/update-user-type/${userId}`, { UserType: newUserType });
             toast.success('User type updated successfully!');
-            fetchUserDetail(); // Refetch the user details to update the table
+            fetchUserDetail();
         } catch (error) {
             toast.error('Failed to update user type.');
             console.error('Update error:', error);
@@ -102,7 +130,7 @@ function AllUserDetail() {
         }
     };
 
-    const headers = ['S.No', 'Name', 'Phone Number', 'Email', 'Address', "User Type", 'Deactive', 'Edit', 'Created At', "Action"];
+    const headers = ['S.No', 'Name', 'Phone Number', 'Email', 'Address', 'User Type', 'Deactive', 'Edit', 'Created At', 'Action'];
 
     return (
         <div className='page-body'>
@@ -119,37 +147,40 @@ function AllUserDetail() {
                         {showFilter && (
                             <div className="mt-2 row">
                                 <div className="col-md-3">
-                                    <label htmlFor="emailFilter">Search by Email</label>
+                                    <label htmlFor="emailFilter" className="form-label">Search by Email</label>
                                     <input
                                         id="emailFilter"
                                         type="text"
                                         className="form-control mb-2"
+                                        placeholder="Search by Email"
                                         value={filterEmail}
                                         onChange={(e) => setFilterEmail(e.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="phoneFilter">Search by Phone Number</label>
+                                    <label htmlFor="phoneFilter" className="form-label">Search by Phone Number</label>
                                     <input
                                         id="phoneFilter"
                                         type="text"
                                         className="form-control mb-2"
+                                        placeholder="Search by Phone Number"
                                         value={filterPhoneNumber}
                                         onChange={(e) => setFilterPhoneNumber(e.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="addressFilter">Search by Address</label>
+                                    <label htmlFor="addressFilter" className="form-label">Search by Address</label>
                                     <input
                                         id="addressFilter"
                                         type="text"
                                         className="form-control mb-2"
+                                        placeholder="Search by Address"
                                         value={filterAddress}
                                         onChange={(e) => setFilterAddress(e.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="startDate">Start Date</label>
+                                    <label htmlFor="startDate" className="form-label">Start Date</label>
                                     <input
                                         id="startDate"
                                         type="date"
@@ -159,7 +190,7 @@ function AllUserDetail() {
                                     />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="endDate">End Date</label>
+                                    <label htmlFor="endDate" className="form-label">End Date</label>
                                     <input
                                         id="endDate"
                                         type="date"
@@ -171,17 +202,21 @@ function AllUserDetail() {
                             </div>
                         )}
                     </div>
+
+                    {/* Display filtered count for clarity */}
+                    <div className="mb-3">
+                        Showing {filteredUsers.length} of {users.length} users
+                    </div>
+
                     <Table
                         headers={headers}
                         elements={currentServices.map((category, index) => (
                             <tr key={category._id}>
                                 <td>{index + 1}</td>
-                                <td className='fw-bolder'>{category.FullName}</td>
-                                <td className='fw-bolder'>{category.ContactNumber || "Not-Available"}</td>
-                                <td className='fw-bolder'>{category.Email || "Not-Available"}</td>
-                                <td className='fw-bolder'>{`${category.HouseNo}, ${category.address}, ${category.PinCode}` || "Not-Available"}</td>
-
-                                {/* Dropdown for updating UserType */}
+                                <td className="fw-bolder">{category.FullName || 'Not-Available'}</td>
+                                <td className="fw-bolder">{category.ContactNumber || "Not-Available"}</td>
+                                <td className="fw-bolder">{category.Email || "Not-Available"}</td>
+                                <td className="fw-bolder">{category.address ? `${category.HouseNo}, ${category.address}, ${category.PinCode}` : "Not-Available"}</td>
                                 <td>
                                     <select
                                         value={category.UserType || 'Normal'}
@@ -192,37 +227,33 @@ function AllUserDetail() {
                                         <option value="Corporate">Corporate</option>
                                     </select>
                                 </td>
-
                                 <td>
                                     <Toggle
                                         isActive={category.isDeactive}
-                                        onToggle={() => handleToggle(category._id, category.isDeactive)} // Pass vendor id and current active status
+                                        onToggle={() => handleToggle(category._id, category.isDeactive)}
                                     />
                                 </td>
-
                                 <td>
                                     <Link to={`/users/edit-user/${category._id}`} className="btn btn-danger">Edit</Link>
                                 </td>
-
-                                <td>{new Date(category.createdAt).toLocaleString() || "Not-Available"}</td>
-
-                                <td className='fw-bolder'>
+                                <td>{category.createdAt ? new Date(category.createdAt).toLocaleString() : "Not-Available"}</td>
+                                <td className="fw-bolder">
                                     <div className="product-action">
                                         <svg onClick={() => handleDelete(category._id)} style={{ cursor: 'pointer' }}>
-                                            <use href="/assets/svg/icon-sprite.svg#trash1"></use>
+                                            <use href="/assets/svg/icon-sprite.svg#trash1" />
                                         </svg>
                                     </div>
                                 </td>
                             </tr>
                         ))}
-                        productLength={users.length}
+                        productLength={filteredUsers.length}
                         productsPerPage={productsPerPage}
                         currentPage={currentPage}
                         paginate={setCurrentPage}
                         href="/users/add-user"
                         text="Add User"
                         errorMsg=""
-                        handleOpen={() => { }}
+                        handleOpen={() => {}}
                     />
                 </>
             )}

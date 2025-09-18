@@ -16,7 +16,7 @@ function AllCorporateUser() {
     const [filterEmail, setFilterEmail] = useState("");
     const [filterPhoneNumber, setFilterPhoneNumber] = useState("");
     const [filterCompanyName, setFilterCompanyName] = useState("");
-    const [filterAddress, setFilterAddress] = useState("");  // New state for address filter
+    const [filterAddress, setFilterAddress] = useState("");
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [showFilter, setShowFilter] = useState(false);
@@ -27,6 +27,7 @@ function AllCorporateUser() {
             const res = await axios.get('https://www.api.blueaceindia.com/api/v1/AllUser');
             const datasave = res.data.data;
             const filterdata = datasave.filter((item) => item.UserType === "Corporate");
+            console.log("filterdata", filterdata.length);
             const r = filterdata.reverse();
             setUsers(r);
         } catch (error) {
@@ -41,22 +42,51 @@ function AllCorporateUser() {
         fetchUserDetail();
     }, []);
 
+    // Reset currentPage to 1 when any filter changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filterEmail, filterPhoneNumber, filterCompanyName, filterAddress, startDate, endDate]);
+
     const indexOfLastVoucher = currentPage * productsPerPage;
     const indexOfFirstVoucher = indexOfLastVoucher - productsPerPage;
 
-    // Filter users based on Email, Phone Number, Address, and Date Range
+    // Filter users based on Email, Phone Number, Company Name, Address, and Date Range
     const filteredUsers = users.filter((user) => {
-        const emailMatch = user.Email && user.Email.toLowerCase().includes(filterEmail.toLowerCase());
-        const phoneNumberMatch = user.ContactNumber && user.ContactNumber.includes(filterPhoneNumber);
-        const companyNameMatch = user.companyName && user.companyName.toLowerCase().includes(filterCompanyName);
-        const addressMatch = user.address && user.address.toLowerCase().includes(filterAddress.toLowerCase()); // Address filter logic
+        const emailMatch = filterEmail
+            ? user.Email && user.Email.toLowerCase().includes(filterEmail.toLowerCase())
+            : true;
+        const phoneNumberMatch = filterPhoneNumber
+            ? user.ContactNumber && user.ContactNumber.includes(filterPhoneNumber)
+            : true;
+        const companyNameMatch = filterCompanyName
+            ? user.companyName && user.companyName.toLowerCase().includes(filterCompanyName.toLowerCase())
+            : true;
+        const addressMatch = filterAddress
+            ? user.address && user.address.toLowerCase().includes(filterAddress.toLowerCase())
+            : true;
 
-        const userDate = new Date(user.createdAt);
-        const startDateMatch = startDate ? userDate >= new Date(startDate) : true;
-        const endDateMatch = endDate ? userDate <= new Date(endDate) : true;
+        // Handle date filtering with validation for invalid dates
+        let userDate = null;
+        let dateMatch = true;
+        if (user.createdAt) {
+            userDate = new Date(user.createdAt);
+            if (!isNaN(userDate.getTime())) {
+                const startDateMatch = startDate ? userDate >= new Date(startDate) : true;
+                const endDateMatch = endDate ? userDate <= new Date(endDate) : true;
+                dateMatch = startDateMatch && endDateMatch;
+            }
+        }
 
-        return emailMatch && phoneNumberMatch && companyNameMatch && addressMatch && startDateMatch && endDateMatch;
+        return emailMatch && phoneNumberMatch && companyNameMatch && addressMatch && dateMatch;
     });
+
+    // Ensure currentPage doesn't exceed the total number of pages
+    const totalPages = Math.ceil(filteredUsers.length / productsPerPage);
+    useEffect(() => {
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [filteredUsers.length, currentPage, totalPages]);
 
     const currentServices = filteredUsers.slice(indexOfFirstVoucher, indexOfLastVoucher);
 
@@ -65,7 +95,7 @@ function AllCorporateUser() {
         try {
             await axios.put(`https://www.api.blueaceindia.com/api/v1/update-user-type/${userId}`, { UserType: newUserType });
             toast.success('User type updated successfully!');
-            fetchUserDetail(); // Refetch the user details to update the table
+            fetchUserDetail();
         } catch (error) {
             toast.error('Failed to update user type.');
             console.error('Update error:', error);
@@ -77,7 +107,7 @@ function AllCorporateUser() {
             const newDeactiveStatus = !currentDeactiveStatus;
             const response = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-user-deactive-status/${id}`, {
                 isDeactive: newDeactiveStatus
-            })
+            });
             if (response.data.success) {
                 toast.success('User status updated successfully.');
                 await fetchUserDetail();
@@ -85,13 +115,13 @@ function AllCorporateUser() {
                 toast.error('Failed to update User status.');
             }
         } catch (error) {
-            toast.error("An error occurred while updating the deactive status")
-            console.error("Toggle error:", error)
+            toast.error("An error occurred while updating the deactive status");
+            console.error("Toggle error:", error);
         }
-    }
+    };
 
     const handleChangeAMC = async (id, isAMCUser) => {
-        const updated = !isAMCUser
+        const updated = !isAMCUser;
         try {
             const res = await axios.put(`https://www.api.blueaceindia.com/api/v1/update-user-amc-status/${id}`, {
                 isAMCUser: updated
@@ -101,9 +131,9 @@ function AllCorporateUser() {
                 await fetchUserDetail();
             }
         } catch (error) {
-            console.log("Internal server error", error)
+            console.log("Internal server error", error);
         }
-    }
+    };
 
     // Handle deleting a category
     const handleDelete = async (id) => {
@@ -111,7 +141,7 @@ function AllCorporateUser() {
             const response = await axios.delete(`https://www.api.blueaceindia.com/api/v1/delete-user/${id}`);
             if (response.data.success) {
                 toast.success('User deleted successfully!');
-                await fetchUserDetail(); // Fetch categories again after deletion
+                await fetchUserDetail();
             } else {
                 toast.error('Failed to delete user');
             }
@@ -120,7 +150,7 @@ function AllCorporateUser() {
         }
     };
 
-    const headers = ['S.No', 'Company Name', 'Name', 'Phone Number', 'Email', 'Address', 'AMC Status', 'Deactive', 'Edit', 'Created At', "Action"];
+    const headers = ['S.No', 'Company Name', 'Name', 'Phone Number', 'Email', 'Address', 'AMC Status', 'Deactive', 'Edit', 'Created At', 'Action'];
 
     return (
         <div className='page-body'>
@@ -203,57 +233,55 @@ function AllCorporateUser() {
                             </div>
                         )}
                     </div>
+
+                    {/* Display filtered count for clarity */}
+                    <div className="mb-3">
+                        Showing {filteredUsers.length} of {users.length} users
+                    </div>
+
                     <Table
                         headers={headers}
                         elements={currentServices.map((category, index) => (
                             <tr key={category._id}>
                                 <td>{index + 1}</td>
                                 <td className='fw-bolder'>{category.companyName || 'Detail Not Provided'}</td>
-                                <td className='fw-bolder'>{category.FullName}</td>
+                                <td className='fw-bolder'>{category.FullName || 'Not-Available'}</td>
                                 <td className='fw-bolder'>{category.ContactNumber || "Not-Available"}</td>
                                 <td className='fw-bolder'>{category.Email || "Not-Available"}</td>
-                                <td className='fw-bolder'>{`${category.HouseNo}, ${category.address}, ${category.PinCode}` || "Not-Available"}</td>
+                                <td className='fw-bolder'>{category.address ? `${category.HouseNo}, ${category.address}, ${category.PinCode}` : "Not-Available"}</td>
                                 <td>
                                     <Toggle
                                         isActive={category.isAMCUser}
-                                        onToggle={() => handleChangeAMC(category._id, category.isAMCUser)} // Pass vendor id and current active status
+                                        onToggle={() => handleChangeAMC(category._id, category.isAMCUser)}
                                     />
                                 </td>
                                 <td>
                                     <Toggle
                                         isActive={category.isDeactive}
-                                        onToggle={() => handleToggle(category._id, category.isDeactive)} // Pass vendor id and current active status
+                                        onToggle={() => handleToggle(category._id, category.isDeactive)}
                                     />
                                 </td>
                                 <td>
                                     <Link to={`/users/edit-user/${category._id}`} className="btn btn-danger">Edit</Link>
                                 </td>
-                                <td>{new Date(category.createdAt).toLocaleString() || "Not-Available"}</td>
-                                {/* <td className='fw-bolder'>
-                                    <div className="product-action">
-                                        <svg onClick={() => handleUserTypeChange(category._id, "Admin")} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="bi bi-person-check" width="20" height="20">
-                                            <path d="M14 7c.553 0 1-.447 1-1V4a1 1 0 0 0-1-1h-1V2a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1H3V2a1 1 0 0 0-1-1H0a1 1 0 0 0-1 1v1H0a1 1 0 0 0-1 1v2c0 .553.447 1 1 1h1v2c0 .553.447 1 1 1h2v2c0 .553.447 1 1 1h2v2c0 .553.447 1 1 1h2v2c0 .553.447 1 1 1h1c.553 0 1-.447 1-1v-2c0-.553-.447-1-1-1h-1v-2h-2v-2h2zM7 10H6v1H7z"/>
-                                        </svg>
-                                    </div>
-                                </td> */}
+                                <td>{category.createdAt ? new Date(category.createdAt).toLocaleString() : "Not-Available"}</td>
                                 <td className='fw-bolder'>
                                     <div className="product-action">
                                         <svg onClick={() => handleDelete(category._id)} style={{ cursor: 'pointer' }}>
-                                            <use href="/assets/svg/icon-sprite.svg#trash1"></use>
+                                            <use href="/assets/svg/icon-sprite.svg#trash1" />
                                         </svg>
                                     </div>
                                 </td>
                             </tr>
                         ))}
-                        productLength={users.length}
+                        productLength={filteredUsers.length}
                         productsPerPage={productsPerPage}
                         currentPage={currentPage}
                         paginate={setCurrentPage}
                         href="/corporate-user/add-corporate-user"
                         text="Add Corporate"
                         errorMsg=""
-                        handleOpen={() => { }}
-
+                        handleOpen={() => {}}
                     />
                 </>
             )}
