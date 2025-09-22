@@ -38,6 +38,7 @@ const { createTestVideo, getTestVideos, getVideoById, deleteTestVideo, updateTes
 const { createTestQuestion, getSingleQuestion, getAllQuestion, updateTestQuestion, deleteQuestion } = require('../Controller/testQuestion.Controller')
 const { createCaseStudy, getAllCaseStudy, getSingleCaseStudy, updateCaseStudy, deleteCaseStudy } = require('../Controller/CaseStudy.Controller')
 const { creteClientLogo, getAllClientLogos, getSingleClientLogo, updateClientLogo, deleteClientLogo } = require('../Controller/ClientLogo.Controller')
+const { createProduct, getAllProducts, getSingleProduct, deleteProduct, updateProduct } = require('../Controller/product.controller')
 // const { createCart } = require('../Controller/Cart.Controller')
 
 // user routers 
@@ -424,5 +425,12 @@ router.delete('/delete-client-logo/:id', deleteClientLogo);
 
 router.post('/create-order-from-chatbot/:OrderId', createOrderByChatBot);
 
+// all Product router here 
+
+router.post('/create-product', upload.fields([{ name: 'smallImage', maxCount: 1 }, { name: 'largeImage', maxCount: 1 }]), createProduct)
+router.get('/get-all-products', getAllProducts)
+router.get('/get-single-product/:_id', getSingleProduct)
+router.put('/update-product/:_id', upload.fields([{ name: 'smallImage', maxCount: 1 }, { name: 'largeImage', maxCount: 1 }]), updateProduct)
+router.delete('/delete-product/:_id', deleteProduct)
 
 module.exports = router;
