@@ -69,6 +69,8 @@ import VideoShow from "./Pages/MemberShipPlan/VideoShow"
 import TestPage from "./Pages/MemberShipPlan/TestPage"
 import NotElegible from "./Components/NotElegible/NotElegible"
 import SingleCaseStudy from "./Components/CaseStudy/SingleCaseStudy"
+import Products from "./Pages/Products/Products"
+import SingleProduct from "./Pages/Products/SingleProduct"
 // import MetaWrapper from "./Components/MetaWrapper/MetaWrapper"
 // import VendorTest from "./Components/Auth/VendorTest"
 // import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
@@ -131,7 +133,8 @@ function App() {
           <Route path="/successfull-payment" element={<SuccessPayment />} />
           <Route path="/failed-payment" element={<PaymentFailed />} />
           <Route path="/services" element={<Service />} />
-          <Route path="/products" element={<Service />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/product/:title" element={<SingleProduct />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogSinglePage />} />
           <Route path="/gallery" element={<GalleryPage />} />

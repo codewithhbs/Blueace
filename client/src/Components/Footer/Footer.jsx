@@ -9,6 +9,7 @@ import botAnimation from './bot.json';
 
 function Footer() {
   const [allService, setService] = useState([]);
+  const [allProduct, setProduct] = useState([]);
   const [activeChatBtn, setActiveChatBtn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -23,6 +24,15 @@ function Footer() {
     }
   };
 
+  const handleFetchProduct  = async () => {
+    try {
+      const {data} = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-products');
+      setProduct(data.data.reverse());
+    } catch (error) {
+      console.log("Internal server error", error);
+    }
+  }
+
   // Handle window resize for responsive design
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -31,6 +41,7 @@ function Footer() {
   useEffect(() => {
     fetchService();
     handleResize();
+    handleFetchProduct();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -206,10 +217,10 @@ function Footer() {
                 <div className="footer_widget">
                   <h4 className="widget_title">Our Products</h4>
                   <ul className="footer-menu">
-                    {allService && allService.map((item, index) => (
+                    {allProduct && allProduct.map((item, index) => (
                       <li key={index}>
-                        <Link to={`/service/${item.name.replace(/\s+/g, '-').toLowerCase()}`}>
-                          - {item.name}
+                        <Link to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`}>
+                          - {item.title}
                         </Link>
                       </li>
                     ))}
@@ -228,9 +239,9 @@ function Footer() {
                         </Link>
                       </li>
                     ))}
-                    <li><Link to={`/redefining-cold-storage`}>- Redefining Cold Storage</Link></li>
+                    {/* <li><Link to={`/redefining-cold-storage`}>- Redefining Cold Storage</Link></li>
                     <li><Link to={`/trusted-cold-storage-partner`}>- Trusted Cold Storage Partner</Link></li>
-                    <li><Link to={`/cold-storage-construction-experts`}>- Cold Storage Construction Experts</Link></li>
+                    <li><Link to={`/cold-storage-construction-experts`}>- Cold Storage Construction Experts</Link></li> */}
                   </ul>
                 </div>
               </div>

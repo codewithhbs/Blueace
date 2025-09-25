@@ -19,6 +19,7 @@ function Header() {
   const [allMarquee, serAllMarquee] = useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("for-user");
+  const [allProduct, setProduct] = useState([]);
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -50,7 +51,16 @@ function Header() {
       console.log(error)
     }
   }
+  const handleFetchProduct  = async () => {
+      try {
+        const {data} = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-products');
+        setProduct(data.data.reverse());
+      } catch (error) {
+        console.log("Internal server error", error);
+      }
+    }
   useEffect(() => {
+    handleFetchProduct();
     fetchService();
   }, [])
 
@@ -266,7 +276,7 @@ function Header() {
                   <Link to={'/about-us'}>About Us</Link>
                 </li>
                 <li>
-                  <a href="javascript:void(0);">Services</a>
+                  <Link to="/services">Services</Link>
                   <ul class="nav-dropdown nav-submenu">
                     {
                       allService && allService.map((item, index) => (
@@ -277,8 +287,19 @@ function Header() {
                   </ul>
                 </li>
                 <li>
-                  <Link to={'/products'}>Products</Link>
+                  <Link to="/products">Products</Link>
+                  <ul class="nav-dropdown nav-submenu">
+                    {
+                      allProduct && allProduct.map((item, index) => (
+
+                        <li key={index}><Link to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`}>{item.title}</Link></li>
+                      ))
+                    }
+                  </ul>
                 </li>
+                {/* <li>
+                  <Link to={'/products'}>Products</Link>
+                </li> */}
                 {/* <li>
                   <Link to={'/blog'}>Blog</Link>
                 </li> */}

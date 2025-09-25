@@ -29,7 +29,17 @@ const ProductSchema = new mongoose.Schema({
     price: {
         type: Number
     },
-});
+    metaTitle: {
+        type: String
+    },
+    metaDescription: {
+        type: String
+    },
+    active: {
+        type: Boolean,
+        default: true
+    }
+}, { timestamps: true });
 
 const Product = mongoose.model('Product', ProductSchema);
 module.exports = Product;

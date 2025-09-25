@@ -38,7 +38,8 @@ const { createTestVideo, getTestVideos, getVideoById, deleteTestVideo, updateTes
 const { createTestQuestion, getSingleQuestion, getAllQuestion, updateTestQuestion, deleteQuestion } = require('../Controller/testQuestion.Controller')
 const { createCaseStudy, getAllCaseStudy, getSingleCaseStudy, updateCaseStudy, deleteCaseStudy } = require('../Controller/CaseStudy.Controller')
 const { creteClientLogo, getAllClientLogos, getSingleClientLogo, updateClientLogo, deleteClientLogo } = require('../Controller/ClientLogo.Controller')
-const { createProduct, getAllProducts, getSingleProduct, deleteProduct, updateProduct } = require('../Controller/product.controller')
+const { createProduct, getAllProducts, getSingleProduct, deleteProduct, updateProduct, updateProductActiveStatus, getProductByName } = require('../Controller/product.controller')
+const { createProductEnquiry, getAllProductEnquiry, deleteProductEnquiry, getSingleProductEnquiry } = require('../Controller/ProductEnquiry.Controller')
 // const { createCart } = require('../Controller/Cart.Controller')
 
 // user routers 
@@ -430,7 +431,16 @@ router.post('/create-order-from-chatbot/:OrderId', createOrderByChatBot);
 router.post('/create-product', upload.fields([{ name: 'smallImage', maxCount: 1 }, { name: 'largeImage', maxCount: 1 }]), createProduct)
 router.get('/get-all-products', getAllProducts)
 router.get('/get-single-product/:_id', getSingleProduct)
+router.get('/get-product-by-name/:title', getProductByName)
 router.put('/update-product/:_id', upload.fields([{ name: 'smallImage', maxCount: 1 }, { name: 'largeImage', maxCount: 1 }]), updateProduct)
 router.delete('/delete-product/:_id', deleteProduct)
+router.put('/update-product-active-status/:_id', updateProductActiveStatus)
+
+// product inquiry routes here
+
+router.post('/create-product-inquiry',createProductEnquiry)
+router.get('/get-all-product-inquiry',getAllProductEnquiry)
+router.delete('/delete-product-inquiry/:_id',deleteProductEnquiry)
+router.get('/get-single-product-inquiry/:_id',getSingleProductEnquiry)
 
 module.exports = router;
