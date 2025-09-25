@@ -31,3 +31,12 @@
         width: 48%;
     }
 }
+
+.Goodup-price span {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}

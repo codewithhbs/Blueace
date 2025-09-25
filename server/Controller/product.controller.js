@@ -4,8 +4,8 @@ const { uploadImage, deleteImageFromCloudinary } = require('../Utils/Cloudnary')
 exports.createProduct = async (req, res) => {
     const allPublicIds = [];
     try {
-        const { title, smalldesc, longdesc, price } = req.body;
-        if (!title || !smalldesc || !longdesc || !price) {
+        const { title, smalldesc, longdesc, price, metaTitle, metaDescription } = req.body;
+        if (!title || !smalldesc || !longdesc) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -16,6 +16,8 @@ exports.createProduct = async (req, res) => {
             smalldesc,
             longdesc,
             price,
+            metaTitle,
+            metaDescription
         })
         if (req.files) {
             const { smallImage, largeImage } = req.files;
@@ -81,14 +83,14 @@ exports.getAllProducts = async (req, res) => {
 
 exports.getSingleProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-        if (!id) {
+        const { _id } = req.params;
+        if (!_id) {
             return res.status(400).json({
                 success: false,
                 message: "Product id is required"
             })
         }
-        const product = await ProductModel.findById(id);
+        const product = await ProductModel.findById(_id);
         if (!product) {
             return res.status(404).json({
                 success: false,
@@ -111,14 +113,14 @@ exports.getSingleProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-        if (!id) {
+        const { _id } = req.params;
+        if (!_id) {
             return res.status(400).json({
                 success: false,
                 message: "Product id is required"
             })
         }
-        const product = await ProductModel.findById(id);
+        const product = await ProductModel.findById(_id);
         if (!product) {
             return res.status(404).json({
                 success: false,
@@ -134,7 +136,7 @@ exports.deleteProduct = async (req, res) => {
             await deleteImageFromCloudinary(product.largeImage.public_id);
         }
 
-        await ProductModel.findByIdAndDelete(id);
+        await ProductModel.findByIdAndDelete(_id);
         res.status(200).json({
             success: true,
             message: "Product deleted successfully"
@@ -152,25 +154,27 @@ exports.deleteProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     const allPublicIds = [];
     try {
-        const { id } = req.params;
-        if (!id) {
+        const { _id } = req.params;
+        if (!_id) {
             return res.status(400).json({
                 success: false,
                 message: "Product id is required"
             })
         }
-        const product = await ProductModel.findById(id);
+        const product = await ProductModel.findById(_id);
         if (!product) {
             return res.status(404).json({
                 success: false,
                 message: "Product not found"
             })
         }
-        const { title, smalldesc, longdesc, price } = req.body;
+        const { title, smalldesc, longdesc, price, metaTitle, metaDescription } = req.body;
         if (title) product.title = title;
         if (smalldesc) product.smalldesc = smalldesc;
         if (longdesc) product.longdesc = longdesc;
         if (price) product.price = price;
+        if (metaTitle) product.metaTitle = metaTitle;
+        if (metaDescription) product.metaDescription = metaDescription;
         if (req.files) {
             const { smallImage, largeImage } = req.files;
             if (smallImage && smallImage[0]) {
@@ -211,6 +215,80 @@ exports.updateProduct = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Failed to update product",
+            error: error.message
+        })
+    }
+}
+
+exports.updateProductActiveStatus = async (req, res) => {
+    try {
+        const { _id } = req.params;
+        if (!_id) {
+            return res.status(400).json({
+                success: false,
+                message: "Product id is required"
+            })
+        }
+        const { active } = req.body;
+        if (typeof active !== 'boolean') {
+            return res.status(400).json({
+                success: false,
+                message: "Active status must be a boolean"
+            })
+        }
+        const product = await ProductModel.findById(_id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            })
+        }
+        product.active = active;
+        await product.save();
+        res.status(200).json({
+            success: true,
+            message: "Product active status updated successfully",
+            product: product
+        })
+    } catch (error) {
+        console.log("Internal server error", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to update product active status",
+            error: error.message
+        })
+    }
+}
+
+exports.getProductByName = async (req, res) => {
+    try {
+        const { title } = req.params;
+        if (!title) {
+            return res.status(400).json({
+                success: false,
+                message: "Product title is required"
+            })
+        }
+        const searchTitle = title.trim().toLowerCase();
+        const product = await ProductModel.findOne({ 
+            title: { $regex: new RegExp('^' + searchTitle.replace(/-/g, ' ') + '$', 'i')}
+         });// Replacing dashes with spaces
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            data: product
+        })
+    }
+    catch (error) {
+        console.log("Internal server error", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
             error: error.message
         })
     }

@@ -17,7 +17,7 @@ function FeatureListHome() {
 
 	const fetchServiceData = async () => {
 		try {
-			const res = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-service-category');
+			const res = await axios.get('https://www.api.blueaceindia.com/api/v1/get-all-products');
 			let data = res.data.data;
 
 			for (let i = data.length - 1; i > 0; i--) {
@@ -88,7 +88,7 @@ function FeatureListHome() {
 										<div class="Goodup-grid-upper">
 
 											<div class="Goodup-grid-thumb">
-												<Link to={`/service/${item.name.replace(/\s+/g, '-').toLowerCase()}`} class="d-block text-center m-auto"><img src={item.image?.url} class="img-fluid" alt={item.name} /></Link>
+												<Link to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`} class="d-block text-center m-auto"><img src={item.smallImage?.url} class="img-fluid" alt={item.name} /></Link>
 											</div>
 											{/* <div class="Goodup-rating overlay">
 												<div class="Goodup-pr-average high">4.8</div>
@@ -106,7 +106,7 @@ function FeatureListHome() {
 										</div>
 										<div class="Goodup-grid-fl-wrap">
 											<div class="Goodup-caption px-3 py-2">
-												<h4 class="mb-0 ft-medium medium"><Link to={`/service/${item.name.replace(/\s+/g, '-').toLowerCase()}`} class="text-dark fs-md fw-bold">{item.name}</Link></h4>
+												<h4 class="mb-0 ft-medium medium"><Link to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`} class="text-dark fs-md fw-bold">{item.title}</Link></h4>
 												{/* <div class="Goodup-location"><i class="fas fa-map-marker-alt me-1 theme-cl text-dark"></i>Naraina Industrial Area, Phase – 01</div> */}
 												{/* <div class="Goodup-middle-caption mt-3">
 													<p>At vero eos et accusamus et iusto </p>
@@ -114,14 +114,14 @@ function FeatureListHome() {
 											</div>
 											<div class="Goodup-grid-footer py-2 px-3">
 												<div class="Goodup-ft-first">
-													<Link to={`/service/${item.name.replace(/\s+/g, '-').toLowerCase()}`} class="Goodup-cats-wrap"><div class="cats-ico bg-2"><i class="lni lni-slim"></i></div><span class="cats-title">Blueace Limited</span></Link>
+													<Link to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`} class="Goodup-cats-wrap"><div class="cats-ico bg-2"><i class="lni lni-slim"></i></div><span class="cats-title">Blueace Limited</span></Link>
 												</div>
 												<div class="Goodup-ft-last">
 													<div class="Goodup-inline">
 														{/* <div class="Goodup-bookmark-btn"><button type="button">Get Enquiry</button></div> */}
 														<div class="Goodup-bookmark-btn product-list-btn">
 															{/* <button type="button"> */}
-																<Link style={{ backgroundColor:"#00225F", color:'white', padding:'4px 7px', borderRadius:'8px', marginLeft:'0px', whiteSpace:'nowrap'}} to={`/service/${item.name.replace(/\s+/g, '-').toLowerCase()}`}>Get Enquiry</Link>
+																<Link style={{ backgroundColor:"#00225F", color:'white', padding:'4px 7px', borderRadius:'8px', marginLeft:'0px', whiteSpace:'nowrap'}} to={`/product/${item.title.replace(/\s+/g, '-').toLowerCase()}`}>Get Enquiry</Link>
 															{/* </button> */}
 														</div>
 
