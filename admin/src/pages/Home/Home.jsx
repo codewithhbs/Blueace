@@ -101,6 +101,10 @@ import EditCaseStudy from '../CaseStudy/EditCaseStudy'
 import AllClientLogo from '../ClientLogo/AllClientLogo'
 import AddClientLogo from '../ClientLogo/AddClientLogo'
 import EditClientLogo from '../ClientLogo/EditClientLogo'
+import AllProduct from '../Product/AllProduct'
+import AddProduct from '../Product/AddProduct'
+import EditProduct from '../Product/EditProduct'
+import AllProductInquiry from '../ProductInquiry/AllProductInquiry'
 
 const Home = () => {
     return (
@@ -288,6 +292,13 @@ const Home = () => {
                         <Route path='/home-layout/add-client-logo' element={<AddClientLogo />} />
                         <Route path='/home-layout/edit-client-logo/:id' element={<EditClientLogo />} />
 
+                        {/* service category route here  */}
+                        <Route path='/product/all-product' element={<AllProduct />} />
+                        <Route path='/product/add-product' element={<AddProduct />} />
+                        <Route path='/product/edit-product/:id' element={<EditProduct />} />
+
+                        {/* product inquiry route here */}
+                        <Route path='/product-inquiry/all-product-inquiry' element={<AllProductInquiry />} />
 
                     </Routes>
                 </div>
