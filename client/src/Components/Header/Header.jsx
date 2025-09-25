@@ -109,8 +109,8 @@ function Header() {
               <div className="header-contact">
                 <ul className="nav nav-pills nav-top">
                   <li className="d-none d-sm-block">
-                    <a href="tel:+919311539090" target="_blank" className="text-white">
-                      <i className="fas fa-mobile"></i> +91 9311539090
+                    <a href="tel:+911146012209" target="_blank" className="text-white">
+                      <i className="fas fa-mobile"></i> +91 1146012209
                     </a>
                   </li>
                   <li className="d-none d-sm-block mx-3">
