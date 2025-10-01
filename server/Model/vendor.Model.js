@@ -249,6 +249,11 @@ const VendorSchema = new mongoose.Schema({
         type: String,
         enum: ['Experienced Technician', 'Acceptable', 'Not Qualified']
     },
+    lastLocation: {
+        lat: Number,
+        lng: Number,
+        updatedAt: Date
+    },
     createdFrom: {
         type: String,
         enum: ['Admin', 'Website']

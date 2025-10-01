@@ -31,6 +31,7 @@
     "server": "file:",
     "sharp": "^0.34.1",
     "slugify": "^1.6.6",
+    "socket.io": "^4.8.1",
     "xlsx": "^0.18.5"
   }
 }
