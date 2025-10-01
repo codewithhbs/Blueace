@@ -231,7 +231,7 @@ router.get('/get-order-by-user-id', findOrderByUserId);
 router.get('/get-order-by-id/:id', getSingleOrder)
 router.put('/update-order-status/:_id', updateOrderStatus)
 router.delete('/delete-order/:_id', deleteOrder)
-router.put('/update-is-InvetorAc/:id', updateIsInvetorAc )
+router.put('/update-is-InvetorAc/:id', updateIsInvetorAc)
 router.put('/update-befor-work-image/:_id', upload.single('beforeWorkImage'), updateBeforWorkImage)
 router.put('/update-after-work-image/:_id', upload.single('afterWorkImage'), updateAfterWorkImage)
 
@@ -438,9 +438,9 @@ router.put('/update-product-active-status/:_id', updateProductActiveStatus)
 
 // product inquiry routes here
 
-router.post('/create-product-inquiry',createProductEnquiry)
-router.get('/get-all-product-inquiry',getAllProductEnquiry)
-router.delete('/delete-product-inquiry/:_id',deleteProductEnquiry)
-router.get('/get-single-product-inquiry/:_id',getSingleProductEnquiry)
+router.post('/create-product-inquiry', createProductEnquiry)
+router.get('/get-all-product-inquiry', getAllProductEnquiry)
+router.delete('/delete-product-inquiry/:_id', deleteProductEnquiry)
+router.get('/get-single-product-inquiry/:_id', getSingleProductEnquiry)
 
 module.exports = router;

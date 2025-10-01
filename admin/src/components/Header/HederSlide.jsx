@@ -221,6 +221,18 @@ const HederSlide = () => {
                         <i className="fa-solid fa-thumbtack"></i>
                         <Link
                             className="sidebar-link"
+                            to="/vendors/all-vendor-location"
+                        >
+                            <svg className="stroke-icon">
+                                <use href="../assets/svg/iconly-sprite.svg#Pie"></use>
+                            </svg>
+                            <h6 className="lan-2">All Vendor Location</h6>
+                        </Link>
+                    </li>
+                    <li className="sidebar-list">
+                        <i className="fa-solid fa-thumbtack"></i>
+                        <Link
+                            className="sidebar-link"
                             to="/Orders/all-order"
                         >
                             <svg className="stroke-icon">

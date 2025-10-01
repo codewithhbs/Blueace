@@ -105,6 +105,7 @@ import AllProduct from '../Product/AllProduct'
 import AddProduct from '../Product/AddProduct'
 import EditProduct from '../Product/EditProduct'
 import AllProductInquiry from '../ProductInquiry/AllProductInquiry'
+import VendorLocation from '../VendorLocation/VendorLocation'
 
 const Home = () => {
     return (
@@ -299,6 +300,9 @@ const Home = () => {
 
                         {/* product inquiry route here */}
                         <Route path='/product-inquiry/all-product-inquiry' element={<AllProductInquiry />} />
+
+                        {/* location functionality  */}
+                         <Route path='/vendors/all-vendor-location' element={<VendorLocation />} />
 
                     </Routes>
                 </div>
