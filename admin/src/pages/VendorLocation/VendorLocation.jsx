@@ -50,7 +50,7 @@ const VendorLocationMap = () => {
 
   // Connect to Socket.IO and handle events
   useEffect(() => {
-    const socket = io('http://localhost:7987');
+    const socket = io('https://api.blueaceindia.com');
     socketRef.current = socket;
 
     socket.on('connect', () => {
