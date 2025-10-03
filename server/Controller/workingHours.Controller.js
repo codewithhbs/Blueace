@@ -178,6 +178,7 @@ exports.updateWorkingHours = async (req, res) => {
     try {
         const { schedule } = req.body;
         const vendorId = req.params.vendorId;
+        console.log("schedule",schedule,vendorId)
 
         // Validation check
         if (!schedule || !Array.isArray(schedule)) {

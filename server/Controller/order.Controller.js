@@ -299,7 +299,7 @@ exports.createOrderByChatBot = async (req, res) => {
         const { data } = await axios.get(apiUrl);
         const records = isComplaint ? data.bookings : data.bookings;
         const findOrder = records.find((item) => item._id === OrderId);
-
+        console.log('findOrder:', findOrder);
         if (!findOrder) {
             return res.status(404).json({
                 success: false,
@@ -377,7 +377,7 @@ exports.createOrderByChatBot = async (req, res) => {
         }
 
         const checkAddress = address || 'sectore 26 noida'
-        // console.log('checkAddress',checkAddress)
+        console.log('checkAddress',checkAddress)
         // Step 5: Geocode address
         const geoResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
             params: {
@@ -386,7 +386,7 @@ exports.createOrderByChatBot = async (req, res) => {
             }
         });
 
-        // console.log('geoResponse',geoResponse.data)
+        console.log('geoResponse',geoResponse.data)
 
         if (geoResponse.data.status !== 'OK' || !geoResponse.data.results.length) {
             throw new Error('Failed to geocode address');
@@ -409,7 +409,7 @@ exports.createOrderByChatBot = async (req, res) => {
 
         const voiceNoteDetails = null;
         const message = isComplaint ? 'This is a complaint created via chatbot' : 'This is a booking created via chatbot';
-console.log(' serviceId: serviceId._id', serviceId[0]._id)
+        console.log(' serviceId: serviceId._id', serviceId[0]._id)
         // Step 6: Save order
         const newOrder = new Order({
             userId: newUserId,
@@ -478,7 +478,6 @@ console.log(' serviceId: serviceId._id', serviceId[0]._id)
         });
     }
 };
-
 
 exports.makeOrderFromApp = async (req, res) => {
     try {
