@@ -100,7 +100,7 @@ exports.getLatLngByAddress = async (req, res) => {
         const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
                 address: address,
-                key: "AIzaSyCBATa-tKn2Ebm1VbQ5BU8VOqda2nzkoTU"
+                key: process.env.GOOGLE_MAP_KEY
             },
         });
         console.log(response.data)
