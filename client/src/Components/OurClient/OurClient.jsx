@@ -202,8 +202,8 @@ const OurClient = () => {
                   <div className="stat-icon mb-3">
                     <i className="bi bi-globe text-success display-4"></i>
                   </div>
-                  <h3 className="display-6 fw-bold text-success mb-2">50+</h3>
-                  <p className="text-muted mb-0 fw-medium">Countries</p>
+                  <h3 className="display-6 fw-bold text-success mb-2">500+</h3>
+                  <p className="text-muted mb-0 fw-medium">Happy Client</p>
                 </div>
               </div>
               <div className="col-6 col-md-3">

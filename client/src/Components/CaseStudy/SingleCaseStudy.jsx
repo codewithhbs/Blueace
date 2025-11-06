@@ -148,7 +148,7 @@ const SingleCaseStudy = () => {
                         <div className="col-lg-4">
                             <div className="sticky-top sidebar-sticky">
                                 {/* Project Info Card */}
-                                <div className="card border-0 shadow-sm mb-4">
+                                {/* <div className="card border-0 shadow-sm mb-4 ">
                                     <div className="card-body p-4">
                                         <h3 className="h5 mb-4 text-dark fw-bold">Project Details</h3>
                                         
@@ -181,7 +181,7 @@ const SingleCaseStudy = () => {
                                             </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Technologies Used */}
                                 {caseStudy.technologiesUsed && caseStudy.technologiesUsed.length > 0 && (

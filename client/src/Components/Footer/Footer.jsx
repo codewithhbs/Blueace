@@ -173,7 +173,7 @@ function Footer() {
                         </a>
                       </li>
                       <li className="list-inline-item socailLinks">
-                        <a href="https://www.youtube.com/@Blueaceltd" target='_blank' rel="noopener noreferrer" className="theme-cl">
+                        <a href="https://www.youtube.com/@BlueaceIndia" target='_blank' rel="noopener noreferrer" className="theme-cl">
                           <i className="fa-brands fa-youtube"></i>
                         </a>
                       </li>

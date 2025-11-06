@@ -16,7 +16,7 @@ function Contact() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +36,7 @@ function Contact() {
 
   return (
     <>
-    <MetaTag title={'Blueace india Contact'} />
+      <MetaTag title={'Blueace india Contact'} />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{ backgroundColor: '#00225F' }} className="py-3">
         <div className="container">
@@ -115,7 +115,7 @@ function Contact() {
             <div className="col-xl-10 col-lg-11 col-md-12 col-sm-12">
               <div className="row">
                 <div className="col-xl-4 col-lg-4 col-md-12">
-                  <div className="bg-white rounded p-3 mb-2">
+                  <div className="bg-white rounded p-3  mb-2">
                     <h4 className="ft-medium mb-3 theme-cl">Address info:</h4>
                     <p>C-126, Office No-1 Gate No - 1, First Floor Naraina Industrial Area, Phase – 01, New Delhi - 110028</p>
                   </div>
@@ -134,6 +134,18 @@ function Contact() {
                     <p>Drop mail we will contact you within 24 hours.</p>
                     <p className="lh-1 text-dark">info@blueaceindia.com</p>
                   </div>
+                </div>
+                <div className="col-xl-12 col-lg-12 col-md-12">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.0430341526403!2d77.1366972!3d28.6284723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d033b40000001%3A0x7b2819e666e11648!2sBLUEACE%20LIMITED!5e0!3m2!1sen!2sin!4v1762409350629!5m2!1sen!2sin"
+                    
+                    height="450"
+                    style={{ border: 0 , width: '100%' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+
                 </div>
               </div>
             </div>
