@@ -118,32 +118,29 @@ io.on('connection', (socket) => {
 
   // Vendor sends live location
   socket.on('vendor:location:update', async (payload) => {
-    // payload should include { vendorId, lat, lng, updatedAt }
-    try {
-      const vendorId = payload.vendorId || vendorSocketMap.get(socket.id);
-      if (!vendorId) return;
+  try {
+    const vendorId = payload.vendorId || vendorSocketMap.get(socket.id);
+    if (!vendorId) return;
 
-      // update in-memory last location
-      vendorLastLocation.set(vendorId, {
-        lat: payload.lat,
-        lng: payload.lng,
-        updatedAt: payload.updatedAt || new Date().toISOString(),
-      });
+    console.log('📥 vendor:location:update from', vendorId, 'payload:', payload);
 
-      // Broadcast to admins only
-      io.to('admins').emit('vendor:location', {
-        vendorId,
-        lat: payload.lat,
-        lng: payload.lng,
-        updatedAt: payload.updatedAt,
-      });
+    vendorLastLocation.set(vendorId, {
+      lat: payload.lat,
+      lng: payload.lng,
+      updatedAt: payload.updatedAt || new Date().toISOString(),
+    });
 
-      // Optionally: do periodic DB saves (e.g., every Nth update) - for simplicity not saving each update.
-      // For example, you can set a timer to persist every minute per vendor.
-    } catch (err) {
-      console.error('Error processing location update', err);
-    }
-  });
+    io.to('admins').emit('vendor:location', {
+      vendorId,
+      lat: payload.lat,
+      lng: payload.lng,
+      updatedAt: payload.updatedAt,
+    });
+  } catch (err) {
+    console.error('Error processing location update', err);
+  }
+});
+
 
   // Vendor going offline intentionally (e.g., app closing / logout) - we persist last loc
   socket.on('vendor:go:offline', async ({ vendorId, lastLocation }) => {
