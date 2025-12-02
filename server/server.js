@@ -108,47 +108,79 @@ io.on("connection", (socket) => {
     socket.emit("admin:initial:vendors", snapshot);
   });
 
-  // Vendor sends an initial "identify" with vendorId (auth token can be added)
-  socket.on("vendor:identify", async ({ vendorId }) => {
-    if (!vendorId) return;
-    vendorSocketMap.set(socket.id, vendorId);
-    console.log(`Socket ${socket.id} identified as vendor ${vendorId}`);
+  // vendor:identify event ko update kar do
+socket.on("vendor:identify", async ({ vendorId }) => {
+  if (!vendorId) return;
 
-    // fetch vendor once and cache
-    const vendor = await getVendorCached(vendorId);
-    // send vendor meta back if needed
+  // PURANA SOCKET ID DELETE KARO (important for reconnect)
+  for (const [sid, vid] of vendorSocketMap.entries()) {
+    if (vid === vendorId) {
+      vendorSocketMap.delete(sid);
+    }
+  }
+
+  vendorSocketMap.set(socket.id, vendorId);
+  console.log(`Vendor ${vendorId} identified with socket ${socket.id}`);
+
+  const vendor = await getVendorCached(vendorId);
+  if (vendor) {
     socket.emit("vendor:identified", { vendor });
-  });
 
-  // Vendor sends live location
-  socket.on("vendor:location:update", async (payload) => {
-    try {
-      const vendorId = payload.vendorId || vendorSocketMap.get(socket.id);
-      if (!vendorId) return;
-
-      console.log(
-        "📥 vendor:location:update from",
-        vendorId,
-        "payload:",
-        payload
-      );
-
-      vendorLastLocation.set(vendorId, {
-        lat: payload.lat,
-        lng: payload.lng,
-        updatedAt: payload.updatedAt || new Date().toISOString(),
-      });
-
+    // NAYA: Abhi ke location ko admin ko bhejo with full meta
+    const currentLoc = vendorLastLocation.get(vendorId);
+    if (currentLoc) {
       io.to("admins").emit("vendor:location", {
         vendorId,
-        lat: payload.lat,
-        lng: payload.lng,
-        updatedAt: payload.updatedAt,
+        lat: currentLoc.lat,
+        lng: currentLoc.lng,
+        updatedAt: currentLoc.updatedAt,
+        vendorMeta: {
+          companyName: vendor.companyName || "Unknown",
+          ownerName: vendor.ownerName || "N/A",
+          Role: vendor.Role || "Vendor",
+          readyToWork: vendor.readyToWork,
+          verifyed: vendor.verifyed,
+          profileImage: vendor.profileImage || null,
+        },
       });
-    } catch (err) {
-      console.error("Error processing location update", err);
     }
-  });
+  }
+});
+
+  // vendor:location:update mein bhi meta bhejo
+socket.on("vendor:location:update", async (payload) => {
+  try {
+    const vendorId = payload.vendorId || vendorSocketMap.get(socket.id);
+    if (!vendorId) return;
+
+    const vendor = await getVendorCached(vendorId);
+    if (!vendor) return;
+
+    vendorLastLocation.set(vendorId, {
+      lat: payload.lat,
+      lng: payload.lng,
+      updatedAt: payload.updatedAt || new Date().toISOString(),
+    });
+
+    // YE SABSE BADA CHANGE — FULL VENDOR INFO + LOCATION BHEJO
+    io.to("admins").emit("vendor:location", {
+      vendorId,
+      lat: payload.lat,
+      lng: payload.lng,
+      updatedAt: payload.updatedAt,
+      vendorMeta: {
+        companyName: vendor.companyName || "Unknown",
+        ownerName: vendor.ownerName || "N/A",
+        Role: vendor.Role || "Vendor",
+        readyToWork: vendor.readyToWork,
+        verifyed: vendor.verifyed,
+        profileImage: vendor.profileImage || null,
+      },
+    });
+  } catch (err) {
+    console.error("Error processing location update", err);
+  }
+});
 
   // Vendor going offline intentionally (e.g., app closing / logout) - we persist last loc
   socket.on("vendor:go:offline", async ({ vendorId, lastLocation }) => {

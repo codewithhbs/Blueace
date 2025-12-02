@@ -67,12 +67,20 @@ const VendorLocationMap = () => {
       setRenderTrigger(prev => prev + 1);
     });
 
-    socket.on('vendor:location', (data) => {
-      console.log("data",data)
-      vendorsLocRef.current.set(data.vendorId, data);
-      fetchVendorMeta(data.vendorId);
-      setRenderTrigger(prev => prev + 1);
-    });
+    // VendorLocationMap.jsx mein
+socket.on('vendor:location', (data) => {
+  console.log("Live location update:", data);
+
+  // Ab data.vendorMeta bhi aayega
+  vendorsLocRef.current.set(data.vendorId, {
+    lat: data.lat,
+    lng: data.lng,
+    updatedAt: data.updatedAt,
+    vendorMeta: data.vendorMeta || {}, // ye naya hai
+  });
+
+  setRenderTrigger(prev => prev + 1);
+});
 
     return () => {
       socket.disconnect();
@@ -182,28 +190,25 @@ const VendorLocationMap = () => {
 
           return (
             <Marker key={vendorId} position={[loc.lat, loc.lng]}>
-              <Tooltip>
-                <div>
-                  <strong>{meta.companyName}</strong>
-                  <br />
-                  Owner: {meta.ownerName}
-                  <br />
-                  Role: {meta.Role}
-                  <br />
-                  Ready to Work: {meta.readyToWork ? 'Yes' : 'No'}
-                </div>
-              </Tooltip>
-              <Popup>
-                <div
-                  onClick={() => setSelectedVendor(meta)}
-                  style={{ cursor: 'pointer' }}
-                  className="text-center"
-                >
-                  <strong>{meta.companyName}</strong><br />
-                  Click for full details
-                </div>
-              </Popup>
-            </Marker>
+  <Tooltip permanent direction="top">
+    <div style={{ textAlign: 'center', fontSize: '12px' }}>
+      <strong>{loc.vendorMeta?.companyName || "Loading..."}</strong><br/>
+      {loc.vendorMeta?.ownerName}<br/>
+      <small>{loc.vendorMeta?.readyToWork ? "Online" : "Offline"}</small>
+    </div>
+  </Tooltip>
+  <Popup>
+    <div style={{ textAlign: 'center' }}>
+      {loc.vendorMeta?.profileImage && (
+        <img src={loc.vendorMeta.profileImage} alt="profile" style={{ width: 60, height: 60, borderRadius: '50%', marginBottom: 10 }} />
+      )}
+      <h6>{loc.vendorMeta?.companyName}</h6>
+      <p><strong>Owner:</strong> {loc.vendorMeta?.ownerName}</p>
+      <p><strong>Role:</strong> {loc.vendorMeta?.Role}</p>
+      <p><strong>Status:</strong> {loc.vendorMeta?.readyToWork ? "Online" : "Offline"}</p>
+    </div>
+  </Popup>
+</Marker>
           );
         })}
       </MapContainer>
