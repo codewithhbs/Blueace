@@ -182,7 +182,7 @@ socket.on('vendor:location', (data) => {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; OpenStreetMap contributors'
-        />
+        /> 
 
         {Array.from(vendorsLocRef.current.entries()).map(([vendorId, loc]) => {
           const meta = vendorsMetaRef.current.get(vendorId);

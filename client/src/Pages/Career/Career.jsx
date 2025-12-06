@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import toast from "react-hot-toast";
+import MetaTag from "../../Components/Meta/MetaTag";
 
 function Career() {
   const [allJob, setAllJob] = useState([]);
@@ -116,6 +117,7 @@ function Career() {
         background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
       }}
     >
+      <MetaTag title="Join Blueace India | Careers & Job Opportunities" description="Explore exciting career opportunities at Blueace India. Join our innovative team and contribute to sustainable energy solutions. Apply today!" />
       <div className="container py-5">
         <div className="text-center mb-5">
           <h1 className="display-4 fw-bold" style={{ color: "#2d3436" }}>

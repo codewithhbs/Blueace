@@ -45,7 +45,7 @@ function About() {
           </div>
         </div>
       </section> */}
-      <MetaTag title={'About Blueace india'} />
+      <MetaTag title={'Leading HVAC & Energy Solutions | Blueace India'} description='Discover Blueace India’s expertise in sustainable HVAC, energy, and cold storage solutions. Learn about our commitment to quality and innovation. Join us today!' />
       <div className='container-fluid p-0'>
         <div className='row p-0'>
             <img src={AboutHero} alt='About us Hero'/>

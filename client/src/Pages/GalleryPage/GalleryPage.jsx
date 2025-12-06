@@ -51,7 +51,7 @@ function GalleryPage() {
 
     return (
         <>
-        <MetaTag title={'Blueace india gallery'} />
+        <MetaTag title={'Blueace India Project Gallery | HVAC & Energy Solutions'} description='Explore the gallery of Blueace India’s successful HVAC and energy projects. See how we transform spaces with innovative and sustainable solutions. View our work!' />
             <div className="gallery-section">
                 <div className="gallery-container container">
                     <ul className="nav nav-tabs forbg" id="galleryTab" role="tablist">

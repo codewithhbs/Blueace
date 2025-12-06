@@ -51,7 +51,7 @@ function BlogPage() {
                     </div>
                 </div>
             </div> */}
-            <MetaTag title={'Blueace india blogs'} />
+            <MetaTag title={'Insights on HVAC & Energy Solutions | Blueace India Blog'} description='Stay updated with the latest trends in HVAC, energy solutions, and sustainability. Explore expert tips and industry news on Blueace India’s blog. Read now!' />
             <div style={{ backgroundColor: '#00225F' }} class=" py-3">
                 <div class="container">
                     <div class="row">

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import MetaTag from '../../Components/Meta/MetaTag'
 
 function Privacy() {
 	useEffect(()=>{
@@ -10,6 +11,7 @@ function Privacy() {
 	},[])
   return (
     <>
+    <MetaTag title='Privacy Policy | Blueace India' description='Learn how Blueace India protects your data and ensures privacy. Read our detailed privacy policy to understand our commitment to security. Review now.' />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{backgroundColor:'#00225F'}} className="py-3">
         <div className="container">

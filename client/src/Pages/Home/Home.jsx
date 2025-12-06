@@ -37,7 +37,7 @@ function Home() {
           <GetServicePopup handlePopupDeactive={handlePopupDeactive} />
         )
       }
-      <MetaTag title={'Find The Best Quality of HVAC solutions at Blueace'} description={'Welcome to Blueace provides top-notch heating, ventilation, and air conditioning solutions where comfort meets expertise. Contact us today for more details: +91 9311539090'} keyword='HVAC solutions' focusKeywords={'HVAC solutions'} />
+      <MetaTag title={'Premium HVAC & Energy Solutions by Blueace India - Eco-Friendly'} description={`Explore Blueace India's top-rated HVAC, solar, and EV cold room systems. Sustainable, efficient, and reliable. Get a Quote Today for tailored solutions!`}/>
       <Hero />
       <CategoryHome />
       <UserApp/>

@@ -36,7 +36,7 @@ function Contact() {
 
   return (
     <>
-      <MetaTag title={'Blueace india Contact'} />
+      <MetaTag title={'Contact Blueace India for HVAC & Energy Solutions'} description='Get in touch with Blueace India for expert HVAC and energy-efficient solutions. Our team is ready to assist you. Reach out today for personalized support!' />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{ backgroundColor: '#00225F' }} className="py-3">
         <div className="container">
