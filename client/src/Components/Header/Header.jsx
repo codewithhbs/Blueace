@@ -124,8 +124,8 @@ function Header() {
                     </a>
                   </li>
                   <li className="d-none d-sm-block mx-3">
-                    <a href="mailto:info@blueaceindia.com" target="_blank" className="text-white">
-                      <i className="fas fa-envelope"></i> info@blueaceindia.com
+                    <a href="mailto:blueaceindia@gmail.com" target="_blank" className="text-white">
+                      <i className="fas fa-envelope"></i> blueaceindia@gmail.com
                     </a>
                   </li>
                   <li className="d-none d-sm-block mx-1">

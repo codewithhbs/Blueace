@@ -132,7 +132,7 @@ function Contact() {
                   <div className="bg-white rounded p-3 mb-2">
                     <h4 className="ft-medium mb-3 theme-cl">Drop A Mail:</h4>
                     <p>Drop mail we will contact you within 24 hours.</p>
-                    <p className="lh-1 text-dark">info@blueaceindia.com</p>
+                    <p className="lh-1 text-dark">blueaceindia@gmail.com</p>
                   </div>
                 </div>
                 <div className="col-xl-12 col-lg-12 col-md-12">

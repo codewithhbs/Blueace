@@ -153,7 +153,7 @@ function Footer() {
                     <br />
                     <strong>Phone:</strong> +91 9811550874<br />
                     <br />
-                    <strong>Mail:</strong> info@blueaceindia.com<br />
+                    <strong>Mail:</strong> blueaceindia@gmail.com<br />
                   </div>
                   <div className="address mt-2">
                     <ul className="list-inline">
