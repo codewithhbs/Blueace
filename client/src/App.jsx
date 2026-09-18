@@ -71,6 +71,8 @@ import NotElegible from "./Components/NotElegible/NotElegible"
 import SingleCaseStudy from "./Components/CaseStudy/SingleCaseStudy"
 import Products from "./Pages/Products/Products"
 import SingleProduct from "./Pages/Products/SingleProduct"
+import HvacDealer from "./Pages/SeoServicePage/HvacDealer"
+import HvacManufacturer from "./Pages/SeoServicePage/HvacManufacturer"
 // import MetaWrapper from "./Components/MetaWrapper/MetaWrapper"
 // import VendorTest from "./Components/Auth/VendorTest"
 // import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
@@ -151,6 +153,8 @@ function App() {
           <Route path="/service/cassette-air-conditioning-system" element={<CassetteAir />} />
           <Route path="/service/ductable-air-conditioner" element={<DuctableStatic />} />
           <Route path="/air-cooled-chiller" element={<AirColdChiller />} />
+          <Route path="/hvac-chiller-dealers-in-delhi" element={<HvacDealer />} />
+          <Route path="/hvac-chiller-manufacturers-in-delhi" element={<HvacManufacturer />} />
           <Route path="/error-code/:id" element={<ErrorCode />} />
           <Route path="/show-error-code/:id" element={<ShowErrorCode />} />
           <Route path="/thanks" element={<ThankU />} />
