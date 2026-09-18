@@ -17,6 +17,7 @@ export default function HvacDealer() {
         description="Looking for HVAC Chiller Dealers in Delhi? Blueace Limited offers reliable chiller solutions for commercial & industrial cooling. Contact us today!"
         keyword="hvac chiller dealers in delhi, hvac chiller suppliers in delhi, chiller dealers in delhi, chiller suppliers in delhi, chiller plant dealers in delhi"
         focusKeywords="hvac chiller dealers in delhi, hvac chiller suppliers in delhi, chiller dealers in delhi, chiller suppliers in delhi, chiller plant dealers in delhi"
+        canonical="https://www.blueaceindia.com/hvac-chiller-dealers-in-delhi"
       />
       <article style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "1920px", margin: "0 auto", padding: '10px 140px' }}>
         <img
