@@ -14,9 +14,14 @@
 // HTML `<head>` — the app's JS/CSS bundle is untouched, so client-side rendering and
 // routing continue to work exactly as before for real visitors.
 //
-// Vercel serves a matching static file (e.g. dist/services/index.html for a request to
-// /services) before it falls back to the SPA rewrite in vercel.json, so crawlers hitting
-// /services now get the correct tags immediately, with no code/behavior change for users.
+// Vercel serves a matching static file (e.g. dist/services.html for a request to
+// /services, resolved via vercel.json's "cleanUrls": true) before it falls back to
+// the SPA rewrite, so crawlers hitting /services now get the correct tags
+// immediately, with no code/behavior change for users. NOTE: this script writes
+// flat "<route>.html" files (not "<route>/index.html") specifically so Vercel never
+// treats them as directory indexes — that combination is what was silently forcing
+// a trailing slash onto every prerendered URL. vercel.json must have
+// "cleanUrls": true for these flat files to resolve at their extension-less paths.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -76,9 +81,14 @@ function writePage(routePath, meta) {
     console.log('[generate-static-meta] skipping "/" — root index.html is kept as the neutral SPA fallback, not overwritten.');
     return;
   }
-  const dir = path.join(DIST_DIR, routePath);
-  fs.mkdirSync(dir, { recursive: true });
-  const outFile = path.join(dir, 'index.html');
+  // IMPORTANT: write a FLAT "<route>.html" file, not "<route>/index.html".
+  // A folder containing index.html makes Vercel treat it as a directory index,
+  // which auto-redirects /about-us -> /about-us/ (adds the trailing slash) no
+  // matter what "trailingSlash" is set to in vercel.json. A flat file has no
+  // such directory semantics, so /about-us resolves straight to about-us.html
+  // with no redirect and no trailing slash.
+  const outFile = path.join(DIST_DIR, `${routePath}.html`);
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
   fs.writeFileSync(outFile, renderPage({ ...meta, canonicalPath: routePath }));
   writtenCount++;
   console.log('[generate-static-meta] wrote', path.relative(DIST_DIR, outFile));

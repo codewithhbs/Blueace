@@ -1,5 +1,6 @@
 {
   "trailingSlash": false,
+  "cleanUrls": true,
   "redirects": [
     { "source": "/:path*", "has": [{ "type": "host", "value": "blueaceindia.com" }], "destination": "https://www.blueaceindia.com/:path*", "permanent": true }
   ],
