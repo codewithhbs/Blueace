@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './category.css'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import MetaTag from '../../Components/Meta/MetaTag';
 
 function Category() {
     const { name } = useParams();
@@ -61,6 +62,11 @@ function Category() {
 
     return (
         <>
+            <MetaTag
+                title={`${subCategory.name} | Blueace Limited - HVAC Services`}
+                description={`Explore ${subCategory.name} services from Blueace Limited. Professional HVAC installation, maintenance, and repair solutions tailored to your needs.`}
+                canonical={`https://www.blueaceindia.com/sub-category/${name}`}
+            />
             <section className='p-0'>
                 <div className='container-fluid p-0'>
                     <div className='row'>
@@ -90,7 +96,7 @@ function Category() {
                 <div className='container mt-4'>
                     <div className='row'>
                         <div className='col-lg-12'>
-                            <h2 className='text-center mt-4 fw-bold'>{subCategory.name}</h2>
+                            <h1 className='text-center mt-4 fw-bold'>{subCategory.name}</h1>
 
                             {/* Render HTML safely */}
                             <p className='text-center' dangerouslySetInnerHTML={{ __html: subCategory.description }}></p>

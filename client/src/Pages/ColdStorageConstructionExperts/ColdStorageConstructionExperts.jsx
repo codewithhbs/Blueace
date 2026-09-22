@@ -17,6 +17,7 @@ const ColdStorageConstructionExperts = () => {
                 description="Ensure long-term preservation with expert solutions from a cold storage construction company, providing quality and efficiency for every project."
                 keyword="Cold Storage Construction Company | Blueace Ltd group"
                 focusKeywords="Cold Storage Construction Company | Blueace Ltd group"
+                canonical="https://www.blueaceindia.com/cold-storage-construction-experts"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

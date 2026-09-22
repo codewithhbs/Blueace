@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import MetaTag from '../../Components/Meta/MetaTag';
 
 function Service() {
     const [allService, setAllService] = useState([]);
@@ -67,6 +68,8 @@ function Service() {
 
     return (
         <>
+            <MetaTag title={'HVAC Services | Blueace Limited - Expert HVAC Solutions'} description='Explore Blueace Limited HVAC services, including installation, maintenance, and repairs. Get reliable, efficient solutions tailored to your comfort needs.' canonical='https://www.blueaceindia.com/services' />
+            <h1 className="visually-hidden">HVAC Services – Blueace Limited</h1>
             <section className="gray py-5">
                 <div className="container">
                     <div className="row">

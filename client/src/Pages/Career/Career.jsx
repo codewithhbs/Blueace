@@ -117,11 +117,11 @@ function Career() {
         background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
       }}
     >
-      <MetaTag title="Join Blueace India | Careers & Job Opportunities" description="Explore exciting career opportunities at Blueace India. Join our innovative team and contribute to sustainable energy solutions. Apply today!" />
+      <MetaTag title="Careers | Blueace Limited - Join Our Growing HVAC Team" description="Explore career opportunities at Blueace Limited and join our growing HVAC team. Build your skills, contribute to innovative solutions, and grow with us." canonical="https://www.blueaceindia.com/career" />
       <div className="container py-5">
         <div className="text-center mb-5">
           <h1 className="display-4 fw-bold" style={{ color: "#2d3436" }}>
-            Join Our Team
+            Careers at Blueace Limited
           </h1>
           <p className="lead text-muted">
             Discover Your Next Career Opportunity

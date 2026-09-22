@@ -11,7 +11,7 @@ function Privacy() {
 	},[])
   return (
     <>
-    <MetaTag title='Privacy Policy | Blueace India' description='Learn how Blueace India protects your data and ensures privacy. Read our detailed privacy policy to understand our commitment to security. Review now.' />
+    <MetaTag title='Privacy Policy | Blueace Limited - Your Data & Privacy' description='Read the Blueace Limited Privacy Policy to understand how we collect, use, protect, and manage your personal information when you use our website and services.' canonical='https://www.blueaceindia.com/privacy' />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{backgroundColor:'#00225F'}} className="py-3">
         <div className="container">

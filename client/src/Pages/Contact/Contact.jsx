@@ -36,7 +36,7 @@ function Contact() {
 
   return (
     <>
-      <MetaTag title={'Contact Blueace India for HVAC & Energy Solutions'} description='Get in touch with Blueace India for expert HVAC and energy-efficient solutions. Our team is ready to assist you. Reach out today for personalized support!' />
+      <MetaTag title={'Contact Us | Blueace Limited - Get in Touch With Our Team'} description='Contact Blueace Limited for professional HVAC installation, maintenance, and repair services. Our team is ready to answer your questions and help you today.' canonical='https://www.blueaceindia.com/contact' />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{ backgroundColor: '#00225F' }} className="py-3">
         <div className="container">
@@ -61,7 +61,7 @@ function Contact() {
           <div className="row justify-content-center mb-5">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
               <div className="sec_title position-relative text-center">
-                <h2 className="off_title">Contact Us</h2>
+                <h1 className="off_title">Contact Us – Blueace Limited</h1>
               </div>
             </div>
           </div>
@@ -117,22 +117,22 @@ function Contact() {
                 <div className="col-xl-4 col-lg-4 col-md-12">
                   <div className="bg-white rounded p-3  mb-2">
                     <h4 className="ft-medium mb-3 theme-cl">Address info:</h4>
-                    <p>C-126, Office No-1 Gate No - 1, First Floor Naraina Industrial Area, Phase – 01, New Delhi - 110028</p>
+                    <p>Phase-1, C-126, Block C, Indl. Area, Naraina, New Delhi, Delhi 110028</p>
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-md-12">
                   <div className="bg-white rounded p-3 mb-2">
                     <h4 className="ft-medium mb-3 theme-cl">Call Us:</h4>
                     <h6 className="ft-medium mb-1">Customer Care:</h6>
-                    <p className="mb-2">+91 9311539090</p>
-                    <p className="mb-2">+91 9811550874</p>
+                    <p className="mb-2"><a href="tel:+919311539090">+91 9311539090</a></p>
+                    <p className="mb-2"><a href="tel:+919811550874">+91 9811550874</a></p>
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-md-12">
                   <div className="bg-white rounded p-3 mb-2">
                     <h4 className="ft-medium mb-3 theme-cl">Drop A Mail:</h4>
                     <p>Drop mail we will contact you within 24 hours.</p>
-                    <p className="lh-1 text-dark">blueaceindia@gmail.com</p>
+                    <p className="lh-1 text-dark"><a href="mailto:blueaceindia@gmail.com">blueaceindia@gmail.com</a></p>
                   </div>
                 </div>
                 <div className="col-xl-12 col-lg-12 col-md-12">

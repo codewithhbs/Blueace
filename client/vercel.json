@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "blueaceindia.com" }], "destination": "https://www.blueaceindia.com/:path*", "permanent": true },
+    { "source": "/:path*/", "destination": "/:path*", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/((?!sitemap.xml|robots.txt|assets/).*)", "destination": "/" }
   ]

@@ -17,6 +17,7 @@ function AirColdChiller() {
                 description="Looking for the best aIr cooled chiller supplier in Delhi contact Blueace India Limited. We provide air conditioner chillers with high quality, operation efficiency, and energy savings."
                 keyword="Air Cooled Chiller Supplier"
                 focusKeywords="Air Cooled Chiller supplier, Air Cooled Chiller, air conditioner chillers"
+                canonical="https://www.blueaceindia.com/air-cooled-chiller"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

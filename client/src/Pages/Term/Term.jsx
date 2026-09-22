@@ -11,7 +11,7 @@ function Term() {
 	},[])
   return (
     <>
-    <MetaTag title='Terms & Conditions | Blueace India' description='Read the terms and conditions of using Blueace India’s services. Understand our policies and legal requirements. Stay informed and compliant. Learn more today!' />
+    <MetaTag title='Terms & Conditions | Blueace Limited' description='Read the Blueace Limited Terms & Conditions to understand the rules, responsibilities, service terms, and guidelines that apply when using our website and services.' canonical='https://www.blueaceindia.com/term-and-conditions' />
       {/* ======================= Top Breadcrumbs ======================== */}
       <div style={{ backgroundColor: '#00225F' }} className="py-3">
         <div className="container">

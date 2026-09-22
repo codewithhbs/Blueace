@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ahuheroImage from './home-inner-banner.webp'
 import qualityAssured from './quality-assured-logo.webp'
 import GetServicePopup from '../../Components/getservicepopup/GetServicePopup'
+import MetaTag from '../../Components/Meta/MetaTag'
 
 function MaintenanceofAHUandFCU() {
   useEffect(()=>{
@@ -12,6 +13,11 @@ function MaintenanceofAHUandFCU() {
   },[])
   return (
     <>
+      <MetaTag
+        title={'AHU & FCU Maintenance Services | Blueace Limited'}
+        description='Professional maintenance of AHU (Air Handling Unit) and FCU (Fan Coil Unit) by Blueace Limited. Reliable HVAC upkeep for lasting performance and comfort.'
+        canonical='https://www.blueaceindia.com/maintenance-ahu-fcu'
+      />
       {/* left sidebar */}
       <div className='container mb-5'>
         <div className='row mt-5'>
@@ -21,7 +27,7 @@ function MaintenanceofAHUandFCU() {
                 <img src={ahuheroImage} className='img-fluid rounded' />
               </div>
               <div className='services-title'>
-                <h2 className='fw-bold'>Maintenance of AHU and FCU</h2>
+                <h1 className='fw-bold'>Maintenance of AHU and FCU</h1>
                 <div class="services-rating d-flex"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><div class="services-review"><span><a href='#'>(4.9) Reviews</a></span></div></div>
               </div>
               <div className='content-body mt-4'>

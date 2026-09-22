@@ -30,7 +30,7 @@ function About() {
             <div className="col-xl-8 col-lg-8 col-md-11 col-sm-12">
               <div className="abt-caption">
                 <div className="abt-caption-head">
-                  <h1>Smart team always creates better things and better solutions.</h1>
+                  <h1>About Us – Blueace Limited</h1>
                   <h6>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                   </h6>
@@ -45,7 +45,7 @@ function About() {
           </div>
         </div>
       </section> */}
-      <MetaTag title={'Leading HVAC & Energy Solutions | Blueace India'} description='Discover Blueace India’s expertise in sustainable HVAC, energy, and cold storage solutions. Learn about our commitment to quality and innovation. Join us today!' />
+      <MetaTag title={'About Us | Blueace Limited - Trusted HVAC Experts in India'} description='Learn about Blueace Limited, your trusted HVAC experts in India, delivering professional installation, maintenance, and repair solutions for lasting comfort.' canonical='https://www.blueaceindia.com/about-us' />
       <div className='container-fluid p-0'>
         <div className='row p-0'>
             <img src={AboutHero} alt='About us Hero'/>

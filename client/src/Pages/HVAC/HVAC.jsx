@@ -11,7 +11,9 @@ function HVAC() {
     }, [])
     return (
         <>
-            <MetaTag title='HVAC Contractor in Delhi | HVAC Consultant in Delhi' description='Blueace is a trusted HVAC contractor in Delhi offering expert installation, repair, and maintenance services for heating, ventilation, and air conditioning systems.' keyword='HVAC Contractor in Delhi, HVAC Consultant in Delhi' focusKeywords='HVAC Contractor in Delhi' />
+            <MetaTag title='HVAC Contractor in Delhi | HVAC Consultant in Delhi' description='Blueace is a trusted HVAC contractor in Delhi offering expert installation, repair, and maintenance services for heating, ventilation, and air conditioning systems.' keyword='HVAC Contractor in Delhi, HVAC Consultant in Delhi' focusKeywords='HVAC Contractor in Delhi'
+                canonical="https://www.blueaceindia.com/hvac"
+            />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img
                     src={banner} // Replace with the actual image URL

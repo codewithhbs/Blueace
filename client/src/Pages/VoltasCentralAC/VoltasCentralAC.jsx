@@ -12,7 +12,9 @@ function VoltasCentralAC() {
   }, [])
   return (
     <>
-      <MetaTag title="Voltas Central Ac Dealer | Blueace India Limited" description='We are the authorised voltas central ac dealer offering premium voltas ac units with expert installation, maintenance, and repair services for efficient cooling solutions' focusKeywords={'Voltas Central Ac Deale'} keyword='Voltas Central Ac Deale' />
+      <MetaTag title="Voltas Central Ac Dealer | Blueace India Limited" description='We are the authorised voltas central ac dealer offering premium voltas ac units with expert installation, maintenance, and repair services for efficient cooling solutions' focusKeywords={'Voltas Central Ac Deale'} keyword='Voltas Central Ac Deale'
+                canonical="https://www.blueaceindia.com/voltas-central-ac"
+            />
       <div className="voltas-central-ac-container">
         <img
           src={banner}

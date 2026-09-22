@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import MetaTag from '../Meta/MetaTag';
 
 const TrackYourComplain = () => {
     const [complaints, setComplaints] = useState([]);
@@ -91,6 +93,7 @@ const TrackYourComplain = () => {
 
     return (
         <div className="container mt-4" style={{ minHeight: '80vh' }}>
+            <MetaTag title={'Track Complaint | Blueace Limited - Check Service Status'} description='Track your complaint with Blueace Limited and check the latest service status. Get clear updates on your HVAC service request and complaint resolution.' canonical='https://www.blueaceindia.com/track-complain' />
             {/* Bootstrap CSS CDN */}
             <link
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -101,10 +104,10 @@ const TrackYourComplain = () => {
                 <div className="col-12">
                     <div className="card shadow-sm">
                         <div className="card-header bg-primary text-white">
-                            <h3 className="card-title mb-0">
+                            <h1 className="card-title mb-0 h3">
                                 <i className="fas fa-search me-2"></i>
-                                Track Your Complaint
-                            </h3>
+                                Track Your Complaint – Blueace Limited
+                            </h1>
                         </div>
                         <div className="card-body">
                             {/* Search Section */}

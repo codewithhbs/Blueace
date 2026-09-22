@@ -17,6 +17,7 @@ function HeatPump() {
                 description="Blueace India provide the best heat pump installation services in Delhi. This is the Energy-efficient solutions for home & business. For expert installation, maintenance, and repairs. Contact us today!"
                 keyword="Heat Pump Installation Services in Delhi"
                 focusKeywords="Heat Pump Installation Services in Delhi"
+                canonical="https://www.blueaceindia.com/heat-pump-installation"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

@@ -16,6 +16,7 @@ function CassetteAir() {
                 description="Get professional cassette AC installation services in Delhi. Efficient, discreet cooling solutions for commercial and residential spaces with expert setup and maintenance. "
                 keyword="Cassette Ac Installation Service in Delhi"
                 focusKeywords="Cassette Ac Installation Service in Delhi"
+                canonical="https://www.blueaceindia.com/service/cassette-air-conditioning-system"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

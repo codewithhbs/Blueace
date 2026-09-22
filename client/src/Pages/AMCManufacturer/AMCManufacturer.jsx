@@ -17,6 +17,7 @@ const AMCManufacturer = () => {
                 description="AMC manufacturer in Delhi offer maintenance and support services for various systems and equipment. as leading AMC service provider in Delhi solutions tailored to different industries."
             // keyword="Air Cooled Chiller Supplier"
             // focusKeywords="Air Cooled Chiller supplier, Air Cooled Chiller, air conditioner chillers"
+                canonical="https://www.blueaceindia.com/amc-manufacturer"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

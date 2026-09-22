@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import MetaTag from '../../Components/Meta/MetaTag';
 
 const SingleProduct = () => {
     const { title } = useParams();
@@ -78,6 +79,11 @@ const SingleProduct = () => {
 
     return (
         <>
+            <MetaTag
+                title={product?.title ? `${product.title} | Blueace Limited` : `${newTitle} | Blueace Limited`}
+                description={product?.smalldesc || `Explore ${newTitle} by Blueace Limited — reliable HVAC products built for efficient performance and dependable climate control.`}
+                canonical={`https://www.blueaceindia.com/product/${title}`}
+            />
             <div className='container mb-5'>
                 <div className='row mt-5'>
                     <div className='col-lg-9 col-md-9 mb-3'>

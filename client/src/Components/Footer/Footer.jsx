@@ -144,16 +144,16 @@ function Footer() {
                     style={{ width: "50px" }}
                   />
                   <div className="address mt-2">
-                    C-126, Office No-1 Gate No - 1, First Floor Naraina Industrial Area, Phase – 01, New Delhi - 110028
+                    Phase-1, C-126, Block C, Indl. Area, Naraina, New Delhi, Delhi 110028
                   </div>
                   <div className="address mt-3">
-                    <strong>Phone:</strong> +91 1146012209<br />
+                    <strong>Phone:</strong> <a href="tel:+911146012209">+91 1146012209</a><br />
                     <br />
-                    <strong>Phone:</strong> +91 9311539090<br />
+                    <strong>Phone:</strong> <a href="tel:+919311539090">+91 9311539090</a><br />
                     <br />
-                    <strong>Phone:</strong> +91 9811550874<br />
+                    <strong>Phone:</strong> <a href="tel:+919811550874">+91 9811550874</a><br />
                     <br />
-                    <strong>Mail:</strong> blueaceindia@gmail.com<br />
+                    <strong>Mail:</strong> <a href="mailto:blueaceindia@gmail.com">blueaceindia@gmail.com</a><br />
                   </div>
                   <div className="address mt-2">
                     <ul className="list-inline">

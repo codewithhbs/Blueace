@@ -17,6 +17,7 @@ const TrustedColdStoragePartner = () => {
                 description="Secure, best solutions for all your storage needs. Our Cold Storage Facility make sure freshness with advanced temperature control systems."
                 keyword="Cold Storage Facility | Blueace Ltd group"
                 focusKeywords="Cold Storage Facility | Blueace Ltd group"
+                canonical="https://www.blueaceindia.com/trusted-cold-storage-partner"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

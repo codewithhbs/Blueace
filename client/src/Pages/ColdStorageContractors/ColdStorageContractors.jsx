@@ -17,6 +17,7 @@ const ColdStorageContractors = () => {
                 description="Cold storage contractors in Delhi specialize in designing, building, and maintaining temperature-controlled storage solutions for various industries like food, pharmaceuticals, and more."
             // keyword="Air Cooled Chiller Supplier"
             // focusKeywords="Air Cooled Chiller supplier, Air Cooled Chiller, air conditioner chillers"
+                canonical="https://www.blueaceindia.com/cold-storage-contractors"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaRupeeSign } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import MetaTag from '../../Components/Meta/MetaTag';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -40,6 +41,8 @@ const Products = () => {
 
     return (
         <>
+            <MetaTag title={'HVAC Products | Blueace Limited - Reliable HVAC Systems'} description='Discover reliable HVAC products from Blueace Limited, built for efficient performance, lasting comfort, and dependable climate control in homes and businesses.' canonical='https://www.blueaceindia.com/products' />
+            <h1 className="visually-hidden">HVAC Products – Blueace Limited</h1>
             <section className="gray py-5">
                 <div className="container">
                     <div className="row">

@@ -17,6 +17,7 @@ const RedefiningColdStorage = () => {
                 description="Preserve your goods efficiently with our advanced Cold Storage Plant solutions, make sure freshness, reliability, and cost-effective performance"
                 keyword="old Storage Plant | Blueace Ltd group"
                 focusKeywords="old Storage Plant | Blueace Ltd group"
+                canonical="https://www.blueaceindia.com/redefining-cold-storage"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img

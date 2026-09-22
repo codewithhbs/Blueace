@@ -37,7 +37,7 @@ function Home() {
           <GetServicePopup handlePopupDeactive={handlePopupDeactive} />
         )
       }
-      <MetaTag title={'Premium HVAC & Energy Solutions by Blueace India - Eco-Friendly'} description={`Explore Blueace India's top-rated HVAC, solar, and EV cold room systems. Sustainable, efficient, and reliable. Get a Quote Today for tailored solutions!`}/>
+      <MetaTag title={'Premium HVAC & Energy Solutions by Blueace India - Eco-Friendly'} description={`Explore Blueace India's top-rated HVAC, solar, and EV cold room systems. Sustainable, efficient, and reliable. Get a Quote Today for tailored solutions!`} canonical='https://www.blueaceindia.com/' />
       <Hero />
       <CategoryHome />
       <UserApp/>

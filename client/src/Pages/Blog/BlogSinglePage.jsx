@@ -53,13 +53,13 @@ function BlogSinglePage() {
 
     return (
         <>
-        <MetaTag title={blog.metaTitle} description={blog.metaDescription} />
+        <MetaTag title={blog.metaTitle} description={blog.metaDescription} canonical={`https://www.blueaceindia.com/blog/${slug}`} />
             <section className="page-title gray">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12">
                             <div className="breadcrumbs-wrap">
-                                <h2 className="mb-0 ft-medium">{blog.title}</h2>
+                                <h1 className="mb-0 ft-medium">{blog.title}</h1>
                                 <nav className="transparent">
                                     <ol className="breadcrumb p-0">
                                         <li className="breadcrumb-item"><a href="#">Home</a></li>

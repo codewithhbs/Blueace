@@ -12,7 +12,8 @@ function BlogPage() {
     const fetchAllBlog = async (page) => {
         try {
             const res = await axios.get(`https://www.api.blueaceindia.com/api/v1/get-all-blogs?page=${page}&limit=6`);
-            setAllBlog(res.data.data);
+            const sorted = (res.data.data || []).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            setAllBlog(sorted);
             setTotalPages(res.data.totalPages);
         } catch (error) {
             console.log("Internal server error in getting all blogs");
@@ -51,7 +52,7 @@ function BlogPage() {
                     </div>
                 </div>
             </div> */}
-            <MetaTag title={'Insights on HVAC & Energy Solutions | Blueace India Blog'} description='Stay updated with the latest trends in HVAC, energy solutions, and sustainability. Explore expert tips and industry news on Blueace India’s blog. Read now!' />
+            <MetaTag title={'Blog | Blueace Limited - Tips, Guides & Insights'} description='Read the Blueace Limited HVAC blog for expert tips, helpful guides, maintenance advice, energy-saving ideas, and insights to improve comfort and efficiency.' canonical='https://www.blueaceindia.com/blog' />
             <div style={{ backgroundColor: '#00225F' }} class=" py-3">
                 <div class="container">
                     <div class="row">

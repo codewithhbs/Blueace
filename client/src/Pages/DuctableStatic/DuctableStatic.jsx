@@ -17,6 +17,7 @@ const DuctableStatic = () => {
                 description="Ductable air conditioner supplier"
                 keyword="Ductable ac repair Services in Delhi"
                 focusKeywords="Ductable ac repair Services in Delhi"
+                canonical="https://www.blueaceindia.com/service/ductable-air-conditioner"
             />
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <img
