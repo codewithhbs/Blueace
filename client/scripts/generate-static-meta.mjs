@@ -34,6 +34,7 @@ if (!fs.existsSync(TEMPLATE_PATH)) {
 }
 
 const template = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
+let writtenCount = 0;
 
 function esc(str = '') {
   return String(str)
@@ -64,10 +65,22 @@ function renderPage({ title, description, canonicalPath }) {
 }
 
 function writePage(routePath, meta) {
-  const dir = path.join(DIST_DIR, routePath === '/' ? '.' : routePath);
+  // NEVER write into DIST_DIR root (index.html) — that file doubles as the SPA's
+  // catch-all fallback (see vercel.json rewrite). If we bake e.g. the homepage's
+  // canonical there, every route that fails to get its own prerendered file (a
+  // dynamic slug the API didn't return at build time, a future new route, etc.)
+  // would silently inherit the WRONG canonical instead of having none — that's
+  // worse than the original CSR problem, so we skip '/' entirely and leave the
+  // root index.html exactly as `vite build` produced it.
+  if (routePath === '/') {
+    console.log('[generate-static-meta] skipping "/" — root index.html is kept as the neutral SPA fallback, not overwritten.');
+    return;
+  }
+  const dir = path.join(DIST_DIR, routePath);
   fs.mkdirSync(dir, { recursive: true });
   const outFile = path.join(dir, 'index.html');
   fs.writeFileSync(outFile, renderPage({ ...meta, canonicalPath: routePath }));
+  writtenCount++;
   console.log('[generate-static-meta] wrote', path.relative(DIST_DIR, outFile));
 }
 
@@ -192,4 +205,7 @@ async function prerenderDynamic() {
 }
 
 await prerenderDynamic();
-console.log('[generate-static-meta] done.');
+console.log('[generate-static-meta] done. Total files written:', writtenCount);
+if (writtenCount < STATIC_ROUTES.length) {
+  console.warn('[generate-static-meta] WARNING: fewer files written than static routes — check errors above.');
+}
