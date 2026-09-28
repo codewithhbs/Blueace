@@ -51,7 +51,7 @@ export default function VoltasCentralACDealer() {
           </p>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Why Choose Voltas Central AC for Large Spaces?
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -92,7 +92,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Blueace Limited: Your Trusted Voltas Central AC Dealer
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -158,7 +158,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Expert Consultation and Central AC System Selection
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -181,7 +181,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Professional Voltas Central AC Installation Services
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -317,7 +317,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Voltas Central AC Dealer in Delhi for Complete Cooling Solutions
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -345,7 +345,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Beyond Central AC: Complete HVAC Solutions
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -374,7 +374,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               A Voltas Central AC Dealer Focused on Your Long-Term Comfort
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
@@ -397,7 +397,7 @@ export default function VoltasCentralACDealer() {
           </section>
   
           <section style={{ marginTop: "20px", padding: "0px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", transform: "none" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginTop: "20px", textTransform: "none" }}>
               Get Trusted Voltas Central AC Solutions from Blueace Limited
             </h2>
             <p style={{ lineHeight: "1.6", marginBottom: "20px" }}>
