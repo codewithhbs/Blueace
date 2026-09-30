@@ -1,216 +1,255 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- ================= MAIN PAGES ================= -->
-  <url>
-    <loc>https://www.blueaceindia.com/</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/about-us</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/services</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/products</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/listing</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/gallery</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/blog</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/career</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/contact</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/track-complain</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/vendor-registration</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- ================= SERVICE / LANDING PAGES ================= -->
-  <url>
-    <loc>https://www.blueaceindia.com/hvac</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/voltas-central-ac</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/air-cooled-chiller</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/heat-pump-installation</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/maintenance-ahu-fcu</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/amc-manufacturer</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/cold-storage-contractors</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/redefining-cold-storage</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/trusted-cold-storage-partner</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/cold-storage-construction-experts</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/hvac-chiller-dealers-in-delhi</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/hvac-chiller-manufacturers-in-delhi</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ================= /service/:title PAGES ================= -->
-  <url>
-    <loc>https://www.blueaceindia.com/service/ac-service-and-repair</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/ahu</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/fcu</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/water-cooled-chillers</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/air-cooled-chiller</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/vrv-%26-vrf-air-conditioning</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/cassette-air-conditioning</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/cassette-air-conditioning-system</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/service/ductable-air-conditioner</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ================= LEGAL ================= -->
-  <url>
-    <loc>https://www.blueaceindia.com/privacy</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.blueaceindia.com/term-and-conditions</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
+<!--  Main Pages  -->
+<url>
+<loc>https://www.blueaceindia.com/</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/about-us</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/air-cooled-chiller</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/amc-manufacturer</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/career</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/cold-storage-construction-experts</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/cold-storage-contractors</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/contact</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/gallery</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/heat-pump-installation</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/hvac</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/hvac-chiller-dealers-in-delhi</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/hvac-chiller-manufacturers-in-delhi</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/maintenance-ahu-fcu</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/privacy</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/products</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/redefining-cold-storage</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/services</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/term-and-conditions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/trusted-cold-storage-partner</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/voltas-central-ac</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/voltas-central-ac-dealer</loc>
+</url>
+<!--  Service Pages  -->
+<url>
+<loc>https://www.blueaceindia.com/service/ac-service-and-repair</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/ahu</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/air-cooled-chiller</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/cassette-air-conditioning</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/cassette-air-conditioning-system</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/ductable-air-conditioners</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/fcu</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/service/water-cooled-chillers</loc>
+</url>
+<!--  Blog Index  -->
+<url>
+<loc>https://www.blueaceindia.com/blog</loc>
+</url>
+<!--  Blog Posts  -->
+<url>
+<loc>https://www.blueaceindia.com/blog/air-ventilation-system-why-fresh-air-matters-more-than-ever-in-factories-and-basements</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/all-about-why-air-conditioner-chillers-are-essential-for-modern-cooling-systems</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/avoid-these-common-mistakes-when-installing-a-central-ac-system</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/behind-the-walls-how-climate-control-shapes-the-future-of-storage-and-commercial-infrastructure</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/best-ac-for-office-in-india-the-complete-2026-buying-guide-by-blueace-india</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/best-air-conditioning-company-in-india-or-commercial-hvac-and-industrial-cooling-solutions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/building-tomorrows-cooling-infrastructure-the-shift-toward-smarter-cold-storage-systems</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/choosing-the-best-hvac-contractor-in-delhi-for-your-commercial-needs</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/common-challenges-in-cold-storage-construction-and-how-to-avoid-them</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/comprehensive-guide-to-air-conditioner-chillers-and-heat-pump-installation-services</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/cooling-the-future-how-blueace-ltd-group-is-powering-smart-infrastructure</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/designing-a-high-efficiency-water-cooled-chiller-plant-for-optimal-performance</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/energy-efficient-cold-storage-solutions-that-work-best-in-delhis-climate</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/fast-hvac-and-ac-repair-in-delhi-ncr-247-service-you-can-trust</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/food-pharma-and-agro-industries-driving-demand-for-cold-room-and-storage-solutions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/from-manufacturing-to-maintenance-complete-cold-storage-expertise-under-one-roof</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/future-ready-infrastructure-why-cold-storage-and-climate-control-are-no-longer-optional</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-a-cold-storage-construction-company-shapes-the-future-of-food-safety</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-a-professional-amc-manufacturer-ensures-efficient-performance-of-your-cooled-water-chiller</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-air-conditioner-chillers-and-water-cooled-plants-work-together</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-amc-services-in-delhi-can-improve-equipment-performance-without-the-high-costs-of-repair</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-suppliers-are-innovating-air-cooled-and-water-cooled-chiller-technology</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-to-draft-the-right-tender-for-cold-storage-construction-projects</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/how-to-maintain-and-repair-an-air-cooler-water-chiller-for-longevity</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/hvac-service-near-me-reliable-hvac-and-chiller-repair-services-by-blueace-ltd</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/hvac-system-ready-for-summer-complete-guide-to-vrv-vrf-chillers-and-annual-maintenance</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/industrial-hvac-contractor-in-india-complete-guide-to-commercial-and-industrial-hvac-solutions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/keeping-it-cool-where-it-counts-real-solutions-from-blueace-ltd-group</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/precision-cooling-and-cold-chain-excellence-how-blueace-is-shaping-industrial-climate-solutions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/preventive-maintenance-tips-for-ductable-acs-save-costs-and-extend-lifespan</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/quick-and-professional-ductable-ac-repair-services-in-delhi</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/reducing-energy-bills-with-timely-ductable-ac-and-air-handling-unit-maintenance</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/the-best-air-cooled-chillers-for-delhis-hot-climate-a-guide-for-businesses</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/the-importance-of-choosing-the-right-cold-storage-warehouse-for-your-perishable-goods</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/the-importance-of-working-with-certified-cold-storage-and-hvac-contractors-for-tenders</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/the-new-age-of-cooling-solutions-why-blueace-is-ahead-of-the-curve</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-10-hvac-companies-in-india-2025-leaders-in-climate-control-and-innovation</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-5-mistakes-to-avoid-when-choosing-cool-room-storage-for-your-business</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-hvac-companies-in-india-2025-leaders-in-climate-control-and-innovation</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-questions-to-ask-your-air-cooled-water-chiller-dealer-before-buying</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-reasons-to-invest-in-air-handling-unit-maintenance-services</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-signs-your-ductable-ac-needs-immediate-repair-delhis-trusted-experts-explain</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/top-ten-hvac-companies-in-india-2025-leaders-in-climate-control-and-innovation</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/vrv-vs-vrf-ac-system</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/what-is-hvac-full-form-system-guide-services-and-top-hvac-companies-in-delhi</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-businesses-are-turning-to-air-cooled-water-chillers-for-efficient-cooling</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-is-an-ahu-evaporator-coil-freezing-up-in-low-humidity-causes-and-solutions</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-professional-cold-storage-contractors-matter-for-food-processing-plants</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-proper-ahu-installation-is-crucial-for-indoor-air-quality-in-workplaces</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-storage-giants-are-replacing-traditional-cooling-with-air-cooled-alternatives</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/why-water-cooled-chiller-plants-are-ideal-for-large-scale-cooling-needs</loc>
+</url>
+<url>
+<loc>https://www.blueaceindia.com/blog/your-trusted-ductable-ac-repair-services-in-delhi</loc>
+</url>
 </urlset>
