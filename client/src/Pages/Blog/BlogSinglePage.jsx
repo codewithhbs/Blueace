@@ -62,7 +62,7 @@ function BlogSinglePage() {
                                 <h1 className="mb-0 ft-medium">{blog.title}</h1>
                                 <nav className="transparent">
                                     <ol className="breadcrumb p-0">
-                                        <li className="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li className="breadcrumb-item"><a href="/">Home</a></li>
                                         <li className="breadcrumb-item active theme-cl" aria-current="page">Blog Detail</li>
                                     </ol>
                                 </nav>
