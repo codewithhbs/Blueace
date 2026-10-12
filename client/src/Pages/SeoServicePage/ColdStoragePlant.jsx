@@ -27,7 +27,7 @@ export default function ColdStoragePlant() {
         description="Need a cold storage plant in India? Blueace Limited offers expert design, installation, and refrigeration solutions. Contact us today for a quote!"
         keyword="cold storage plant, cold storage plant manufacturer, cold storage plant installation, industrial refrigeration system, cold storage solutions in India"
         focusKeywords="cold storage plant, cold storage plant manufacturer, cold storage plant installation, industrial refrigeration system, cold storage solutions in India"
-        canonical="https://blueaceindia.com/cold-storage-plant"
+        canonical="https://www.blueaceindia.com/cold-storage-plant"
       />
       <article style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "1920px", margin: "0 auto", padding: '10px 140px' }}>
         <img
