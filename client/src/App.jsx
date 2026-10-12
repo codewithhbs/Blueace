@@ -74,6 +74,8 @@ import SingleProduct from "./Pages/Products/SingleProduct"
 import HvacDealer from "./Pages/SeoServicePage/HvacDealer"
 import HvacManufacturer from "./Pages/SeoServicePage/HvacManufacturer"
 import VoltasCentralACDealer from "./Pages/SeoServicePage/VoltasCentralACDealer"
+import ColdStorageManufacturer from "./Pages/SeoServicePage/ColdStorageManufacturer"
+import ColdStoragePlant from "./Pages/SeoServicePage/ColdStoragePlant"
 // import MetaWrapper from "./Components/MetaWrapper/MetaWrapper"
 // import VendorTest from "./Components/Auth/VendorTest"
 // import TrackYourComplain from "./Components/TrackYourComplain/TrackYourComplain"
@@ -156,6 +158,8 @@ function App() {
           <Route path="/air-cooled-chiller" element={<AirColdChiller />} />
           <Route path="/hvac-chiller-dealers-in-delhi" element={<HvacDealer />} />
           <Route path="/hvac-chiller-manufacturers-in-delhi" element={<HvacManufacturer />} />
+          <Route path="/cold-storage-manufacturer" element={<ColdStorageManufacturer />} />
+          <Route path="/cold-storage-plant" element={<ColdStoragePlant />} />
           <Route path="/voltas-central-ac-dealer" element={<VoltasCentralACDealer />} />
           <Route path="/error-code/:id" element={<ErrorCode />} />
           <Route path="/show-error-code/:id" element={<ShowErrorCode />} />
