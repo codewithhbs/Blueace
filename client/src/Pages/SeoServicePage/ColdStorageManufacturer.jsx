@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import heat from "./Cold-Storage-Manufacturer-in-Delhi.webp";
 import MetaTag from "../../Components/Meta/MetaTag";
 
@@ -26,7 +26,7 @@ export default function ColdStorageManufacturer() {
         focusKeywords="cold storage room manufacturer, cold Storage room installation, commercial cold storage manufacturer, cold storage systems, refrigerated storage solutions"
         canonical="https://www.blueaceindia.com/cold-storage-manufacturer"
       />
-      <article style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "1920px", margin: "0 auto", padding: '10px 140px' }}>
+      <article style={{ fontFamily: "Arial, sans-serif", maxWidth: "1920px", margin: "0 auto", padding: "10px clamp(16px, 7vw, 140px)", boxSizing: "border-box" }}>
         <img
           src={heat}
           alt="Cold Storage Manufacturer"
@@ -63,7 +63,14 @@ export default function ColdStorageManufacturer() {
         <section style={sec}>
           <h2 style={h2}>Cold Storage Solutions by Blueace Limited</h2>
           <p style={p}>
-            Blueace Limited is a New Delhi-based cold storage plant manufacturer serving agriculture, food processing, dairy, pharma and logistics clients across India. We handle consultation, design, manufacturing, installation, commissioning and after-sales support, so you deal with one team from start to finish.
+            Blueace Limited is a New Delhi-based{" "}
+            <a
+              href="https://www.blueaceindia.com/cold-storage-plant"
+              style={{ fontWeight: "bold" }}
+            >
+              cold storage plant
+            </a>{" "}
+            manufacturer serving agriculture, food processing, dairy, pharma and logistics clients across India. We handle consultation, design, manufacturing, installation, commissioning and after-sales support, so you deal with one team from start to finish.
           </p>
 
           <h3 style={h3}>Types of Cold Storage We Manufacture</h3>
