@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /corporate-sign-in
+Disallow: /corporate-sign-up
+Disallow: /employ-sign-in
+Disallow: /employ-sign-up
+Disallow: /vendor-sign-in
+Disallow: /forgot-vendor-password
+Disallow: /vendor-dashboard
+Disallow: /user-dashboard
+Disallow: /make-esitimated-bill
+Disallow: /see-esitimated-bill
+Disallow: /membership-plan
+Disallow: /successfull-payment
+Disallow: /failed-payment
+Disallow: /successfully-booking
+Disallow: /successfully-member
+Disallow: /thanks
+Disallow: /not-eligible
+Disallow: /verify-account
+Disallow: /add-vendor-member
+Disallow: /test-video
+Disallow: /test-question
+
+Sitemap: https://www.blueaceindia.com/sitemap.xml
