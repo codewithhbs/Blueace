@@ -147,13 +147,13 @@ function Footer() {
                     Phase-1, C-126, Block C, Indl. Area, Naraina, New Delhi, Delhi 110028
                   </div>
                   <div className="address mt-3">
-                    <strong>Phone:</strong> <a href="tel:+911146012209">+91 1146012209</a><br />
+                    <strong>Phone:</strong> <a style={{color:'white'}} href="tel:+911146012209">+91 1146012209</a><br />
                     <br />
-                    <strong>Phone:</strong> <a href="tel:+919311539090">+91 9311539090</a><br />
+                    <strong>Phone:</strong> <a style={{color:'white'}} href="tel:+919311539090">+91 9311539090</a><br />
                     <br />
-                    <strong>Phone:</strong> <a href="tel:+919811550874">+91 9811550874</a><br />
+                    <strong>Phone:</strong> <a style={{color:'white'}} href="tel:+919811550874">+91 9811550874</a><br />
                     <br />
-                    <strong>Mail:</strong> <a href="mailto:blueaceindia@gmail.com">blueaceindia@gmail.com</a><br />
+                    <strong>Mail:</strong> <a style={{color:'white'}} href="mailto:blueaceindia@gmail.com">blueaceindia@gmail.com</a><br />
                   </div>
                   <div className="address mt-2">
                     <ul className="list-inline">
@@ -253,8 +253,8 @@ function Footer() {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-12 col-md-12 text-center">
-                <p className="mb-0">
-                  © 2025 Blueace. Designed By <a href="https://hoverbusinessservices.com/">Hover Business Services LLP</a>.
+                <p className="mb-0 text-white">
+                  © 2025 Blueace. Designed By <a style={{color:'red'}} href="https://hoverbusinessservices.com/">Hover Business Services LLP</a>.
                 </p>
               </div>
             </div>
