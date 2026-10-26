@@ -254,7 +254,7 @@ function Footer() {
             <div className="row align-items-center">
               <div className="col-lg-12 col-md-12 text-center">
                 <p className="mb-0 text-white">
-                  © 2025 Blueace. Designed By <a style={{color:'red'}} href="https://hoverbusinessservices.com/">Hover Business Services LLP</a>.
+                  © 2026 Blueace. Designed By <a style={{color:'red'}} href="https://hoverbusinessservices.com/">Hover Business Services LLP</a>.
                 </p>
               </div>
             </div>
