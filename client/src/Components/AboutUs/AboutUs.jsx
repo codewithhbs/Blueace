@@ -22,7 +22,7 @@ function AboutUs() {
                                 </div>
                                 <div class="position-relative row">
                                     <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                        <Link to="/about-us" class="btn btn-md rounded theme-cl about-btn">Explore More<i class="lni lni-arrow-right-circle ms-2"></i></Link>
+                                        <Link to="/about-us" class="btn btn-md rounded theme-cl about-btn text-white">Explore More<i class="lni lni-arrow-right-circle ms-2"></i></Link>
                                     </div>
                                 </div>
                             </div>
