@@ -26,7 +26,27 @@ function BlogPage() {
 
     // Function to handle pagination
     const handlePageChange = (page) => {
+        if (page < 1 || page > totalPages) return;
         setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Limited page numbers: 1 ... 4 5 6 ... 10
+    const getPageNumbers = () => {
+        const delta = 1;
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            if (
+                i === 1 ||
+                i === totalPages ||
+                (i >= currentPage - delta && i <= currentPage + delta)
+            ) {
+                pages.push(i);
+            } else if (pages[pages.length - 1] !== '...') {
+                pages.push('...');
+            }
+        }
+        return pages;
     };
 
     useEffect(() => {
@@ -34,24 +54,10 @@ function BlogPage() {
             top: 0,
             behavior: 'smooth'
         })
-    },[])
+    }, [])
 
     return (
         <>
-            {/* <div className="bg-dark py-3">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-md-12">
-                            <nav aria-label="breadcrumb">
-                                <ol className="breadcrumb">
-                                    <li className="breadcrumb-item"><a href="/" className="text-light">Home</a></li>
-                                    <li className="breadcrumb-item active theme-cl" aria-current="page">Blog Page</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <MetaTag title={'Blog | Blueace Limited - Tips, Guides & Insights'} description='Read the Blueace Limited HVAC blog for expert tips, helpful guides, maintenance advice, energy-saving ideas, and insights to improve comfort and efficiency.' canonical='https://www.blueaceindia.com/blog' />
             <div style={{ backgroundColor: '#00225F' }} class=" py-3">
                 <div class="container">
@@ -61,7 +67,6 @@ function BlogPage() {
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><Link to={'/'} style={{ color: 'white' }}>Home</Link></li>
                                     <li class="breadcrumb-item" style={{ color: 'white' }}>/</li>
-                                    {/* hello */}
                                     <li class="breadcrumb-item active" style={{ color: 'white' }} aria-current="page">Blogs</li>
                                 </ol>
                             </nav>
@@ -91,7 +96,6 @@ function BlogPage() {
                                             <Link to={`/blog/${item.slug}`}><img src={item.smallImage?.url} className="img-fluid" alt={item.title} /></Link>
                                         </div>
                                         <div className="gup_blg_grid_caption">
-                                            {/* <div className="blg_tag"><span>Marketing</span></div> */}
                                             <div className="blg_title"><h4><Link to={`/blog/${item.slug}`}>{item.title}</Link></h4></div>
                                             <div className="blg_desc"><p dangerouslySetInnerHTML={{ __html: item.content || 'No description available.' }}></p></div>
                                         </div>
@@ -100,43 +104,65 @@ function BlogPage() {
                             ))
                         }
 
-
                     </div>
 
-                    <div className="row justify-content-center">
-                        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                            <div className="position-relative text-center">
-                                {Array.from({ length: totalPages }, (_, index) => (
-                                    <button
-                                        key={index}
-                                        className={`btn rounded ft-medium mx-1 px-3 py-2 border ${currentPage === index + 1
-                                                ? 'btn-dark border-dark text-white'
-                                                : 'btn-light border-secondary text-dark'
-                                            }`}
-                                        onClick={() => handlePageChange(index + 1)}
-                                        style={{
-                                            outline: 'none',
-                                            boxShadow: currentPage === index + 1
-                                                ? '0 0 0 2px #343a40'
-                                                : '0 0 0 0 rgba(0,0,0,0)',
-                                            transition: 'box-shadow 0.2s ease-in-out',
-                                        }}
-                                        onFocus={(e) => {
-                                            e.currentTarget.style.boxShadow = '0 0 0 2px #0d6efd';
-                                        }}
-                                        onBlur={(e) => {
-                                            e.currentTarget.style.boxShadow = currentPage === index + 1
-                                                ? '0 0 0 2px #343a40'
-                                                : 'none';
-                                        }}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                ))}
+                    {totalPages > 1 && (
+                        <div className="row justify-content-center">
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <nav aria-label="Blog pagination">
+                                    <ul className="pagination justify-content-center flex-wrap">
+
+                                        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                            <button
+                                                type="button"
+                                                className="page-link"
+                                                disabled={currentPage === 1}
+                                                onClick={() => handlePageChange(currentPage - 1)}
+                                                style={{ color: '#00225F', borderColor: '#00225F' }}
+                                            >
+                                                Previous
+                                            </button>
+                                        </li>
+
+                                        {getPageNumbers().map((page, idx) =>
+                                            page === '...' ? (
+                                                <li key={`dots-${idx}`} className="page-item disabled">
+                                                    <span className="page-link">...</span>
+                                                </li>
+                                            ) : (
+                                                <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
+                                                    <button
+                                                        type="button"
+                                                        className="page-link"
+                                                        onClick={() => handlePageChange(page)}
+                                                        style={{
+                                                            backgroundColor: currentPage === page ? '#00225F' : '#fff',
+                                                            color: currentPage === page ? '#fff' : '#00225F',
+                                                            borderColor: '#00225F'
+                                                        }}
+                                                    >
+                                                        {page}
+                                                    </button>
+                                                </li>
+                                            )
+                                        )}
+
+                                        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                                            <button
+                                                type="button"
+                                                className="page-link"
+                                                disabled={currentPage === totalPages}
+                                                onClick={() => handlePageChange(currentPage + 1)}
+                                                style={{ color: '#00225F', borderColor: '#00225F' }}
+                                            >
+                                                Next
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
-                    </div>
-
+                    )}
 
                 </div>
             </section>
