@@ -1,0 +1,4 @@
+Blueace.zip
+*.zip
+node_modules/
+.env
